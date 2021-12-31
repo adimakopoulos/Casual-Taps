@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1213567661680056685}
   - component: {fileID: 3788475477260693464}
   - component: {fileID: 7487165259581870524}
+  - component: {fileID: 1531702141324140929}
   m_Layer: 0
   m_Name: TileBroken.006
   m_TagString: Untagged
@@ -94,10 +95,23 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1531702141324140929
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219063222178300503}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.006666666, y: 0.0066666664, z: 0.002844295}
+  m_Center: {x: -0.009999999, y: -0.016666662, z: 0.0014221475}
 --- !u!1 &370546418143426707
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +187,7 @@ GameObject:
   - component: {fileID: 8251487985668193393}
   - component: {fileID: 2038861002577436353}
   - component: {fileID: 5086717715018043209}
+  - component: {fileID: 8343397454445142222}
   m_Layer: 0
   m_Name: TileBroken.001
   m_TagString: Untagged
@@ -255,10 +270,23 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &8343397454445142222
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262569469315615151}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0066666678, y: 0.0066666664, z: 0.002844295}
+  m_Center: {x: -0.016666666, y: -0.016666662, z: 0.0014221475}
 --- !u!1 &1943815257304123344
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +299,7 @@ GameObject:
   - component: {fileID: 5702638537732172408}
   - component: {fileID: 2188589542754203757}
   - component: {fileID: 4026459134345704433}
+  - component: {fileID: 1440844265009071289}
   m_Layer: 0
   m_Name: TileBroken.007
   m_TagString: Untagged
@@ -353,10 +382,23 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1440844265009071289
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943815257304123344}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.006666667, y: 0.0066666664, z: 0.002844295}
+  m_Center: {x: -0.0033333334, y: -0.016666662, z: 0.0014221475}
 --- !u!1 &2336073851829081590
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +411,7 @@ GameObject:
   - component: {fileID: 3253272874397905084}
   - component: {fileID: 1216130671300034885}
   - component: {fileID: 1290957899032976941}
+  - component: {fileID: 4925488123575426703}
   m_Layer: 0
   m_Name: TileBroken.003
   m_TagString: Untagged
@@ -451,10 +494,23 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &4925488123575426703
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2336073851829081590}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0066666678, y: 0.0066666654, z: 0.002844295}
+  m_Center: {x: -0.016666666, y: -0.0033333327, z: 0.0014221475}
 --- !u!1 &3649748667406559056
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +523,7 @@ GameObject:
   - component: {fileID: 4374841168748434439}
   - component: {fileID: 2191345168741864162}
   - component: {fileID: 4741155369813808409}
+  - component: {fileID: 5087182326559083088}
   m_Layer: 0
   m_Name: TileBroken.002
   m_TagString: Untagged
@@ -549,10 +606,23 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &5087182326559083088
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649748667406559056}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0066666678, y: 0.0066666645, z: 0.002844295}
+  m_Center: {x: -0.016666666, y: -0.009999997, z: 0.0014221475}
 --- !u!1 &3872561733848542644
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +635,7 @@ GameObject:
   - component: {fileID: 8549777150463062584}
   - component: {fileID: 1900370860753244340}
   - component: {fileID: 4357884287393263273}
+  - component: {fileID: 4091779990725990921}
   m_Layer: 0
   m_Name: TileBroken.008
   m_TagString: Untagged
@@ -647,10 +718,23 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &4091779990725990921
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3872561733848542644}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.006666667, y: 0.0066666645, z: 0.002844295}
+  m_Center: {x: -0.0033333334, y: -0.009999997, z: 0.0014221475}
 --- !u!1 &3962028521108640537
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +747,7 @@ GameObject:
   - component: {fileID: 1055786771590269731}
   - component: {fileID: 5774207119269503971}
   - component: {fileID: 8353737764629034}
+  - component: {fileID: 2195950667810136469}
   m_Layer: 0
   m_Name: TileBroken
   m_TagString: Untagged
@@ -745,10 +830,23 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &2195950667810136469
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3962028521108640537}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.006666667, y: 0.0066666654, z: 0.002844295}
+  m_Center: {x: -0.0033333334, y: -0.0033333327, z: 0.0014221475}
 --- !u!1 &6095358816986330373
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +859,7 @@ GameObject:
   - component: {fileID: 2883926825981105288}
   - component: {fileID: 2370051164731786255}
   - component: {fileID: 4130030943793895795}
+  - component: {fileID: 7160852460790592922}
   m_Layer: 0
   m_Name: TileBroken.005
   m_TagString: Untagged
@@ -843,10 +942,23 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &7160852460790592922
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6095358816986330373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.006666666, y: 0.0066666636, z: 0.002844295}
+  m_Center: {x: -0.009999999, y: -0.009999998, z: 0.0014221475}
 --- !u!1 &7570173099369587317
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +971,7 @@ GameObject:
   - component: {fileID: 6732366443482517647}
   - component: {fileID: 7528269285727714054}
   - component: {fileID: 1274604531535223267}
+  - component: {fileID: 1432456422869889568}
   m_Layer: 0
   m_Name: TileBroken.004
   m_TagString: Untagged
@@ -941,7 +1054,20 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1432456422869889568
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7570173099369587317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.006666666, y: 0.0066666654, z: 0.002844295}
+  m_Center: {x: -0.009999999, y: -0.0033333327, z: 0.0014221475}
