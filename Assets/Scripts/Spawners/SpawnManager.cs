@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SpawnManager : MonoBehaviour
 {
-
-    public GameObject ColumnExtension;
+    public GameObject Prefab;
     public int SpawnNum;
     public bool DisableBoxCollider = true;
     public float TimeInterval;
@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour
     private void Awake()
     {
         
-        if (ColumnExtension == null) {
+        if (Prefab == null) {
             Debug.Log("ColumnExtension Instance not set!");
         }
         if (SpawnNum <= 0)
@@ -44,7 +44,7 @@ public class SpawnManager : MonoBehaviour
         if (_timePassed <= 0f && SpawnNum != 0)
         {
             _timePassed = TimeInterval;
-            _spawnedGO.Add( Instantiate(ColumnExtension, this.transform));
+            _spawnedGO.Add( Instantiate(Prefab, this.transform));
             SpawnNum--;
         }
 
@@ -58,6 +58,13 @@ public class SpawnManager : MonoBehaviour
                     item.GetComponent<BoxCollider>().enabled = false;
                 item.GetComponent<Rigidbody>().isKinematic = true;
             }
+            if (Prefab.name == "Tile") {
+                TileStack.StackOTiles = _spawnedGO;
+                SimpleActions.OnStartGame?.Invoke();
+                Debug.Log("SimpleActions.OnStartGame(); ");
+            }
+            
+            
             this.enabled = false;
         }
     }
