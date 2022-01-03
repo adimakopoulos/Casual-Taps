@@ -6,6 +6,7 @@ public class TileManager : MonoBehaviour
 {
 
     int health= 10;
+    public GameObject BrokenVersion; 
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +14,8 @@ public class TileManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        Debug.Log("nooo");
+
+
     }
     // Update is called once per frame
     void Update()
@@ -22,8 +24,9 @@ public class TileManager : MonoBehaviour
     }
     public void takeDamage(int dmg) {
         health -= dmg;
-        Debug.Log(health);
+
         if (health <= 0) {
+            Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(this.gameObject);
         }
     }

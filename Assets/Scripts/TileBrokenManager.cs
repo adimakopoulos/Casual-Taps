@@ -9,15 +9,18 @@ public class TileBrokenManager : MonoBehaviour
     {
         foreach (var rb in BrokenPieces)
         {
-            rb.AddForce(new Vector3(-1 * Random.Range(0f, 1f), 1, 1 * Random.Range(0f, 1f)) * 300);
-            rb.AddTorque(new Vector3(-1 * Random.Range(0f, 1f), 1, 1 * Random.Range(0f, 1f)) , ForceMode.Impulse);
+            rb.AddForce(new Vector3(-1 * Random.Range(0.5f, 1f), 1, 1 * Random.Range(0.5f, 1f)) * 600);
+            rb.AddTorque(new Vector3(Random.Range(-100f, 100f), 1, 1 * Random.Range(-100f, 100f)) );
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        TimeToLive -= Time.deltaTime;
+        if (TimeToLive < 0) {
+            Destroy(this.gameObject);
+        }
     }
     
 }

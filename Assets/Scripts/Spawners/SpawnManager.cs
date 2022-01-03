@@ -61,7 +61,7 @@ public class SpawnManager : MonoBehaviour
             if (Prefab.name == "Tile") {
                 TileStack.StackOTiles = _spawnedGO;
                 SimpleActions.OnStartGame?.Invoke();
-                Debug.Log("SimpleActions.OnStartGame(); ");
+                
             }
             
             
