@@ -27,6 +27,7 @@ public static class JsonManager
         else
         {
             Debug.Log("File not fount with Directory: {0}" + savedDataDir) ;
+            return null;
         }
         return data;
     }

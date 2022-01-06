@@ -5,23 +5,32 @@ using UnityEngine;
 [System.Serializable]
 public class Stats 
 {
-    public int score;
-    public int damage;
-    public int gold;
-    public int gamelevel;
+    public int Score;
+    public int Damage;
+    public int Gold;
+    public int IronOre;
+    public int Gamelevel;
+    public int TileHealth;
 
-    public Stats(int score, int damage, int gold, int gamelevel)
+    public Stats(int score, int damage, int gold, int ironOre, int gamelevel, int tileHealth)
     {
-        this.score = score;
-        this.damage = damage;
-        this.gold = gold;
-        this.gamelevel = gamelevel;
+        Score = score;
+        Damage = damage;
+        Gold = gold;
+        IronOre = ironOre;
+        Gamelevel = gamelevel;
+        TileHealth = tileHealth;
     }
+
     public Stats()
     {
-        score = 0;
-        damage = 10;
-        gold = 0;
-        gamelevel = 1;
+        Score = 0;
+        Damage = 1;
+        Gold = 0;
+        IronOre = 0;
+        Gamelevel = 1;
+        TileHealth = 1;
     }
+
+
 }

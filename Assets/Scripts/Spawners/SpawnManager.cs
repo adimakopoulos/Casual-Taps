@@ -5,6 +5,7 @@ using System;
 
 public class SpawnManager : MonoBehaviour
 {
+    //TODO: THE Prefab GAMEOBJECTS SHOULD BE CALLED BY A POOL SYSTEM TO MINIMIZE GARBAGE COLLECTION
     public GameObject Prefab;
     public int SpawnNum;
     public bool DisableBoxCollider = true;
@@ -59,8 +60,12 @@ public class SpawnManager : MonoBehaviour
                 item.GetComponent<Rigidbody>().isKinematic = true;
             }
             if (Prefab.name == "Tile") {
-                TileStack.StackOTiles = _spawnedGO;
-                SimpleActions.OnStartGame?.Invoke();
+                //TODO: Looping while useing GetComponent seems really slow. Need Better Implemetation
+                foreach (var item in _spawnedGO)
+                {
+                    TileStack.StackOTiles.Add(item.GetComponent<TileManager>());
+                }
+                SimpleGameEvents.OnStartGameplay?.Invoke();
                 
             }
             

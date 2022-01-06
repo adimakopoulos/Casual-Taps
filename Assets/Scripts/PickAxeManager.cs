@@ -7,10 +7,10 @@ public class PickAxeManager : MonoBehaviour
     BoxCollider myBC;
     Rigidbody myRB;
     AudioSource myAudioSource;
-    int _damage = 10;
-    public Vector3 originalPos; 
+    Vector3 originalPos; 
     private void Awake()
     {
+        //TODO: Remove GetComponents. Create Prefab and cash the references there.
         myBC = GetComponent<BoxCollider>();
         myRB = GetComponent<Rigidbody>();
         myAudioSource = GetComponent<AudioSource>();
@@ -19,18 +19,25 @@ public class PickAxeManager : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable()
     {
-        SimpleActions.OnStartGame += enableColider;
-
+        SimpleGameEvents.OnStartGameplay += enableColider;
+        SimpleGameEvents.OnPickAxeRelease += resetPos;
 
     }
     private void OnDisable()
     {
-        SimpleActions.OnStartGame -= enableColider;
-
+        SimpleGameEvents.OnStartGameplay -= enableColider;
+        SimpleGameEvents.OnPickAxeRelease -= resetPos;
     }
     private void OnCollisionEnter(Collision collision)
     {
-        collision.gameObject.GetComponent<TileManager>().takeDamage(_damage);
+        if (collision.gameObject.name == "ColumnBase")
+        {
+            return;
+        }
+        else {
+            collision.gameObject.GetComponent<TileManager>().takeDamage(GameMasterManager.GMMInstance.myStats.Damage);
+        }
+        
         myBC.enabled = false;
         myRB.isKinematic = true;
         myAudioSource.Play();
@@ -43,9 +50,7 @@ public class PickAxeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            resetPos();
-        }
+
     }
 
     private void enableColider() {
@@ -55,8 +60,7 @@ public class PickAxeManager : MonoBehaviour
         myBC.enabled = true;
         myRB.isKinematic = false;
         gameObject.transform.position = originalPos;
-        Debug.Log("gameObjectPos:"+gameObject.transform.position);
-        Debug.Log("originalPos:"+originalPos);
+
 
     }
 }

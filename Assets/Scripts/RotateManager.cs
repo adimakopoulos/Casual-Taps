@@ -4,17 +4,34 @@ using UnityEngine;
 
 public class RotateManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    Rigidbody rb;
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     void Start()
     {
-        var rb = GetComponent<Rigidbody>();
-        rb.AddRelativeTorque(new Vector3(0,0,300));
+
+
+    }
+
+    private void OnEnable()
+    {
+        SimpleGameEvents.OnPickAxeRelease += doRotation;
+    }
+    private void OnDisable()
+    {
+        SimpleGameEvents.OnPickAxeRelease -= doRotation;
+    }
+    /// <summary>
+    /// Does a small physics based rotation when the pick axe is released
+    /// </summary>
+    private void doRotation() {
+
+        rb.AddRelativeTorque(new Vector3(0, 0, 300));
         rb.angularDrag = 0.5f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

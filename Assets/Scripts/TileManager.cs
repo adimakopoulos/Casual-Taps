@@ -5,12 +5,14 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
 
-    int health= 10;
-    public GameObject BrokenVersion; 
-    // Start is called before the first frame update
-    void Start()
+    int health;
+    public GameObject BrokenVersion;
+
+
+
+    private void Awake()
     {
-        
+        Health = GameMasterManager.GMMInstance.myStats.TileHealth;
     }
     private void OnDisable()
     {
@@ -23,11 +25,19 @@ public class TileManager : MonoBehaviour
         
     }
     public void takeDamage(int dmg) {
-        health -= dmg;
+        Health -= dmg;
 
-        if (health <= 0) {
+        if (Health <= 0) {
             Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
+            SimpleGameEvents.OnTileDestroy?.Invoke(this);
             Destroy(this.gameObject);
         }
     }
+
+
+
+
+    //--Get Set--
+    public int Health { get => health; set => health = value; }
+
 }
