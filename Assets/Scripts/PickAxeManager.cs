@@ -7,7 +7,8 @@ public class PickAxeManager : MonoBehaviour
     BoxCollider myBC;
     Rigidbody myRB;
     AudioSource myAudioSource;
-    Vector3 originalPos; 
+    Vector3 originalPos;
+    Cinemachine.CinemachineImpulseSource impulseSource;
     private void Awake()
     {
         //TODO: Remove GetComponents. Create Prefab and cash the references there.
@@ -15,18 +16,22 @@ public class PickAxeManager : MonoBehaviour
         myRB = GetComponent<Rigidbody>();
         myAudioSource = GetComponent<AudioSource>();
         originalPos = gameObject.transform.position;
+        impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
     }
     // Start is called before the first frame update
     private void OnEnable()
     {
         SimpleGameEvents.OnStartGameplay += enableColider;
         SimpleGameEvents.OnPickAxeRelease += resetPos;
+        SimpleGameEvents.OnTileDestroy += generateCameraShake;
+
 
     }
     private void OnDisable()
     {
         SimpleGameEvents.OnStartGameplay -= enableColider;
         SimpleGameEvents.OnPickAxeRelease -= resetPos;
+        SimpleGameEvents.OnTileDestroy -= generateCameraShake;
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -36,6 +41,7 @@ public class PickAxeManager : MonoBehaviour
         }
         else {
             collision.gameObject.GetComponent<TileManager>().takeDamage(GameMasterManager.GMMInstance.myStats.Damage);
+            SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
         }
         
         myBC.enabled = false;
@@ -52,7 +58,9 @@ public class PickAxeManager : MonoBehaviour
     {
 
     }
-
+    private void generateCameraShake(TileManager var) {
+        impulseSource.GenerateImpulse();
+    }
     private void enableColider() {
         myBC.enabled = true;
     }

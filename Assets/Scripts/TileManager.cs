@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
 
+    int maxHealth;
     int health;
     public GameObject BrokenVersion;
 
@@ -12,6 +13,7 @@ public class TileManager : MonoBehaviour
 
     private void Awake()
     {
+        maxHealth = GameMasterManager.GMMInstance.myStats.TileHealth;
         Health = GameMasterManager.GMMInstance.myStats.TileHealth;
     }
     private void OnDisable()
@@ -39,5 +41,5 @@ public class TileManager : MonoBehaviour
 
     //--Get Set--
     public int Health { get => health; set => health = value; }
-
+    public int MaxHealth { get => maxHealth;  }
 }

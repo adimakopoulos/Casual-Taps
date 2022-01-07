@@ -22,8 +22,12 @@ public static class SimpleGameEvents
     /// </summary>
     public static Action OnPickAxeRelease;
     /// <summary>
-    /// when a tile prefab is destroyed.
+    /// when a tile prefab is destroyed. Returns the tile manager that is going to be destroyed.
     /// </summary>
     public static Action <TileManager>OnTileDestroy;
+    /// <summary>
+    /// When the pickAxe Collides whith something;
+    /// </summary>
+    public static Action <TileManager> OnPickAxeImpact;
 
 }
