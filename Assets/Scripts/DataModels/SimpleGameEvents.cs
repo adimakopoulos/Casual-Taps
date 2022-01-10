@@ -29,5 +29,8 @@ public static class SimpleGameEvents
     /// When the pickAxe Collides whith something;
     /// </summary>
     public static Action <TileManager> OnPickAxeImpact;
+    public static Action OnUI_TXT_Change;
+
+
 
 }

@@ -7,12 +7,14 @@ public class GameMasterManager : MonoBehaviour
 {
     public static GameMasterManager GMMInstance;
     public Stats myStats;
-
+    public Shop myShop;//TODO: Shop should be its own entity.
+   
     /// <summary>
     /// This Variable is only for testing. 
     /// It is used to increace the health(How much damage the player need to do) of the tiles. 
     /// </summary>
-    public readonly int  DifficultyModifier=1; 
+    public readonly int  DifficultyModifier=1;
+
     private void Awake()
     {
         loadLastPlayedLevel();
@@ -21,24 +23,27 @@ public class GameMasterManager : MonoBehaviour
 
     }
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-
-
-    }
     private void OnEnable()
     {
         SimpleGameEvents.OnLevelComplete += IncreaceLevel;
+        SimpleGameEvents.OnTileDestroy += increaseOre;
+        SimpleGameEvents.OnLevelComplete += SaveProgress;
     }
 
     private void OnDisable()
     {
+        SimpleGameEvents.OnTileDestroy -= increaseOre;
         SimpleGameEvents.OnLevelComplete -= IncreaceLevel;
+        SimpleGameEvents.OnLevelComplete -= SaveProgress;
+
+    }
+    private void SaveProgress() {
         JsonManager.Save(myStats);
+        JsonManager.Save(myShop);
+    }
+    private void increaseOre(TileManager tile) {
+        myStats.IronOre += tile.IronOrePieces;
+        SimpleGameEvents.OnUI_TXT_Change?.Invoke();
     }
 
     /// <summary>
@@ -46,17 +51,27 @@ public class GameMasterManager : MonoBehaviour
     /// that are localy stored at Application.persistentDataPath
     /// </summary>
     private void loadLastPlayedLevel() {
-        myStats = JsonManager.Load();
+
+        if (JsonManager.Load() != null && JsonManager.LoadShop() != null)
+        {
+            myStats = JsonManager.Load();
+            myShop = JsonManager.LoadShop();
+        }
+        else
+        {
+            myStats = new Stats();
+            myShop = new Shop();
+        }
     }
 
-    //for testing
+    //TODO: implement. Only for testing.
     private void ResetStats()
     {
-        JsonManager.Save(new Stats());
+        //JsonManager.Reset( Filename);
     }
     private void IncreaceLevel() {
         myStats.Gamelevel++;
-        myStats.TileHealth += DifficultyModifier;
+        myStats.TileHealth += DifficultyModifier*2;
     }
     /// <summary>
     /// set instance of this script to be public and accessed by everyone using this instance

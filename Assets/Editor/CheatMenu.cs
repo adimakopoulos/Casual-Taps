@@ -15,4 +15,11 @@ public static class CheatMenu
 
 
     }
+
+    [MenuItem("Cheats/Delete Progress")]
+    public static void DeleteProgress()
+    {
+        JsonManager.DeleteProgress();
+
+    }
 }

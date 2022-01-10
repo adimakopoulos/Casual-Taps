@@ -428,7 +428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163223961}
   m_LocalRotation: {x: 0.09904577, y: 0.89239913, z: -0.23911765, w: 0.3696438}
-  m_LocalPosition: {x: -24.145151, y: 17.526785, z: 23.839138}
+  m_LocalPosition: {x: -24.145193, y: 17.526785, z: 23.839098}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1068,7 +1068,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925690625}
   m_LocalRotation: {x: 0.09904577, y: 0.89239913, z: -0.23911765, w: 0.3696438}
-  m_LocalPosition: {x: -24.145151, y: 17.526785, z: 23.839138}
+  m_LocalPosition: {x: -24.145193, y: 17.526785, z: 23.839098}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1295726521}
@@ -1102,6 +1102,7 @@ GameObject:
   - component: {fileID: 1110684827}
   - component: {fileID: 1110684826}
   - component: {fileID: 1110684829}
+  - component: {fileID: 1110684830}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -1128,6 +1129,10 @@ MonoBehaviour:
     IronOre: 0
     Gamelevel: 1
     TileHealth: 1
+  myShop:
+    Cost: 10
+    ShopLevel: 16
+    UpgradeBonusDmg: 23
 --- !u!114 &1110684827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,6 +1169,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fcc30cf785a8d8d41babfb9226dacbb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1110684830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110684825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34223c1d768e3a498d3f67c5d21efbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1295726520

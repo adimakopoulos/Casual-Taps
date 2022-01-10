@@ -7,6 +7,7 @@ public class TileManager : MonoBehaviour
 
     int maxHealth;
     int health;
+    private int ironOrePieces;
     public GameObject BrokenVersion;
 
 
@@ -15,6 +16,7 @@ public class TileManager : MonoBehaviour
     {
         maxHealth = GameMasterManager.GMMInstance.myStats.TileHealth;
         Health = GameMasterManager.GMMInstance.myStats.TileHealth;
+        IronOrePieces = 9;
     }
     private void OnDisable()
     {
@@ -42,4 +44,5 @@ public class TileManager : MonoBehaviour
     //--Get Set--
     public int Health { get => health; set => health = value; }
     public int MaxHealth { get => maxHealth;  }
+    public int IronOrePieces { get => ironOrePieces; set => ironOrePieces = value; }
 }
