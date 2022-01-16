@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMasterManager : MonoBehaviour
 {
@@ -19,7 +20,8 @@ public class GameMasterManager : MonoBehaviour
     {
         loadLastPlayedLevel();
         setSingleton();
-
+        SceneManager.LoadSceneAsync(1,LoadSceneMode.Additive);
+        //SceneManager.LoadSceneAsync(0);
 
     }
 
@@ -28,14 +30,17 @@ public class GameMasterManager : MonoBehaviour
         SimpleGameEvents.OnLevelComplete += IncreaceLevel;
         SimpleGameEvents.OnTileDestroyed += increaseOre;
         SimpleGameEvents.OnLevelComplete += SaveProgress;
+        SimpleGameEvents.OnLevelComplete += SetNextLevel;
     }
+
+
 
     private void OnDisable()
     {
         SimpleGameEvents.OnTileDestroyed -= increaseOre;
         SimpleGameEvents.OnLevelComplete -= IncreaceLevel;
         SimpleGameEvents.OnLevelComplete -= SaveProgress;
-
+        SimpleGameEvents.OnLevelComplete -= SetNextLevel;
     }
     private void SaveProgress() {
         JsonManager.Save(myStats);
@@ -82,6 +87,16 @@ public class GameMasterManager : MonoBehaviour
         {
             GMMInstance = this;
         }
+    }
+
+    public SpawnManager spawner;
+    private void SetNextLevel()
+    {
+        if (spawner == null) {
+            Debug.LogError("Set Spawn Manager!");
+        }
+        spawner.enabled = true;
+        spawner.SpawnNum = 10;
     }
 
 }

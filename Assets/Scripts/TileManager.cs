@@ -12,20 +12,30 @@ public class TileManager : MonoBehaviour
     public enum TypeMetal { iron , gold };
     public TypeMetal metal;
 
-
+    public Material currMaterial;
 
     private void Awake()
     {
+
         maxHealth = GameMasterManager.GMMInstance.myStats.TileHealth;
         Health = GameMasterManager.GMMInstance.myStats.TileHealth;
         MetalPieces = 9;
-        metal =(TypeMetal) Random.Range(0, 2);
+        metal = (TypeMetal)Random.Range(0, 2);
+        if (metal == TypeMetal.gold) {
+            
+            currMaterial = Resources.Load<Material>("Materials/MatGold") as Material;
+            GetComponent<MeshRenderer>().material = currMaterial;
+        }
+        else
+        {
+            currMaterial = GetComponent<MeshRenderer>().material;
+            
+        }
     }
     private void OnEnable()
     {
         SimpleGameEvents.OnPickAxeImpact += doParticles;
-        if (metal== TypeMetal.gold)
-            GetComponent<MeshRenderer>().material = Resources.Load<Material>("Materials/MatGold") as Material;
+
     }
     private void OnDisable()
     {
@@ -46,8 +56,9 @@ public class TileManager : MonoBehaviour
         Health -= dmg;
 
         if (Health <= 0) {
-            Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
-
+            var go = Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
+            go.GetComponent<TileBrokenManager>().metalMaterial = currMaterial;
+            
             SimpleGameEvents.OnTileDestroyed?.Invoke(this);
             Destroy(this.gameObject);
 

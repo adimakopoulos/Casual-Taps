@@ -68,8 +68,8 @@ public class SpawnManager : MonoBehaviour
                 SimpleGameEvents.OnStartGameplay?.Invoke();
                 
             }
-            
-            
+
+            _spawnedGO = new List<GameObject>();
             this.enabled = false;
         }
     }

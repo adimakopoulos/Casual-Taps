@@ -11,4 +11,7 @@ public class ShopManager : MonoBehaviour
         Shop _shopstats = GameMasterManager.GMMInstance.myShop;
     }
 
+    
+
+
 }

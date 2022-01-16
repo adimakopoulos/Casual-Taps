@@ -22,12 +22,12 @@ public class HealthBarManager : MonoBehaviour
     private void OnEnable()
     {
         SimpleGameEvents.OnPickAxeImpact += setSize;
-        //SimpleGameEvents.OnPickAxeRelease += setSize;
+        SimpleGameEvents.OnPickAxeRelease += setSize;
     }
     private void OnDisable()
     {
         SimpleGameEvents.OnPickAxeImpact -= setSize;
-        //SimpleGameEvents.OnPickAxeRelease -= setSize;
+        SimpleGameEvents.OnPickAxeRelease -= setSize;
     }
 
     private void setSize(TileManager tile)

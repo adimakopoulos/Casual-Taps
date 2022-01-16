@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PickAxeManager : MonoBehaviour
 {
+    MeshRenderer myMR;
     BoxCollider myBC;
     Rigidbody myRB;
     AudioSource myAudioSource;
@@ -12,6 +14,7 @@ public class PickAxeManager : MonoBehaviour
     private void Awake()
     {
         //TODO: Remove GetComponents. Create Prefab and cash the references there.
+        myMR = GetComponent<MeshRenderer>();
         myBC = GetComponent<BoxCollider>();
         myRB = GetComponent<Rigidbody>();
         myAudioSource = GetComponent<AudioSource>();
@@ -24,15 +27,20 @@ public class PickAxeManager : MonoBehaviour
         SimpleGameEvents.OnStartGameplay += enableColider;
         SimpleGameEvents.OnPickAxeRelease += resetPos;
         SimpleGameEvents.OnTileDestroyed += generateCameraShake;
-
-
+        SimpleGameEvents.OnLevelComplete += hidePickAxe;
+        SimpleGameEvents.OnStartGameplay += showPickAxe ;
     }
     private void OnDisable()
     {
         SimpleGameEvents.OnStartGameplay -= enableColider;
         SimpleGameEvents.OnPickAxeRelease -= resetPos;
         SimpleGameEvents.OnTileDestroyed -= generateCameraShake;
+        SimpleGameEvents.OnLevelComplete -= hidePickAxe;
+        SimpleGameEvents.OnStartGameplay -= showPickAxe;
     }
+
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "ColumnBase")
@@ -71,6 +79,17 @@ public class PickAxeManager : MonoBehaviour
         myRB.isKinematic = false;
         gameObject.transform.position = originalPos;
 
+
+    }
+
+    private void hidePickAxe()
+    {
+        myMR.enabled = false;
+        gameObject.transform.position = originalPos;
+    }
+    private void showPickAxe()
+    {
+        myMR.enabled = true;
 
     }
 }

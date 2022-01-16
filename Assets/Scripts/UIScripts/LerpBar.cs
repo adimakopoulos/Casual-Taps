@@ -50,6 +50,17 @@ public class LerpBar : MonoBehaviour
         deltaTime = 0f;
         currentX = rawImage.rectTransform.sizeDelta.x;
         target = new Vector2(targetX, y);
+
+        // When the health bar increases in size it means that 
+        //1. the tile has healed or 
+        //2. a new tile health has been set. 
+        //meaning that the Indication bar is not visible because the health bar is set instantly, covering this one
+        if (targetX < currentX) {
+            duration = 0.7f;
+        }
+        else {
+            duration = 0.1f;
+        }
     }
 
 
