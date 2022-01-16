@@ -1,2 +1,2 @@
 # Casual-Taps
- TBD A 3d casual game
+Zen game, You break Tiles. You Collect ore. You Upgrade. Thats about it.
