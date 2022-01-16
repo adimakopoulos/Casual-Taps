@@ -22,11 +22,15 @@ public class KeyListenerManager : MonoBehaviour
     {
         if (CanPlay) { 
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.touches[0].phase == TouchPhase.Ended)
             {
                 SimpleGameEvents.OnPickAxeRelease?.Invoke();
             }
-            
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                SimpleGameEvents.OnPickAxeRelease?.Invoke();
+            }
+
         }
     }
 
