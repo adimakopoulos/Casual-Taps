@@ -18,15 +18,15 @@ public static class SimpleGameEvents
     /// </summary>
     public static Action OnLevelReset;
     /// <summary>
-    /// when player "Releases" the pick axe to Mine a tile.
+    /// when player "Releases" the pickaxe to Mine a tile.
     /// </summary>
     public static Action OnPickAxeRelease;
     /// <summary>
     /// when a tile prefab is destroyed. Returns the tile manager that is going to be destroyed.
     /// </summary>
-    public static Action <TileManager>OnTileDestroy;
+    public static Action<TileManager> OnTileDestroyed;
     /// <summary>
-    /// When the pickAxe Collides whith something;
+    /// When the pickAxe Collides with something;
     /// </summary>
     public static Action <TileManager> OnPickAxeImpact;
     public static Action OnUI_TXT_Change;

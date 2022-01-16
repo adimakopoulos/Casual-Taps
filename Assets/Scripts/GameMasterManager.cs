@@ -26,13 +26,13 @@ public class GameMasterManager : MonoBehaviour
     private void OnEnable()
     {
         SimpleGameEvents.OnLevelComplete += IncreaceLevel;
-        SimpleGameEvents.OnTileDestroy += increaseOre;
+        SimpleGameEvents.OnTileDestroyed += increaseOre;
         SimpleGameEvents.OnLevelComplete += SaveProgress;
     }
 
     private void OnDisable()
     {
-        SimpleGameEvents.OnTileDestroy -= increaseOre;
+        SimpleGameEvents.OnTileDestroyed -= increaseOre;
         SimpleGameEvents.OnLevelComplete -= IncreaceLevel;
         SimpleGameEvents.OnLevelComplete -= SaveProgress;
 
@@ -42,7 +42,7 @@ public class GameMasterManager : MonoBehaviour
         JsonManager.Save(myShop);
     }
     private void increaseOre(TileManager tile) {
-        myStats.IronOre += tile.IronOrePieces;
+        myStats.IronOre += tile.MetalPieces;
         SimpleGameEvents.OnUI_TXT_Change?.Invoke();
     }
 

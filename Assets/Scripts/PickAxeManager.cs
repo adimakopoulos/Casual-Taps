@@ -23,7 +23,7 @@ public class PickAxeManager : MonoBehaviour
     {
         SimpleGameEvents.OnStartGameplay += enableColider;
         SimpleGameEvents.OnPickAxeRelease += resetPos;
-        SimpleGameEvents.OnTileDestroy += generateCameraShake;
+        SimpleGameEvents.OnTileDestroyed += generateCameraShake;
 
 
     }
@@ -31,7 +31,7 @@ public class PickAxeManager : MonoBehaviour
     {
         SimpleGameEvents.OnStartGameplay -= enableColider;
         SimpleGameEvents.OnPickAxeRelease -= resetPos;
-        SimpleGameEvents.OnTileDestroy -= generateCameraShake;
+        SimpleGameEvents.OnTileDestroyed -= generateCameraShake;
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -40,8 +40,10 @@ public class PickAxeManager : MonoBehaviour
             return;
         }
         else {
+            
             collision.gameObject.GetComponent<TileManager>().takeDamage(GameMasterManager.GMMInstance.myStats.Damage);
             SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
+
         }
         
         myBC.enabled = false;

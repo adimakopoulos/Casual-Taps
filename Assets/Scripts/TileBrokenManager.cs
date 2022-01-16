@@ -5,6 +5,9 @@ public class TileBrokenManager : MonoBehaviour
 {
     public Rigidbody[] BrokenPieces ;
     public float TimeToLive;
+    private void Awake()
+    {
+    }
     void Start()
     {
         foreach (var rb in BrokenPieces)

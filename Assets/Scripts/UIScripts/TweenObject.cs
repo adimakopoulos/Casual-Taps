@@ -7,8 +7,33 @@ public class TweenObject : MonoBehaviour
 
     public LeanTweenType Type;
     bool isHidden;
+
+    RectTransform[] rectTransforms;
+    float distance = 0;
     private void Awake()
     {
+        rectTransforms = gameObject.GetComponentsInChildren<RectTransform>();
+        if (rectTransforms == null)
+        {
+            Debug.Log(gameObject.name + "null RectTransform[]");
+        }
+        else {
+
+            if (rectTransforms.Length == 0) {
+                Debug.Log(gameObject.name + "Array is empty");
+            } 
+            else if(rectTransforms.Length > 0)
+            {
+                foreach (var rt in rectTransforms)
+                {
+                    if (distance< rt.sizeDelta.x) {
+                        distance = rt.sizeDelta.x;
+                    }
+                }
+            }
+        }
+
+
         hideImmediately();
     }
 
@@ -30,7 +55,7 @@ public class TweenObject : MonoBehaviour
         if (!isHidden)
         {
             isHidden = true;
-            LeanTween.moveLocalY(gameObject, 100f, 3f).setEase(Type);
+            LeanTween.moveLocalY(gameObject, distance, 3f).setEase(Type);
         }
     }
     private void unhide()
@@ -47,7 +72,7 @@ public class TweenObject : MonoBehaviour
         if (!isHidden)
         {
             isHidden = true;
-            LeanTween.moveLocalY(gameObject, 100f, 0.1f).setEase(Type);
+            LeanTween.moveLocalY(gameObject, distance, 0.001f).setEase(Type);
         }
     }
 }

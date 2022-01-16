@@ -9,16 +9,17 @@ public class TileStack : MonoBehaviour
 
     private void OnEnable()
     {
-        SimpleGameEvents.OnTileDestroy += removeTile;
-        SimpleGameEvents.OnTileDestroy += checkIfEmpty;
+        SimpleGameEvents.OnTileDestroyed += removeTile;
+        SimpleGameEvents.OnTileDestroyed += checkIfEmpty;
     }
     private void OnDisable()
     {
-        SimpleGameEvents.OnTileDestroy -= removeTile;
-        SimpleGameEvents.OnTileDestroy -= checkIfEmpty;
+        SimpleGameEvents.OnTileDestroyed -= removeTile;
+        SimpleGameEvents.OnTileDestroyed -= checkIfEmpty;
     }
 
     private void removeTile(TileManager tile) {
+        if (tile.Health <= 0)
         stackOTiles.Remove(tile);
        
     }
