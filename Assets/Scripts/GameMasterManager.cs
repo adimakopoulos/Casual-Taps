@@ -20,7 +20,7 @@ public class GameMasterManager : MonoBehaviour
     {
         loadLastPlayedLevel();
         setSingleton();
-        SceneManager.LoadSceneAsync(1,LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(2,LoadSceneMode.Additive);
         //SceneManager.LoadSceneAsync(0);
 
     }
