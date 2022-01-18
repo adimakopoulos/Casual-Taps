@@ -31,6 +31,7 @@ public static class SimpleGameEvents
     public static Action <TileManager> OnPickAxeImpact;
     public static Action OnUI_TXT_Change;
 
-
+    public static Action OnLookLeft;
+    public static Action OnLookRight;
 
 }

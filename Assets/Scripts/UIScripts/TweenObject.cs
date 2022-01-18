@@ -5,7 +5,7 @@ using UnityEngine;
 public class TweenObject : MonoBehaviour
 {
 
-    public LeanTweenType Type;
+    //public LeanTweenType Type;
     bool isHidden;
 
     RectTransform[] rectTransforms;
@@ -55,7 +55,7 @@ public class TweenObject : MonoBehaviour
         if (!isHidden)
         {
             isHidden = true;
-            LeanTween.moveLocalY(gameObject, distance, 3f).setEase(Type);
+            //LeanTween.moveLocalY(gameObject, distance, 3f).setEase(Type);
         }
     }
     private void unhide()
@@ -63,7 +63,7 @@ public class TweenObject : MonoBehaviour
         if (isHidden)
         {
             isHidden = false;
-            LeanTween.moveLocalY(gameObject, 0, 3f).setEase(Type);
+            //LeanTween.moveLocalY(gameObject, 0, 3f).setEase(Type);
         }
     }
 
@@ -72,7 +72,7 @@ public class TweenObject : MonoBehaviour
         if (!isHidden)
         {
             isHidden = true;
-            LeanTween.moveLocalY(gameObject, distance, 0.001f).setEase(Type);
+            //LeanTween.moveLocalY(gameObject, distance, 0.001f).setEase(Type);
         }
     }
 }
