@@ -34,7 +34,7 @@ public class BttnSellOrManager : MonoBehaviour
         var orePrice = GameMasterManager.GMMInstance.myShop.sellOrePrice;
         if (oreGathered >= orePrice) {
             GameMasterManager.GMMInstance.myStats.IronOre -= orePrice;
-            GameMasterManager.GMMInstance.myStats.Gold ++;
+            GameMasterManager.GMMInstance.myStats.Coins ++;
             SimpleGameEvents.OnUI_TXT_Change?.Invoke();
         }
 

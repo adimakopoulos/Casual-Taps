@@ -24,6 +24,6 @@ public class GoldTXTManager : MonoBehaviour
 
     private void updateTxt()
     {
-        textGUI.text = prefix + "(<color=#FFC300>" + GameMasterManager.GMMInstance.myStats.Gold.ToString()+ "</color>)";
+        textGUI.text = prefix + "(<color=#FFC300>" + GameMasterManager.GMMInstance.myStats.Coins.ToString()+ "</color>)";
     }
 }

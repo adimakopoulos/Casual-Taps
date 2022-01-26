@@ -8,6 +8,7 @@ public class TileBrokenManager : MonoBehaviour
     public Material metalMaterial;
     private void Awake()
     {
+        SimpleGameEvents.OnTileShutter?.Invoke(this);
 
     }
 
@@ -31,7 +32,8 @@ public class TileBrokenManager : MonoBehaviour
     {
         TimeToLive -= Time.deltaTime;
         if (TimeToLive < 0) {
-            Destroy(this.gameObject);
+            
+            //Destroy(this.gameObject);
         }
     }
     

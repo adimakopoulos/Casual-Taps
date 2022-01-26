@@ -9,7 +9,7 @@ public class TileManager : MonoBehaviour
     int health;
     private int ironOrePieces;
     public GameObject BrokenVersion;
-    public enum TypeMetal { iron , gold };
+    public enum TypeMetal { iron , gold , coal };
     public TypeMetal metal;
 
     public Material currMaterial;
@@ -20,18 +20,51 @@ public class TileManager : MonoBehaviour
         maxHealth = GameMasterManager.GMMInstance.myStats.TileHealth;
         Health = GameMasterManager.GMMInstance.myStats.TileHealth;
         MetalPieces = 9;
-        metal = (TypeMetal)Random.Range(0, 2);
-        if (metal == TypeMetal.gold) {
-            
+        setTypeMaterial();
+
+
+    }
+
+    private void setTypeMaterial()
+    {
+        Utils.Rarity rarity =  Utils.GetRandomRarity();
+        if (rarity == Utils.Rarity.Legendary)
+        {
+            metal = TypeMetal.gold;
+        }
+        else if (rarity == Utils.Rarity.Rare)
+        {
+            metal = TypeMetal.iron;
+        }
+        else if (rarity == Utils.Rarity.Common)
+        {
+            metal = TypeMetal.coal;
+        }
+
+
+
+   
+        if (metal == TypeMetal.gold)
+        {
+
             currMaterial = Resources.Load<Material>("Materials/MatGold") as Material;
             GetComponent<MeshRenderer>().material = currMaterial;
         }
-        else
+        if (metal == TypeMetal.iron)
         {
-            currMaterial = GetComponent<MeshRenderer>().material;
-            
+
+            currMaterial = Resources.Load<Material>("Materials/MatIron") as Material;
+            GetComponent<MeshRenderer>().material = currMaterial;
         }
+        if (metal == TypeMetal.coal)
+        {
+
+            currMaterial = Resources.Load<Material>("Materials/MatCoal") as Material;
+            GetComponent<MeshRenderer>().material = currMaterial;
+        }
+
     }
+
     private void OnEnable()
     {
         SimpleGameEvents.OnPickAxeImpact += doParticles;

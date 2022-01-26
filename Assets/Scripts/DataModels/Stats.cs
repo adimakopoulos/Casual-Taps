@@ -7,30 +7,34 @@ public class Stats
 {
     public int Score;
     public int Damage;
-    public int Gold;
-    public int IronOre;
+    public int Coins;
+    public int IronOre,CoalOre,GoldOre;
     public int Gamelevel;
     public int TileHealth;
 
-    public Stats(int score, int damage, int gold, int ironOre, int gamelevel, int tileHealth)
-    {
-        Score = score;
-        Damage = damage;
-        Gold = gold;
-        IronOre = ironOre;
-        Gamelevel = gamelevel;
-        TileHealth = tileHealth;
-    }
+
 
     public Stats()
     {
         Score = 0;
         Damage = 1;
-        Gold = 0;
+        Coins = 0;
         IronOre = 0;
+        CoalOre = 0;
+        GoldOre = 0;
         Gamelevel = 1;
         TileHealth = 1;
     }
 
-
+    public Stats(int score, int damage, int coins, int ironOre, int coalOre, int goldOre, int gamelevel, int tileHealth)
+    {
+        Score = score;
+        Damage = damage;
+        Coins = coins;
+        IronOre = ironOre;
+        CoalOre = coalOre;
+        GoldOre = goldOre;
+        Gamelevel = gamelevel;
+        TileHealth = tileHealth;
+    }
 }

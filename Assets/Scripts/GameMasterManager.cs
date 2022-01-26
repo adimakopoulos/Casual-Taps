@@ -8,7 +8,7 @@ public class GameMasterManager : MonoBehaviour
 {
     public static GameMasterManager GMMInstance;
     public Stats myStats;
-    public Shop myShop;//TODO: Shop should be its own entity.
+    public Shop myShop;//TODO: Shop should be its own class.
    
     /// <summary>
     /// This Variable is only for testing. 
@@ -16,14 +16,19 @@ public class GameMasterManager : MonoBehaviour
     /// </summary>
     public readonly int  DifficultyModifier=1;
 
+
+
     private void Awake()
     {
-        loadLastPlayedLevel();
+        loadLastPlayedLevelData();
         setSingleton();
-        SceneManager.LoadSceneAsync(2,LoadSceneMode.Additive);
+        loadSceneUI();
+        
         //SceneManager.LoadSceneAsync(0);
 
     }
+
+
 
     private void OnEnable()
     {
@@ -55,7 +60,7 @@ public class GameMasterManager : MonoBehaviour
     /// Load all game related stats like Level number and amount of player Damage
     /// that are localy stored at Application.persistentDataPath
     /// </summary>
-    private void loadLastPlayedLevel() {
+    private void loadLastPlayedLevelData() {
 
         if (JsonManager.Load() != null && JsonManager.LoadShop() != null)
         {
@@ -97,6 +102,11 @@ public class GameMasterManager : MonoBehaviour
         }
         spawner.enabled = true;
         spawner.SpawnNum = 10;
+    }
+
+    private void loadSceneUI()
+    {
+        SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
     }
 
 }

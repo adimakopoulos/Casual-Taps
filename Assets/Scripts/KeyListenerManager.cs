@@ -45,12 +45,12 @@ public class KeyListenerManager : MonoBehaviour
         {
             var CurrMousePos = Input.mousePosition;
             if (CurrMousePos.x > StartMousePos.x+ ignoreThisDistance) {
-                Debug.Log("Right");
+                //Debug.Log("Right");
                 SimpleGameEvents.OnLookLeft?.Invoke();
             }
             if (CurrMousePos.x < StartMousePos.x- ignoreThisDistance)
             {
-                Debug.Log("Left");
+                //Debug.Log("Left");
                 SimpleGameEvents.OnLookRight?.Invoke();
             }
 

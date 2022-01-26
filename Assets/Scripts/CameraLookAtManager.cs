@@ -6,6 +6,8 @@ public class CameraLookAtManager : MonoBehaviour
 {
 
     public List<Transform> LookTargets;
+
+    //TODO: Make this an Enum so i can understand what the player looks at in Context
     public int currLookingPosition ;
     Cinemachine.CinemachineVirtualCamera myCamera;
     private void Awake()
@@ -45,6 +47,7 @@ public class CameraLookAtManager : MonoBehaviour
             currLookingPosition--;
             myCamera.LookAt = LookTargets[currLookingPosition];
             myCamera.Follow = LookTargets[currLookingPosition];
+            SimpleGameEvents.OnPlayerCurrentlyLookingAt?.Invoke(currLookingPosition);
         }
     }
     private void LookRight()
@@ -55,6 +58,8 @@ public class CameraLookAtManager : MonoBehaviour
             currLookingPosition++;
             myCamera.LookAt = LookTargets[currLookingPosition];
             myCamera.Follow = LookTargets[currLookingPosition];
+            SimpleGameEvents.OnPlayerCurrentlyLookingAt?.Invoke(currLookingPosition);
+
         }
 
     }

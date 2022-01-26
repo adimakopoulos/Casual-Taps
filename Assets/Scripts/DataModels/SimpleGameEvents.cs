@@ -33,5 +33,12 @@ public static class SimpleGameEvents
 
     public static Action OnLookLeft;
     public static Action OnLookRight;
+    /// <summary>
+    /// Gets Invoked When The Camera Manager has Set A new LOOKING TARGET;
+    /// 
+    /// </summary>
+    public static Action <int>OnPlayerCurrentlyLookingAt;
+
+    public static Action <TileBrokenManager>OnTileShutter;
 
 }

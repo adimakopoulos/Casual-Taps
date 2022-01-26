@@ -27,7 +27,7 @@ public class BttnBuyDamageManager : MonoBehaviour
     }
     private void OnMouseClickUP()
     {
-        if (GameMasterManager.GMMInstance.myStats.Gold >= GameMasterManager.GMMInstance.myShop.Cost) {
+        if (GameMasterManager.GMMInstance.myStats.Coins >= GameMasterManager.GMMInstance.myShop.Cost) {
             buyDamage(); 
         }
     }
