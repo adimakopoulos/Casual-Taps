@@ -52,7 +52,7 @@ public static class CheatMenu
         }
         else
         {
-            Debug.Log("Cound Find StockPile.");
+            Debug.Log("Coundn't Find StockPile.");
         }
 
     }
@@ -66,7 +66,7 @@ public static class CheatMenu
             StockPileIron.GetComponent<RainFallEffect>().getPiece(100);
         }
         else {
-            Debug.Log("Cound Find StockPile.");
+            Debug.Log("Coundn't Find StockPile.");
         }
 
     }
@@ -80,7 +80,7 @@ public static class CheatMenu
         }
         else
         {
-            Debug.Log("Cound Find StockPile.");
+            Debug.Log("Coundn't Find StockPile.");
         }
 
     }
@@ -96,7 +96,7 @@ public static class CheatMenu
         }
         else
         {
-            Debug.Log("Cound Find StockPile.");
+            Debug.Log("Coundn't Find StockPile.");
         }
 
     }
