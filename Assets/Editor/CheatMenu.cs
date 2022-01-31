@@ -70,4 +70,34 @@ public static class CheatMenu
         }
 
     }
+    [MenuItem("Cheats/Get 1.000 Iron")]
+    public static void Add10000Iron()
+    {
+        var StockPileIron = GameObject.Find("StockPileIron");
+        if (StockPileIron != null)
+        {
+            StockPileIron.GetComponent<RainFallEffect>().getPiece(1000);
+        }
+        else
+        {
+            Debug.Log("Cound Find StockPile.");
+        }
+
+    }
+
+    [MenuItem("Cheats/Get 10 Coal in ElevatorB")]
+    public static void Add10CoalToElevatorB()
+    {
+        var StockPileIron = GameObject.Find("ElevatorB");
+        if (StockPileIron != null)
+        {
+            StockPileIron.GetComponent<ElevatorManager>().AddPiece(TileManager.TypeMetal.coal , 10);
+                
+        }
+        else
+        {
+            Debug.Log("Cound Find StockPile.");
+        }
+
+    }
 }
