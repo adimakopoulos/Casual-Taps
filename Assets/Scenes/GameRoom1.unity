@@ -1718,6 +1718,8 @@ GameObject:
   - component: {fileID: 1826533634}
   - component: {fileID: 1826533633}
   - component: {fileID: 1826533636}
+  - component: {fileID: 1826533638}
+  - component: {fileID: 1826533637}
   m_Layer: 0
   m_Name: PlaneClean (1)
   m_TagString: Untagged
@@ -1802,6 +1804,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1165339905657575452, guid: f94b17453ce35354c8ad9e6480ae5ac6, type: 3}
+--- !u!65 &1826533637
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826533632}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.016071176, y: 0.076261505, z: 0.28342515}
+  m_Center: {x: -0.098876856, y: -0.037231833, z: 0.1417163}
+--- !u!65 &1826533638
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826533632}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08437521, y: 0.034633894, z: 0.28342515}
+  m_Center: {x: -0.047886856, y: -0.09292171, z: 0.14171623}
 --- !u!1 &1956790810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2360,10 +2388,6 @@ PrefabInstance:
       propertyPath: Spawners.Array.data[2]
       value: 
       objectReference: {fileID: 613521315}
-    - target: {fileID: 9001875383171673175, guid: 66256ae3d7f9326409a8c24042ac67e0, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 248e0a1bb1617204b9b0694834466c9b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66256ae3d7f9326409a8c24042ac67e0, type: 3}
 --- !u!33 &1545779988298896041
@@ -2649,10 +2673,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2872441418477203818, guid: 0cc488e5f4a7114449dd19e375aa4c0a, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 248e0a1bb1617204b9b0694834466c9b, type: 2}
     - target: {fileID: 2872441418477203821, guid: 0cc488e5f4a7114449dd19e375aa4c0a, type: 3}
       propertyPath: m_Name
       value: StockPileIron
@@ -2670,10 +2690,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StockPileGold
       objectReference: {fileID: 0}
-    - target: {fileID: 3930704467931552117, guid: 2ba4228fa08315246a3d271bf5449308, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 248e0a1bb1617204b9b0694834466c9b, type: 2}
     - target: {fileID: 3930704467931552119, guid: 2ba4228fa08315246a3d271bf5449308, type: 3}
       propertyPath: m_RootOrder
       value: 14

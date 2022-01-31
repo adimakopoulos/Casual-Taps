@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnableIsKinematicAfterTime : MonoBehaviour
 {
-    public float timeUntilEnabled=10f;
+    public float timeUntilEnabled=4f;
     float _passedSeconds=0f;
     Rigidbody _myRigidbody;
     private void Awake()
