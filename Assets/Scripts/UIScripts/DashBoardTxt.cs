@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DashBoardTxt : MonoBehaviour
 {
-    public StockpileManager stockpileManager;
+    public InventoryManager stockpileManager;
     // Start is called before the first frame update
     void Start()
     {

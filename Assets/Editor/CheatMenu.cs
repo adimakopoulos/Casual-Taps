@@ -88,11 +88,42 @@ public static class CheatMenu
     [MenuItem("Cheats/Get 10 Coal in ElevatorB")]
     public static void Add10CoalToElevatorB()
     {
-        var StockPileIron = GameObject.Find("ElevatorB");
-        if (StockPileIron != null)
+        var StockPileElevatorB = GameObject.Find("ElevatorB");
+        if (StockPileElevatorB != null)
         {
-            StockPileIron.GetComponent<ElevatorManager>().AddPiece(TileManager.TypeMetal.coal , 10);
+            StockPileElevatorB.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.coal , 10);
                 
+        }
+        else
+        {
+            Debug.Log("Coundn't Find StockPile.");
+        }
+
+    }
+
+    [MenuItem("Cheats/Get 10 Coal in ElevatorA")]
+    public static void Add10CoalToElevatorA()
+    {
+        var StockPileElevatorA = GameObject.Find("ElevatorA");
+        if (StockPileElevatorA != null)
+        {
+            StockPileElevatorA.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.coal, 10);
+
+        }
+        else
+        {
+            Debug.Log("Coundn't Find StockPile.");
+        }
+
+    }
+    [MenuItem("Cheats/Get 10 Coal in ElevatorB (1)")]
+    public static void Add10CoalToElevatorA1()
+    {
+        var StockPileElevatorA1 = GameObject.Find("ElevatorA (1)");
+        if (StockPileElevatorA1 != null)
+        {
+            StockPileElevatorA1.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.coal, 10);
+
         }
         else
         {

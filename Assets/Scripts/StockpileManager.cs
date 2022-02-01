@@ -3,92 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StockpileManager : MonoBehaviour
+public class StockPileManager : MonoBehaviour , IStockPile
 {
+    StockPile myStockPileData;
 
-    public List<Rigidbody> LoosePecies;
-    public RainFallEffect []Spawners;//Is set in the inspector
-    public static Action OnLoosePiecesProcessed;
-
-    public int GoldOre, CoalOre, IronOre;
+    public Action <int>OnDeposit;
+    public Action OnWithDraw;
     private void Awake()
     {
-        
-
-
-
-        LoosePecies = new List<Rigidbody>();
+        myStockPileData = new StockPile(0,0,0,100);
     }
 
 
-
-    private void OnEnable()
-    {
-        SimpleGameEvents.OnTileShutter += addOre;
-        SimpleGameEvents.OnPlayerCurrentlyLookingAt += moveOreToStokpile;
-    }
-    private void OnDisable()
-    {
-        SimpleGameEvents.OnTileShutter -= addOre;
-        SimpleGameEvents.OnPlayerCurrentlyLookingAt -= moveOreToStokpile;
-
-    }
-
-    private void Update()
-    {
-
-
-    }
-    private void moveOreToStokpile(int lookIndex) {
-        //If players looks at StockPile Do:
-        if (lookIndex == 0) {
-
-
-            foreach (var item in LoosePecies)
-            {
-
-
-                var materialName  = item.GetComponent<Renderer>().material.name;
-
-                if (materialName.Contains("Coal")) {
-                    CoalOre ++;
-                    Spawners[0].getPiece();
-                }
-                if (materialName.Contains("Gold"))
-                {
-                    GoldOre++;
-                    Spawners[1].getPiece();
-                }
-                if (materialName.Contains("Iron"))
-                {
-                    IronOre++;
-                    Spawners[2].getPiece();
-                }
-
-                
-            }
-
-            foreach (var item in LoosePecies)
-            {
-                Destroy(item.gameObject);
-            }
-            LoosePecies.Clear();
-            OnLoosePiecesProcessed?.Invoke();
-
-        }
-        
-    }
-
-    /// <summary>
-    /// every time a tile breaks all the smaller pieces get added to this list.
-    /// </summary>
-    /// <param name="brokenTile"></param>
-    private void addOre(TileBrokenManager brokenTile) {
-        //brokenTile.BrokenPieces[].MovePosition;
-
-        foreach (var item in brokenTile.BrokenPieces)
+    public void AddPiece(TileManager.TypeMetal typeMetal, int ammount) {
+        var isAbleToStore = myStockPileData.Deposit(typeMetal, ammount);
+        //Debug.Log("isAbleToStore= " + isAbleToStore + " //myStockPile.Total="+ myStockPileData.getCurentTotal());
+        if (isAbleToStore)
         {
-            LoosePecies.Add(item);
+            OnDeposit?.Invoke(ammount);
         }
+
+
     }
+    public void RemovePiece()
+    {        
+        var a = myStockPileData.withdraw(TileManager.TypeMetal.coal , 10);
+        if (a!=0)
+        {
+            OnWithDraw?.Invoke();
+        }
+
+
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
 }

@@ -22,11 +22,11 @@ public class RainFallEffect : MonoBehaviour
 
     private void OnEnable()
     {
-        StockpileManager.OnLoosePiecesProcessed += setList;
+        InventoryManager.OnLoosePiecesProcessed += setList;
     }
     private void OnDisable()
     {
-        StockpileManager.OnLoosePiecesProcessed -= setList;
+        InventoryManager.OnLoosePiecesProcessed -= setList;
     }
     // Update is called once per frame
     void Update()

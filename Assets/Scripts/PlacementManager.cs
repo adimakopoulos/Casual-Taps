@@ -13,12 +13,12 @@ public class PlacementManager : MonoBehaviour
     public GameObject GO_Indicator;
     public List<GameObject> _bufferList;
     Vector3 _originalPos;
-    ElevatorManager _stockPileInstance;
+    StockPileManager _stockPileInstance;
     private void Awake()
     {
 
         _originalPos = GO_Indicator.transform.position;
-        _stockPileInstance = GetComponent<ElevatorManager>();
+        _stockPileInstance = GetComponent<StockPileManager>();
         GO_Indicator.GetComponent<MeshRenderer>().enabled = false;
     }
 
@@ -30,7 +30,8 @@ public class PlacementManager : MonoBehaviour
 
     private void OnDisable()
     {
-        
+        _stockPileInstance.OnDeposit -= addToBufferList;
+
     }
     // Update is called once per frame
     void Update()
