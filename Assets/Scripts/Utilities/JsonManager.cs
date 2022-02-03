@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -43,6 +44,8 @@ public static class JsonManager
         return data;
     }
 
+
+
     //TODO: Needs refactoring. Duplicatined code.
     public static Shop LoadShop()
     {
@@ -69,4 +72,35 @@ public static class JsonManager
         File.Delete(savedDataDir);
     }
 
+    public static List<People> LoadGroupOfPeople()
+    {
+        List<People> data;
+        
+        var savedDataDir = Application.persistentDataPath + Dir + "PeoplGroups.txt";
+
+        if (File.Exists(savedDataDir))
+        {
+            var json = File.ReadAllText(savedDataDir);
+            data =Newtonsoft.Json.JsonConvert.DeserializeObject<List<People>>(json);
+            //data = JsonUtility.FromJson<Shop>(json);
+        }
+        else
+        {
+            Debug.Log("File not fount with Directory: {0}" + savedDataDir);
+            return null;
+        }
+        return data;
+    }
+    public static void Save(List<People> myPeopleGroups)
+    {
+        var gameDir = Application.persistentDataPath + Dir;
+        if (!Directory.Exists(gameDir))
+        {
+            Directory.CreateDirectory(gameDir);
+        }
+        //Newtonsoft.Json.JsonConvert.DeserializeObject<List<People>>(myPeopleGroups)
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(myPeopleGroups);
+        //var json = JsonUtility.ToJson(myPeopleGroups.ToArray());
+        File.WriteAllText(gameDir + "PeoplGroups.txt", json);
+    }
 }

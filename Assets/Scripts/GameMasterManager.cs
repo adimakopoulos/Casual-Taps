@@ -9,7 +9,7 @@ public class GameMasterManager : MonoBehaviour
     public static GameMasterManager GMMInstance;
     public Stats myStats;
     public Shop myShop;//TODO: Shop should be its own class.
-   
+    public List <People> myPeopleGroups= new List<People>();
     /// <summary>
     /// This Variable is only for testing. 
     /// It is used to increace the health(How much damage the player need to do) of the tiles. 
@@ -50,6 +50,7 @@ public class GameMasterManager : MonoBehaviour
     private void SaveProgress() {
         JsonManager.Save(myStats);
         JsonManager.Save(myShop);
+        JsonManager.Save(myPeopleGroups);
     }
     private void increaseOre(TileManager tile) {
         myStats.IronOre += tile.MetalPieces;
@@ -62,15 +63,22 @@ public class GameMasterManager : MonoBehaviour
     /// </summary>
     private void loadLastPlayedLevelData() {
 
-        if (JsonManager.Load() != null && JsonManager.LoadShop() != null)
+        if (JsonManager.Load() != null && JsonManager.LoadShop() != null )
         {
             myStats = JsonManager.Load();
             myShop = JsonManager.LoadShop();
+            myPeopleGroups = JsonManager.LoadGroupOfPeople();
         }
         else
         {
             myStats = new Stats();
             myShop = new Shop();
+            var scrComponents =  GameObject.FindObjectsOfType<PeopleManager>();
+            for (int i = 0; i < scrComponents.Length; i++)
+            {
+                Debug.Log(i);
+                myPeopleGroups.Add( new People(scrComponents[i].gameObject.name));
+            }
         }
     }
 
