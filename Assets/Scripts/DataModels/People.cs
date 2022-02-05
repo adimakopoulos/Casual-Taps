@@ -20,7 +20,7 @@ public class People
         Name = name;
         NumOfPeople = 1;
         CarryingCapacity = 1;
-        this.speedNormal = 0.01f;
-        this.speedCarrying = 0.005f;
+        this.speedNormal = 2f;
+        this.speedCarrying = 1f;
     }
 }

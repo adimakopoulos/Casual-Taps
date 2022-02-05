@@ -70,6 +70,8 @@ public static class JsonManager
         File.Delete(savedDataDir);
         savedDataDir = Application.persistentDataPath + Dir + "Campaign.txt";
         File.Delete(savedDataDir);
+        savedDataDir = Application.persistentDataPath + Dir + "PeoplGroups.txt";
+        File.Delete(savedDataDir);
     }
 
     public static List<People> LoadGroupOfPeople()

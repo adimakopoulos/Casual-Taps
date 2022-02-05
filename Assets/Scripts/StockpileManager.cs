@@ -8,7 +8,7 @@ public class StockPileManager : MonoBehaviour , IStockPile
     StockPile myStockPileData;
 
     public Action <int>OnDeposit;
-    public Action OnWithDraw;
+    public Action <int>OnWithDraw;
     private void Awake()
     {
         myStockPileData = new StockPile(0,0,0,100);
@@ -25,21 +25,19 @@ public class StockPileManager : MonoBehaviour , IStockPile
 
 
     }
-    public void RemovePiece()
+    public void RemovePiece(TileManager.TypeMetal typeMetal, int amount)
     {        
-        var a = myStockPileData.withdraw(TileManager.TypeMetal.coal , 10);
-        if (a!=0)
+        
+        var canTransactWith = myStockPileData.withdraw(typeMetal, amount);
+        //Debug.Log(canTransactWith);
+        if (canTransactWith > 0)
         {
-            OnWithDraw?.Invoke();
+            OnWithDraw?.Invoke(canTransactWith);
         }
 
 
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
 
 }

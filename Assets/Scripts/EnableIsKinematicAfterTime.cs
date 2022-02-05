@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnableIsKinematicAfterTime : MonoBehaviour
 {
+    public System.Action<GameObject> OnSuccefullyStored;
     public float timeUntilEnabled=4f;
     float _passedSeconds=0f;
     Rigidbody _myRigidbody;
+
     private void Awake()
     {
         _myRigidbody=GetComponent<Rigidbody>();
@@ -17,6 +19,9 @@ public class EnableIsKinematicAfterTime : MonoBehaviour
         if (_passedSeconds > timeUntilEnabled) {
             _myRigidbody.isKinematic = true;
             this.enabled = false;
+            OnSuccefullyStored?.Invoke(gameObject);
+            //var a = OnSuccefullyStored.GetInvocationList();
+            //Debug.Log(a.Length);
         }
         _passedSeconds+= Time.deltaTime;
     }

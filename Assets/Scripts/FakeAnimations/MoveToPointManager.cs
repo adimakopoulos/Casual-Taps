@@ -7,7 +7,6 @@ public class MoveToPointManager : MonoBehaviour
     
     public Vector3 TargetPosition;
     public Vector3 CurrentPosition;
-    public List<Transform> PointsOfIntrest;// Set points of intrest in inspector
     public float Speed;
     public PeopleManager MyPeopleManager;
     private void Awake()

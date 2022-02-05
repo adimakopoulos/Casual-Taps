@@ -8,7 +8,7 @@ public interface IStockPile
 
     public void AddPiece(TileManager.TypeMetal typeMetal, int ammount);
 
-    public void RemovePiece();
+    public void RemovePiece(TileManager.TypeMetal typeMetal, int ammount);
 
 
 }

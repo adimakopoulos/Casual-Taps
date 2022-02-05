@@ -59,12 +59,16 @@ public class StockPile
         {
             if (amount <= CoalOre)
             {
+                
                 CoalOre -= amount;
                 return amount;
             }
             else
             {
-                return 0;
+                if (CoalOre>0) 
+                    return CoalOre;      //return remaing.
+                else
+                    return 0;
             }
 
         }
@@ -78,7 +82,10 @@ public class StockPile
             }
             else
             {
-                return 0;
+                if (GoldOre > 0)
+                    return GoldOre;
+                else
+                    return 0;
             }
         }
         if (typeMetal == TileManager.TypeMetal.iron)
@@ -89,8 +96,11 @@ public class StockPile
                 IronOre -= amount;
                 return amount;
             }
-            else {
-                return  0;
+            else {                  
+                if (IronOre > 0)       
+                    return IronOre;
+                else
+                    return 0;
             }
         }
         return 0;

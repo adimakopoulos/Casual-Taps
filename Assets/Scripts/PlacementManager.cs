@@ -1,17 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-
+/// <summary>
+/// Spawns a number of Prefabs and stores them in a list.
+/// It moves a game object by a certain lenght, giving its position to 1 of the spawned objects.
+/// </summary>
 public class PlacementManager : MonoBehaviour
 {
-    int x, y;
-    public int Row = 1, Line=1 ;
+    private int x, y;
+    public int Row = 1, Line=1 ;        //set in the editor
 
     float _timePassed;
     public float _spawnInterval;
     public float _lengthToMove;
     public GameObject GO_Indicator;
-    public List<GameObject> _bufferList;
+    private List<GameObject> _bufferList=  new List<GameObject>();
     Vector3 _originalPos;
     StockPileManager _stockPileInstance;
     private void Awake()
@@ -25,12 +30,13 @@ public class PlacementManager : MonoBehaviour
     private void OnEnable()
     {
         _stockPileInstance.OnDeposit += addToBufferList;
-        //_stockPileInstance.OnWithDraw += addToBufferList;
+        _stockPileInstance.OnWithDraw += RemoveCashedGO;
     }
 
     private void OnDisable()
     {
         _stockPileInstance.OnDeposit -= addToBufferList;
+        _stockPileInstance.OnWithDraw -= RemoveCashedGO;
 
     }
     // Update is called once per frame
@@ -63,9 +69,9 @@ public class PlacementManager : MonoBehaviour
             go.GetComponent<Transform>().position = GO_Indicator.transform.position;
             go.GetComponent<BoxCollider>().enabled = true;
             go.GetComponent<MeshRenderer>().enabled = true;
-            go.AddComponent<EnableIsKinematicAfterTime>();
-            go.name = "Tile X:" +x+"/Y:" + y+ " "+gameObject.GetComponentsInChildren<Transform>().Length;
-
+            go.AddComponent<EnableIsKinematicAfterTime>().OnSuccefullyStored+= addToCache;
+            go.name = "Tile At:" +x+"," + y;
+            
             x++;
             if (x == Row)
             {
@@ -81,6 +87,67 @@ public class PlacementManager : MonoBehaviour
             _timePassed = 0;
         }
         _timePassed += Time.deltaTime;
+
+    }
+
+
+    List<GameObject> cashedGO = new List<GameObject>();
+    List<KeyValuePair<Vector2, Rigidbody>> tileAtPos = new List<KeyValuePair<Vector2, Rigidbody>>();
+    private void addToCache(GameObject go) {
+        cashedGO.Add(go);
+        
+
+        var str = go.name.Split(':', ',');
+        Vector2 vector2LocalPos = new Vector2(Int32.Parse( str[1]), Int32.Parse(str[2]));
+        tileAtPos.Add(new KeyValuePair<Vector2, Rigidbody>(vector2LocalPos, go.GetComponent<Rigidbody>() ));
+
+        go.GetComponent<EnableIsKinematicAfterTime>().OnSuccefullyStored -= addToCache;
+        //Debug.Log("IsInvoking" + go.GetComponent<EnableIsKinematicAfterTime>().OnSuccefullyStored.GetInvocationList().Length);
+        Debug.Log("addedToCache");
+    }
+
+
+    int removeX=0, removeY=0;
+    private void RemoveCashedGO(int amount) {
+        if (amount > cashedGO.Count)
+        {
+            return;
+        }
+        for (int i = 0; i < amount; i++)
+        {
+            //Debug.Log("RemoveCashedGO amount" + amount);
+            var lookup = tileAtPos.ToLookup(kvp => kvp.Key, kvp => kvp.Value);
+
+            foreach (Rigidbody item in lookup[new Vector2(removeX, removeY)])
+            {
+                item.isKinematic = false;
+                //Debug.Log("Test " + item.name);
+            }
+
+
+
+            //cashedGO.RemoveAt(0);
+            removeX++;
+            if (removeX == Row)
+            {
+                removeX = 0;
+                removeY++;
+            }
+            if (removeY == Line)
+            {
+                removeY = 0;
+            }
+        }
+
+
+        for (int i = 0; i < amount; i++)
+        {
+            var temp = cashedGO[0];
+            cashedGO.RemoveAt(0);
+            Destroy(temp);
+        }
+        tileAtPos.RemoveRange(0, amount);
+        //Debug.Log("Im Called");
 
     }
 }

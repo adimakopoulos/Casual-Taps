@@ -10,11 +10,13 @@ public class PeopleManager : MonoBehaviour
     List<GameObject> goPeople =new List<GameObject>();
     public Action<Vector3> OnNewTargetToMove;
 
+    public List<Transform> PointsOfIntrest;// Set points of intrest in inspector
+
     public GameObject personPrefab;
     private void Awake()
     {
-        
-
+        personPrefab.SetActive(false);
+        //gameObject.enable
 
 
     }
@@ -24,13 +26,18 @@ public class PeopleManager : MonoBehaviour
         LoadData();
         for (int i = 0; i < people.NumOfPeople; i++)
         {
-            goPeople.Add(Instantiate(personPrefab, gameObject.transform));
-
-
+            createWorker();
 
         }
     }
 
+    private void createWorker()
+    {
+        var go = Instantiate(personPrefab, gameObject.transform);
+        go.SetActive(true);
+        go.GetComponent<MoveToPointManager>().Speed = people.speedNormal;
+        goPeople.Add(go);
+    }
 
     float timeElasped=0;
     Vector3 randVect3;
@@ -57,16 +64,32 @@ public class PeopleManager : MonoBehaviour
         foreach (var item in data)
         {
 
-            if (String.Equals(item.Name,gameObject.name) ) { }
-            people = item;
+            if (String.Equals(item.Name,gameObject.name) ) { 
+                
+                people = item;}
+            
         }
       
     }
+
+    public void IcreaceWorker() {
+        people.NumOfPeople += 1;
+        createWorker();
+    }
+
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(gameObject.transform.position, randVect3);
         Gizmos.DrawSphere(randVect3, 0.5f);
+    }
+}
+
+internal class TransferJob {
+    List<Transform> points;
+
+    TransferJob(List<Transform> WorldPosPoints,int CarryAmmount){
+        
     }
 }
