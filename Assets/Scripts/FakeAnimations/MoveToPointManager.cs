@@ -7,14 +7,13 @@ public class MoveToPointManager : MonoBehaviour
     
     public Vector3 TargetPosition;
     public Vector3 CurrentPosition;
-    public float Speed;
+    public float Speed, SpeedCarrying;//Set from PeopleManager when Instatiating
+    public enum State { idle, working }
+    State _state = State.idle;
     public PeopleManager MyPeopleManager;
     private void Awake()
     {
-        if (Speed ==0 ) {
-            Debug.Log("Speed was 0, it has been changed to 2");
-            Speed = 2;
-        }
+   
         CurrentPosition = gameObject.transform.localPosition;
     }
     private void OnEnable()

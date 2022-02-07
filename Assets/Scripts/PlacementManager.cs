@@ -9,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class PlacementManager : MonoBehaviour
 {
+
+    public static Action<int,int> OnStoredSuccesfully;
     private int x, y;
     public int Row = 1, Line=1 ;        //set in the editor
 
@@ -69,9 +71,9 @@ public class PlacementManager : MonoBehaviour
             go.GetComponent<Transform>().position = GO_Indicator.transform.position;
             go.GetComponent<BoxCollider>().enabled = true;
             go.GetComponent<MeshRenderer>().enabled = true;
-            go.AddComponent<EnableIsKinematicAfterTime>().OnSuccefullyStored+= addToCache;
             go.name = "Tile At:" +x+"," + y;
-            
+            go.AddComponent<EnableIsKinematicAfterTime>().OnSuccefullyStored += addToCache;
+
             x++;
             if (x == Row)
             {
@@ -91,7 +93,7 @@ public class PlacementManager : MonoBehaviour
     }
 
 
-    List<GameObject> cashedGO = new List<GameObject>();
+    public List<GameObject> cashedGO = new List<GameObject>();
     List<KeyValuePair<Vector2, Rigidbody>> tileAtPos = new List<KeyValuePair<Vector2, Rigidbody>>();
     private void addToCache(GameObject go) {
         cashedGO.Add(go);
@@ -103,7 +105,7 @@ public class PlacementManager : MonoBehaviour
 
         go.GetComponent<EnableIsKinematicAfterTime>().OnSuccefullyStored -= addToCache;
         //Debug.Log("IsInvoking" + go.GetComponent<EnableIsKinematicAfterTime>().OnSuccefullyStored.GetInvocationList().Length);
-        Debug.Log("addedToCache");
+        //Debug.Log("addedToCache");
     }
 
 

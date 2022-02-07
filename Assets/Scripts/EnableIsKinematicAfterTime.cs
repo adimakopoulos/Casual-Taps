@@ -11,15 +11,17 @@ public class EnableIsKinematicAfterTime : MonoBehaviour
 
     private void Awake()
     {
-        _myRigidbody=GetComponent<Rigidbody>();
+        
+        _myRigidbody =GetComponent<Rigidbody>();
     }
     void Update()
     {
 
         if (_passedSeconds > timeUntilEnabled) {
             _myRigidbody.isKinematic = true;
-            this.enabled = false;
+            
             OnSuccefullyStored?.Invoke(gameObject);
+            this.enabled = false;
             //var a = OnSuccefullyStored.GetInvocationList();
             //Debug.Log(a.Length);
         }

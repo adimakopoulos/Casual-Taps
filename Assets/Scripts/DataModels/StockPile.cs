@@ -53,7 +53,7 @@ public class StockPile
     /// <param name="typeMetal"></param>
     /// <param name="amount"></param>
     /// <returns></returns>
-    public int withdraw(TileManager.TypeMetal typeMetal, int amount)
+    public int Withdraw(TileManager.TypeMetal typeMetal, int amount)
     {
         if (typeMetal == TileManager.TypeMetal.coal)
         {
@@ -65,10 +65,15 @@ public class StockPile
             }
             else
             {
-                if (CoalOre>0) 
-                    return CoalOre;      //return remaing.
-                else
-                    return 0;
+                if (CoalOre>0) {
+                    var OreLeft = CoalOre;
+                    CoalOre = 0;
+                    return OreLeft; 
+                }
+                else { 
+                    return 0; 
+                }
+                   
             }
 
         }
@@ -83,9 +88,16 @@ public class StockPile
             else
             {
                 if (GoldOre > 0)
-                    return GoldOre;
+                {
+                    var OreLeft = GoldOre;
+                    GoldOre = 0;
+                    return OreLeft;
+                }
                 else
+                {
                     return 0;
+                }
+
             }
         }
         if (typeMetal == TileManager.TypeMetal.iron)
@@ -96,11 +108,18 @@ public class StockPile
                 IronOre -= amount;
                 return amount;
             }
-            else {                  
-                if (IronOre > 0)       
-                    return IronOre;
+            else {
+                if (IronOre > 0)
+                {
+                    var OreLeft = IronOre;
+                    IronOre = 0;
+                    return OreLeft;
+                }
                 else
+                {
                     return 0;
+                }
+
             }
         }
         return 0;

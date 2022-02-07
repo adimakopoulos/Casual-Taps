@@ -36,6 +36,7 @@ public class PeopleManager : MonoBehaviour
         var go = Instantiate(personPrefab, gameObject.transform);
         go.SetActive(true);
         go.GetComponent<MoveToPointManager>().Speed = people.speedNormal;
+        go.GetComponent<MoveToPointManager>().SpeedCarrying = people.speedCarrying;
         goPeople.Add(go);
     }
 
