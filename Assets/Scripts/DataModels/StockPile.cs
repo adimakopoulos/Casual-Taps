@@ -9,7 +9,6 @@ public class StockPile
     public int CoalOre;
     public int IronOre;
     public int Capacity;
-    public bool monoStore;
 
     public StockPile(int goldOre, int coalOre, int ironOre, int capacity)
     {
@@ -19,6 +18,78 @@ public class StockPile
         Capacity = capacity;    
     }
 
+    /// <summary>
+    /// Checks if the Transaction is Doable and return the value of available Ore stored.
+    /// CanTransact does not mutate the data of the class. 
+    /// </summary>
+    /// <param name="typeMetal"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public int CanTransact(TileManager.TypeMetal typeMetal, int amount) {
+        if (typeMetal == TileManager.TypeMetal.coal)
+        {
+            if (amount <= CoalOre)
+            {
+                return amount;
+            }
+            else
+            {
+                if (CoalOre > 0)
+                {
+                    return CoalOre;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+
+        }
+        if (typeMetal == TileManager.TypeMetal.gold)
+        {
+
+            if (amount <= GoldOre)
+            {
+                return amount;
+            }
+            else
+            {
+                if (GoldOre > 0)
+                {
+                    return GoldOre;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+        }
+        if (typeMetal == TileManager.TypeMetal.iron)
+        {
+
+            if (amount <= IronOre)
+            {
+                return amount;
+            }
+            else
+            {
+                if (IronOre > 0)
+                {
+                    return IronOre;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+        }
+        return 0;
+
+
+    }
     /// <summary>
     /// Returns a boolean that describes if the StockPile has enough capacity to Store the required metals.
     /// </summary>

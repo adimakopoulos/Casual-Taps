@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,27 +9,37 @@ public class MoveToPointManager : MonoBehaviour
     public Vector3 TargetPosition;
     public Vector3 CurrentPosition;
     public float Speed, SpeedCarrying;//Set from PeopleManager when Instatiating
-    public enum State { idle, working }
-    State _state = State.idle;
+
     public PeopleManager MyPeopleManager;
+    private WorkerManager _myStateMachine;
+    public Action OnDestinationReached;
+    private bool _isMovingTowards;
     private void Awake()
     {
-   
+        _myStateMachine = GetComponent<WorkerManager>();
         CurrentPosition = gameObject.transform.localPosition;
     }
     private void OnEnable()
     {
-        MyPeopleManager.OnNewTargetToMove += setTarget;
+        _myStateMachine.OnNewDestination += setTarget;
     }
     private void OnDisable()
     {
-        MyPeopleManager.OnNewTargetToMove -= setTarget;
+        _myStateMachine.OnNewDestination -= setTarget;
     }
     // Update is called once per frame
     void Update()
     {
-        if (CurrentPosition != TargetPosition)  
+        if (CurrentPosition != TargetPosition) {
             gameObject.transform.position= Vector3.MoveTowards(gameObject.transform.position, TargetPosition, Speed*Time.deltaTime);
+            CurrentPosition = gameObject.transform.position;
+            return;
+        }
+        if (_isMovingTowards && CurrentPosition == TargetPosition) {
+            _isMovingTowards = false;
+            OnDestinationReached?.Invoke();
+            
+        }
 
         
 
@@ -36,7 +47,7 @@ public class MoveToPointManager : MonoBehaviour
     }
 
     private void setTarget(Vector3 target) {
-        //target.y = 0;
+        _isMovingTowards = true;
         TargetPosition = target ;
         transform.LookAt(TargetPosition);
         

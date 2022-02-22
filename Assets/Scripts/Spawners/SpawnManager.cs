@@ -19,7 +19,7 @@ public class SpawnManager : MonoBehaviour
     {
         
         if (Prefab == null) {
-            Debug.Log("ColumnExtension Instance not set!");
+            Debug.Log("Prefab Instance not set!");
         }
         if (SpawnNum <= 0)
         {

@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlacementManager : MonoBehaviour
 {
 
-    public static Action<int,int> OnStoredSuccesfully;
+    public static Action<int, int> OnStoredSuccesfully;
     private int x, y;
     public int Row = 1, Line=1 ;        //set in the editor
 
@@ -21,9 +21,13 @@ public class PlacementManager : MonoBehaviour
     private List<GameObject> _bufferList=  new List<GameObject>();
     Vector3 _originalPos;
     StockPileManager _stockPileInstance;
+
+    List<Material> _materials = new List<Material>();
     private void Awake()
     {
-
+        _materials.Add(Resources.Load<Material>("Materials/TypesOfTiles/MatCoal") as Material);
+        _materials.Add(Resources.Load<Material>("Materials/TypesOfTiles/MatIron") as Material);
+        _materials.Add(Resources.Load<Material>("Materials/TypesOfTiles/MatGold") as Material);
         _originalPos = GO_Indicator.transform.position;
         _stockPileInstance = GetComponent<StockPileManager>();
         GO_Indicator.GetComponent<MeshRenderer>().enabled = false;
@@ -51,10 +55,17 @@ public class PlacementManager : MonoBehaviour
         
     }
 
-    void addToBufferList(int amount) {
+    void addToBufferList(int amount,TileManager.TypeMetal metal) {
         for (int i = 0; i < amount; i++)
         {
-            _bufferList.Add(Instantiate(GO_Indicator,gameObject.transform));
+            var go = Instantiate(GO_Indicator, gameObject.transform);
+            if (metal == TileManager.TypeMetal.coal)
+                go.GetComponent<MeshRenderer>().material = _materials[0];
+            if (metal == TileManager.TypeMetal.iron)
+                go.GetComponent<MeshRenderer>().material = _materials[1];
+            if (metal == TileManager.TypeMetal.gold)
+                go.GetComponent<MeshRenderer>().material = _materials[2];
+            _bufferList.Add(go);
         }
 
        

@@ -47,19 +47,19 @@ public class TileManager : MonoBehaviour
         if (metal == TypeMetal.gold)
         {
 
-            currMaterial = Resources.Load<Material>("Materials/MatGold") as Material;
+            currMaterial = Resources.Load<Material>("Materials/TypesOfTiles/MatGold") as Material;
             GetComponent<MeshRenderer>().material = currMaterial;
         }
         if (metal == TypeMetal.iron)
         {
 
-            currMaterial = Resources.Load<Material>("Materials/MatIron") as Material;
+            currMaterial = Resources.Load<Material>("Materials/TypesOfTiles/MatIron") as Material;
             GetComponent<MeshRenderer>().material = currMaterial;
         }
         if (metal == TypeMetal.coal)
         {
 
-            currMaterial = Resources.Load<Material>("Materials/MatCoal") as Material;
+            currMaterial = Resources.Load<Material>("Materials/TypesOfTiles/MatCoal") as Material;
             GetComponent<MeshRenderer>().material = currMaterial;
         }
 

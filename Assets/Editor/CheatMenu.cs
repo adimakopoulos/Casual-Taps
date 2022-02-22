@@ -131,6 +131,38 @@ public static class CheatMenu
         }
 
     }
+    [MenuItem("Cheats/Add Recource/Get 1 Coal,1 Gold, 1 Iron in MinerStockPile")]
+    public static void Add1OfEachToMinerStockPile()
+    {
+        var MinerStockPile = GameObject.Find("MinerStockPile");
+        if (MinerStockPile != null)
+        {
+            MinerStockPile.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.coal, 1);
+            MinerStockPile.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.iron, 1);
+            MinerStockPile.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.gold, 1);
+        }
+        else
+        {
+            Debug.Log("Coundn't Find StockPile.");
+        }
+
+    }
+
+    [MenuItem("Cheats/Add Recource/Get 22 Iron in MinerStockPile")]
+    public static void Add22IronToMinerStockPile()
+    {
+        var MinerStockPile = GameObject.Find("MinerStockPile");
+        if (MinerStockPile != null)
+        {
+            MinerStockPile.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.iron, 22);
+
+        }
+        else
+        {
+            Debug.Log("Coundn't Find StockPile.");
+        }
+
+    }
 
     [MenuItem("Cheats/Remove Recource/Remove 11 Coal in MinerStockPile")]
     public static void Withdraw10CoalToMinerStockPile()
@@ -154,7 +186,7 @@ public static class CheatMenu
         var StockPileElevatorA1 = GameObject.Find("TransportPeopleB");
         if (StockPileElevatorA1 != null)
         {
-            StockPileElevatorA1.GetComponent<PeopleManager>().IcreaceWorker();
+            StockPileElevatorA1.GetComponent<PeopleManager>().IncreaceWorker();
 
         }
         else

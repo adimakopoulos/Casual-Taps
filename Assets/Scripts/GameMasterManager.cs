@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameMasterManager : MonoBehaviour
 {
+    /// <summary>
+    /// Data are loaded in after Awake Function has Run.
+    /// Use MonoBehaviour Start to get the correct data.
+    /// </summary>
     public static GameMasterManager GMMInstance;
     public Stats myStats;
     public Shop myShop;//TODO: Shop should be its own class.

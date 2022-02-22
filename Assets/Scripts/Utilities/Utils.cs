@@ -9,6 +9,8 @@ public static class Utils
     const int RateLegendary = 5;
     public  enum  Rarity { Common, Rare, Legendary};
     //public static Stats operator ++(Stats gameRoomData) { return gameRoomData; }
+
+    const string path = "Materials/TypesOfTiles/";
     public static Rarity GetRandomRarity()
     {
 
@@ -44,6 +46,30 @@ public static class Utils
             return 0;
         }
 
+
+    }
+    /// <summary>
+    /// first letter must be Capital.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public static Material GetMaterialByName(string name) {
+        name = char.ToUpper(name[0])+ name.Substring(1);
+
+
+        var MatirialName = "Mat" + name;
+        if (name.Contains("Coal")) {
+            return Resources.Load<Material>(path+ MatirialName);
+        }
+        if (name.Contains("Gold"))
+        {
+            return Resources.Load<Material>(path + MatirialName);
+        }
+        if (name.Contains("Iron"))
+        {
+            return Resources.Load<Material>(path + MatirialName);
+        }
+        return null; 
 
     }
 }
