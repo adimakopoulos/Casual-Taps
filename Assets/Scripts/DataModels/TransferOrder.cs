@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Carry a quantity of objects from Supplier(Worldspace Coordinates) to Consumer(Worldspace Coordinates).
+/// </summary>
 public class TransferOrder
 {
     

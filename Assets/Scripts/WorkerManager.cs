@@ -16,6 +16,7 @@ public class WorkerManager : MonoBehaviour
     public GameObject Piece;// set in inspector
     List<GameObject> Pieces = new List<GameObject>();
 
+
     private void Awake()
     {
 
@@ -132,5 +133,15 @@ public class WorkerManager : MonoBehaviour
             //item.GetComponent<Renderer>().material = Utils.GetMaterialByName(TileManager.TypeMetal);
         }
     }
+
+
+
+    //------------getset------------------
+    public TransferOrder GetCurrentOrders()
+    {
+
+        return _myOrders;
+    }
+
 
 }

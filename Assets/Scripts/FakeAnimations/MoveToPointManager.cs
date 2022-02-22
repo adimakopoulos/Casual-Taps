@@ -27,11 +27,19 @@ public class MoveToPointManager : MonoBehaviour
     {
         _myStateMachine.OnNewDestination -= setTarget;
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (CurrentPosition != TargetPosition) {
-            gameObject.transform.position= Vector3.MoveTowards(gameObject.transform.position, TargetPosition, Speed*Time.deltaTime);
+            var currSpeed = Speed;
+            var orders = _myStateMachine.GetCurrentOrders();
+            //Going to consumer means that the worker is already carrying objects;
+            if (orders != null && orders.CurrentStage == TransferOrder.TranferStage.GoingToConsumer) {
+                currSpeed = SpeedCarrying;
+            }
+
+
+            gameObject.transform.position= Vector3.MoveTowards(gameObject.transform.position, TargetPosition, currSpeed * Time.deltaTime);
             CurrentPosition = gameObject.transform.position;
             return;
         }

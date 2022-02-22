@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnableIsKinematicAfterTime : MonoBehaviour
 {
     public System.Action<GameObject> OnSuccefullyStored;
-    public float timeUntilEnabled=4f;
+    public float timeUntilEnabled=2f;
     float _passedSeconds=0f;
     Rigidbody _myRigidbody;
 

@@ -195,4 +195,24 @@ public static class CheatMenu
         }
 
     }
+
+
+    [MenuItem("Cheats/Give Stats To Worker/Double Speed")]
+    public static void DoubleSpeedTransportPeopleB()
+    {
+        var TransportPeopleB = GameObject.Find("TransportPeopleB");
+        if (TransportPeopleB != null)
+        {
+            var workerManagerScript = TransportPeopleB.GetComponent<PeopleManager>();
+            workerManagerScript.PeopleData.speedNormal *= 2f;
+            workerManagerScript.PeopleData.speedCarrying *= 2f;
+            workerManagerScript.UpdateWorkerStats_Speed();
+
+        }
+        else
+        {
+            Debug.Log("Coundn't Find TransportPeopleB.");
+        }
+
+    }
 }

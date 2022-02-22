@@ -7,7 +7,7 @@ public class PeopleManager : MonoBehaviour
 {
 
     public People PeopleData;
-    List<GameObject> goPeople = new List<GameObject>();
+    List<GameObject> _goPeople = new List<GameObject>();
     public Action<TransferOrder> OnNewTransferJob;
 
     public List<Transform> PointsOfIntrest;// Set points of intrest in inspector
@@ -37,7 +37,7 @@ public class PeopleManager : MonoBehaviour
     }
 
     private void OnDisable () {
-        foreach (var item in goPeople)
+        foreach (var item in _goPeople)
         {
             item.GetComponent<WorkerManager>().OnJobCompleted -= completeJob;
         }
@@ -51,10 +51,10 @@ public class PeopleManager : MonoBehaviour
 
 
         if (PointsOfIntrest[0].GetComponent<PlacementManager>().cashedGO.Count>=PeopleData.CarryingCapacity + pendingPeices) {
-            //Debug.Log("cashedGO.Count) =  " + PointsOfIntrest[0].GetComponent<PlacementManager>().cashedGO.Count);
+            //Debug.Log("cashedGO.Count) =  " + PointsOfIntrest[0].GetComponent<PlacementManager>().cashedGO.Count); TODO: Remove Debug... 
             _jobs.Enqueue(createJob());
             pendingPeices += PeopleData.CarryingCapacity;
-            Debug.Log("_jobs.Count = "+_jobs.Count);
+            //Debug.Log("_jobs.Count = "+_jobs.Count); TODO: Remove Debug... 
         }
         
 
@@ -62,7 +62,7 @@ public class PeopleManager : MonoBehaviour
 
     private void checkForIdleWorkes() {
         if (_jobs.Count>0) { 
-        foreach (var worker in goPeople)
+        foreach (var worker in _goPeople)
         {
             var result = worker.GetComponent<WorkerManager>();
             if (result == null) {
@@ -85,7 +85,10 @@ public class PeopleManager : MonoBehaviour
         pendingPeices -= order.Ammount;
     }
 
-
+    /// <summary>
+    /// points of intrest are set manualy in the inspector.<br>
+    /// the first point should always be the Supplying Stockpile and the second should be the Consumer.
+    /// </summary>
     private void findStockPiles() {
         foreach (var go in PointsOfIntrest) {
             var sp = go.GetComponent<IStockPile>();
@@ -102,7 +105,7 @@ public class PeopleManager : MonoBehaviour
         go.GetComponent<WorkerManager>().OnJobCompleted += completeJob;
         go.GetComponent<MoveToPointManager>().Speed = PeopleData.speedNormal;
         go.GetComponent<MoveToPointManager>().SpeedCarrying = PeopleData.speedCarrying;
-        goPeople.Add(go);
+        _goPeople.Add(go);
     }
 
 
@@ -156,6 +159,14 @@ public class PeopleManager : MonoBehaviour
         return myStockPiles[1];
     }
 
+
+
+    public void UpdateWorkerStats_Speed() { 
+        foreach (var worker in _goPeople) {
+            worker.GetComponent<MoveToPointManager>().Speed = PeopleData.speedNormal;
+            worker.GetComponent<MoveToPointManager>().SpeedCarrying = PeopleData.speedCarrying;
+        }
+    }
     private void OnDrawGizmosSelected()
     {
         //Gizmos.color = Color.red;
