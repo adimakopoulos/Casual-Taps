@@ -9,7 +9,7 @@ public class TileManager : MonoBehaviour
     int health;
     private int ironOrePieces;
     public GameObject BrokenVersion;
-    public enum TypeMetal { iron , gold , coal };
+    public enum TypeMetal { iron , gold , coal , NoMateial};
     public TypeMetal metal;
 
     public Material currMaterial;

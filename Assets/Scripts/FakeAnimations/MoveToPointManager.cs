@@ -66,7 +66,7 @@ public class MoveToPointManager : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawLine(gameObject.transform.position, TargetPosition);
-        Gizmos.DrawSphere(TargetPosition, 1f);
+        Gizmos.DrawSphere(TargetPosition, 0.15f);
     }
     //void lerpBetweenPotitions() {
     //    gameObject.transform.localPosition = Vector3.Slerp(CurrentPosition, TargetPosition, Time.deltaTime / Speed);

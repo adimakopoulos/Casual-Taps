@@ -49,16 +49,41 @@ public class PeopleManager : MonoBehaviour
     /// </summary>
     private void chekForNewJob(){
 
-
-        if (PointsOfIntrest[0].GetComponent<PlacementManager>().cashedGO.Count>=PeopleData.CarryingCapacity + pendingPeices) {
-            //Debug.Log("cashedGO.Count) =  " + PointsOfIntrest[0].GetComponent<PlacementManager>().cashedGO.Count); TODO: Remove Debug... 
+        var countOfStoredPieces = PointsOfIntrest[0].GetComponent<PlacementManager>()?.cashedGO.Count;
+        if (countOfStoredPieces >= PeopleData.CarryingCapacity + pendingPeices) {
             _jobs.Enqueue(createJob());
             pendingPeices += PeopleData.CarryingCapacity;
-            //Debug.Log("_jobs.Count = "+_jobs.Count); TODO: Remove Debug... 
+            //Debug.Log("Job created in " + gameObject.name + " With cashedGO.Count" + PointsOfIntrest[0].GetComponent<PlacementManager>()?.cashedGO.Count);
+            return;
         }
-        
+        countOfStoredPieces = PointsOfIntrest[0].GetComponent<LoosePiecesManager>()?.LoosePieces.Count;
+        if (countOfStoredPieces >= PeopleData.CarryingCapacity + pendingPeices)
+        {
+            _jobs.Enqueue(createJobWithManySuppliers(PeopleData.CarryingCapacity));
+            pendingPeices += PeopleData.CarryingCapacity;
+            //Debug.Log("Job created in " + gameObject.name + " With LoosePieces.Count" + PointsOfIntrest[0].GetComponent<LoosePiecesManager>()?.LoosePieces.Count);
+            return;
+        }
 
     }
+
+    private TransferOrder createJobWithManySuppliers(int NumOfSupply)
+    {
+        var suppliers = new Vector3[NumOfSupply];
+        var CashedManager = PointsOfIntrest[0].GetComponent<LoosePiecesManager>();
+        for (int i = 0; i < NumOfSupply; i++)
+        {
+            suppliers[i] = CashedManager.GetLocationOfPieceWithIndex(i+pendingPeices);
+        }
+
+        var consumer = PointsOfIntrest[1].transform.position;
+
+
+        var job = new TransferOrder(suppliers, consumer, PeopleData.CarryingCapacity);
+        return job;
+    }
+
+
 
     private void checkForIdleWorkes() {
         if (_jobs.Count>0) { 
@@ -82,7 +107,13 @@ public class PeopleManager : MonoBehaviour
 
     }
     private void completeJob(TransferOrder order) {
+        if (order.Suppliers?.Length > 0)
+            return;//because its already subtracked;
         pendingPeices -= order.Ammount;
+    }
+    private void SupplierReached()
+    {
+        pendingPeices --;
     }
 
     /// <summary>
@@ -103,6 +134,7 @@ public class PeopleManager : MonoBehaviour
         var go = Instantiate(personPrefab, gameObject.transform);
         go.SetActive(true);
         go.GetComponent<WorkerManager>().OnJobCompleted += completeJob;
+        go.GetComponent<WorkerManager>().OnSupplierReached += SupplierReached;
         go.GetComponent<MoveToPointManager>().Speed = PeopleData.speedNormal;
         go.GetComponent<MoveToPointManager>().SpeedCarrying = PeopleData.speedCarrying;
         _goPeople.Add(go);
@@ -145,6 +177,7 @@ public class PeopleManager : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     private TransferOrder createJob() {
+
         var supplier = PointsOfIntrest[0].transform.position;
         var consumer = PointsOfIntrest[1].transform.position;
         var job = new TransferOrder(supplier, consumer, PeopleData.CarryingCapacity);
@@ -167,6 +200,9 @@ public class PeopleManager : MonoBehaviour
             worker.GetComponent<MoveToPointManager>().SpeedCarrying = PeopleData.speedCarrying;
         }
     }
+
+
+
     private void OnDrawGizmosSelected()
     {
         //Gizmos.color = Color.red;

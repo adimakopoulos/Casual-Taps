@@ -195,6 +195,22 @@ public static class CheatMenu
         }
 
     }
+   
+    [MenuItem("Cheats/Add Worker to TransportPeopleC")]
+    public static void AddWorkerTransportPeopleC()
+    {
+        var StockPileElevatorA1 = GameObject.Find("TransportPeopleC");
+        if (StockPileElevatorA1 != null)
+        {
+            StockPileElevatorA1.GetComponent<PeopleManager>().IncreaceWorker();
+
+        }
+        else
+        {
+            Debug.Log("Coundn't Find TransportPeopleB.");
+        }
+
+    }
 
 
     [MenuItem("Cheats/Give Stats To Worker/Double Speed")]

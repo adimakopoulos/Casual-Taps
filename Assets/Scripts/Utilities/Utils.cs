@@ -72,4 +72,21 @@ public static class Utils
         return null; 
 
     }
+    public static TileManager.TypeMetal GetTypeByMaterial(Material Mat)
+    {
+        if (Mat.name.Contains("Coal"))
+        {
+            return TileManager.TypeMetal.coal;
+        }
+        if (Mat.name.Contains("Gold"))
+        {
+            return TileManager.TypeMetal.gold;
+        }
+        if (Mat.name.Contains("Iron"))
+        {
+            return TileManager.TypeMetal.iron;
+        }
+        return TileManager.TypeMetal.NoMateial;
+
+    }
 }

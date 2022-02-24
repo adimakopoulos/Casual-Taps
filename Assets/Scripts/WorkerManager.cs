@@ -7,6 +7,7 @@ public class WorkerManager : MonoBehaviour
 {
     public Action<Vector3> OnNewDestination;
     public Action<TransferOrder> OnJobCompleted;
+    public Action OnSupplierReached;//this gets called when handling multiple Suppliers
     public enum State { idle, working }
     State _state = State.idle;
 
@@ -16,7 +17,7 @@ public class WorkerManager : MonoBehaviour
     public GameObject Piece;// set in inspector
     List<GameObject> Pieces = new List<GameObject>();
 
-
+    private int IndexOfSuppliers;
     private void Awake()
     {
 
@@ -40,7 +41,7 @@ public class WorkerManager : MonoBehaviour
 
 
 
-
+    
     private void setNewOrders() {
         if (_myOrders == null)
             return;
@@ -89,15 +90,38 @@ public class WorkerManager : MonoBehaviour
             return;
         }
 
+        //handle Multiple Suppliers
+        if (_myOrders.CurrentStage == TransferOrder.TranferStage.GoingToSuppliers)
+        {
+            if (IndexOfSuppliers == _myOrders.GetNumOfSuppliers()) {
+                _myOrders.CurrentStage = TransferOrder.TranferStage.GoingToConsumer;
+                OnSupplierReached?.Invoke();
+                showTilesPeices(myGroup.GetSupplier().RemoveLastPieces(1));
+                OnNewDestination?.Invoke(_myOrders.Consumer);
+                return;
+            }
+            //withrdaw
+            OnSupplierReached?.Invoke();
+            var dic = myGroup.GetSupplier().RemoveLastPieces(1);
+            showTilesPeices(dic);
+            
+            OnNewDestination?.Invoke(_myOrders.Suppliers[IndexOfSuppliers]);
+            IndexOfSuppliers++;
+            return;
+        }
+
 
     }
 
 
 
     public void setToWork(TransferOrder TO) {
+
+        IndexOfSuppliers = 1; 
         _myOrders = TO;
         _state = State.working;
-        OnNewDestination?.Invoke(_myOrders.Supplier);
+        OnNewDestination?.Invoke(_myOrders.FirstSupplier);
+
     }
     public State GetState() { 
         return _state;
@@ -111,8 +135,12 @@ public class WorkerManager : MonoBehaviour
         //Debug.Log("Pieces.Clear();" + Pieces.Count);
     }
 
+    float displacement = 0f;
     private void showTilesPeices(Dictionary<TileManager.TypeMetal,int> dic) {
-        var displacement = 0f;
+        if (_myOrders.CurrentStage != TransferOrder.TranferStage.GoingToSuppliers) { 
+            displacement = 0f;
+        }
+        
         foreach (var item in dic)
         {
             
@@ -139,9 +167,8 @@ public class WorkerManager : MonoBehaviour
     //------------getset------------------
     public TransferOrder GetCurrentOrders()
     {
-
         return _myOrders;
     }
-
+     
 
 }

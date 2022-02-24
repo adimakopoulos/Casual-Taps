@@ -4,8 +4,14 @@ using UnityEngine;
 public class TileBrokenManager : MonoBehaviour
 {
     public Rigidbody[] BrokenPieces ;
-    public float TimeToLive;
+    private float TimeToLand = 4f;
     public Material metalMaterial;
+    /// <summary>
+    /// Pieces dont move Much From the Position that they land. So by waiting 4 seconds i can record an "accurate"
+    /// location and Add them to Available pieces
+    /// to be gathered by the workers.
+    /// </summary>
+    public System.Action <TileBrokenManager> On4SecondsPass;
     private void Awake()
     {
         SimpleGameEvents.OnTileShutter?.Invoke(this);
@@ -30,10 +36,9 @@ public class TileBrokenManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TimeToLive -= Time.deltaTime;
-        if (TimeToLive < 0) {
-            
-            //Destroy(this.gameObject);
+        TimeToLand -= Time.deltaTime;
+        if (TimeToLand < 0) {
+            On4SecondsPass?.Invoke(this);
         }
     }
     

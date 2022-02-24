@@ -174,7 +174,7 @@ MonoBehaviour:
   - {fileID: 7487165259581870524}
   - {fileID: 4026459134345704433}
   - {fileID: 4357884287393263273}
-  TimeToLive: 10
+  TimeToLive: 4
   metalMaterial: {fileID: 0}
 --- !u!1 &1262569469315615151
 GameObject:

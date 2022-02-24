@@ -18,12 +18,11 @@ public class EnableIsKinematicAfterTime : MonoBehaviour
     {
 
         if (_passedSeconds > timeUntilEnabled) {
-            _myRigidbody.isKinematic = true;
+            _myRigidbody.isKinematic = false;//TODO: is set to false for testing, remember to change it back
             
             OnSuccefullyStored?.Invoke(gameObject);
             this.enabled = false;
-            //var a = OnSuccefullyStored.GetInvocationList();
-            //Debug.Log(a.Length);
+
         }
         _passedSeconds+= Time.deltaTime;
     }
