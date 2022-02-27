@@ -6,6 +6,7 @@ public class RainFallEffect : MonoBehaviour
 {
     public GameObject GOtoSpawn;
     List<GameObject> _bufferList;
+    List<GameObject> _allStoredGOList;
     int _loosePieces =0 ;
     //public TileManager.TypeMetal MetalTypeStored;
     float _spawnInterval = 0.05f;
@@ -18,15 +19,16 @@ public class RainFallEffect : MonoBehaviour
         GOtoSpawn.GetComponent<MeshRenderer>().enabled = false;
         _parentTransform = GetComponentInParent<Transform>();
         _bufferList = new List<GameObject>();
+        _allStoredGOList = new List<GameObject>();
     }
 
     private void OnEnable()
     {
-        InventoryManager.OnLoosePiecesProcessed += setList;
+        InventoryManager.OnSmallPiecesProcessed += setList;
     }
     private void OnDisable()
     {
-        InventoryManager.OnLoosePiecesProcessed -= setList;
+        InventoryManager.OnSmallPiecesProcessed -= setList;
     }
     // Update is called once per frame
     void Update()
@@ -38,10 +40,10 @@ public class RainFallEffect : MonoBehaviour
 
     }
 
-    public void getPiece() {
+    public void Add1SmallPiece() {
         _loosePieces++;
     }
-    public void getPiece(int amount)
+    public void AddSmallPieces(int amount)
     {
         _loosePieces+= amount;
     }
@@ -54,6 +56,10 @@ public class RainFallEffect : MonoBehaviour
         }
         _loosePieces = 0;
         
+    }
+    public void RemoveFirstStoredGameObject() {
+        Destroy(_allStoredGOList[0]);
+        _allStoredGOList.RemoveAt(0);
     }
 
     float _timePassed = 0f;
@@ -81,7 +87,9 @@ public class RainFallEffect : MonoBehaviour
                 y = 0; 
             } 
 
+            _allStoredGOList.Add(_bufferList[_bufferList.Count - 1]);
             _bufferList.RemoveAt(_bufferList.Count - 1);
+            
             _timePassed =0;
         }
         _timePassed+= Time.deltaTime;

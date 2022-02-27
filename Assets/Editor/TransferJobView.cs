@@ -22,23 +22,8 @@ public class TransferJobView : Editor
         {
             EditorGUILayout.Vector3Field("Supplier" + i + ": ", worker.GetCurrentOrders().Suppliers[i]);
         }
-
+        EditorGUILayout.TextField("CurrentStage ", orders.CurrentStage.ToString() );
     }
 
 
-
-
-
-
-    private void OnGUI()
-    {
-        Vector3 Supplier, Consumer;
-        TransferOrder to;
-        GameObject go;
-
-        //Supplier = EditorGUILayout.ObjectField("Queue ", Supplier);
-
-
-
-    }
 }

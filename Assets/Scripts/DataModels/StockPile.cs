@@ -91,7 +91,7 @@ public class StockPile
 
     }
     /// <summary>
-    /// Returns a boolean that describes if the StockPile has enough capacity to Store the required metals.
+    /// It tries to store the given ammount. Returns a boolean that describes if the StockPile has enough capacity to Store the required metals.
     /// </summary>
     /// <param name="typeMetal"></param>
     /// <param name="amount"></param>

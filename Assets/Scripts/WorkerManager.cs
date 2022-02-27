@@ -68,15 +68,15 @@ public class WorkerManager : MonoBehaviour
             {
                 var type = item.GetComponent<Renderer>().material.name;
                 if (type.Contains("Coal")) {
-                    myGroup.GetConsumer().AddPiece(TileManager.TypeMetal.coal,1); 
+                    myGroup.GetConsumer().Add1SmallPiece(TileManager.TypeMetal.coal); 
                 }
                 if (type.Contains("Gold"))
                 {
-                    myGroup.GetConsumer().AddPiece(TileManager.TypeMetal.gold, 1);
+                    myGroup.GetConsumer().Add1SmallPiece(TileManager.TypeMetal.gold);
                 }
                 if (type.Contains("Iron"))
                 {
-                    myGroup.GetConsumer().AddPiece(TileManager.TypeMetal.iron, 1);
+                    myGroup.GetConsumer().Add1SmallPiece(TileManager.TypeMetal.iron);
                 }
 
             }

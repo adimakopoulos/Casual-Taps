@@ -121,8 +121,8 @@ GameObject:
   - component: {fileID: 2872441419036425962}
   - component: {fileID: 2872441419036425960}
   - component: {fileID: 2872441419036425961}
-  - component: {fileID: 2872441419036425958}
   - component: {fileID: 2872441419036425959}
+  - component: {fileID: 2872441419036425958}
   m_Layer: 0
   m_Name: TileBroken
   m_TagString: Untagged
@@ -193,6 +193,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2872441419036425959
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872441419036425963}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.0063511753, y: 0.006331861, z: 0.0028442952}
+  m_Center: {x: -0.003325441, y: -0.0033857138, z: 0.0014221367}
 --- !u!54 &2872441419036425958
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -209,16 +222,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
---- !u!65 &2872441419036425959
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2872441419036425963}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.0063511753, y: 0.006331861, z: 0.0028442952}
-  m_Center: {x: -0.003325441, y: -0.0033857138, z: 0.0014221367}

@@ -45,7 +45,7 @@ public class PeopleManager : MonoBehaviour
     
 
     /// <summary>
-    /// gets called Periodicaly with InvokeRepeating
+    /// gets called Periodicaly with InvokeRepeating At Monobehavior.Start ()
     /// </summary>
     private void chekForNewJob(){
 

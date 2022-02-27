@@ -33,7 +33,11 @@ public static class CheatMenu
         var StockPileCoal = GameObject.Find("StockPileCoal");
         if (StockPileCoal != null)
         {
-            StockPileCoal.GetComponent<RainFallEffect>().getPiece(100);
+            for (int i = 0; i < 100; i++)
+            {
+                StockPileCoal.GetComponent<InventoryManager>().Add1SmallPiece(TileManager.TypeMetal.coal);
+            }
+            
         }
         else
         {
@@ -45,10 +49,12 @@ public static class CheatMenu
     [MenuItem("Cheats/Add Recource/Get 100 gold")]
     public static void add100Gold()
     {
-        var StockPileGold = GameObject.Find("StockPileGold");
+        var StockPileGold = GameObject.Find("StockPileCoal");
         if (StockPileGold != null)
         {
-            StockPileGold.GetComponent<RainFallEffect>().getPiece(100);
+            for (int i = 0; i < 100; i++)
+            
+                StockPileGold.GetComponent<InventoryManager>().Add1SmallPiece(TileManager.TypeMetal.gold);
         }
         else
         {
@@ -60,10 +66,11 @@ public static class CheatMenu
     [MenuItem("Cheats/Add Recource/Get 100 Iron")]
     public static void Add100Iron()
     {
-        var StockPileIron = GameObject.Find("StockPileIron");
+        var StockPileIron = GameObject.Find("StockPileCoal");
         if (StockPileIron != null)
         {
-            StockPileIron.GetComponent<RainFallEffect>().getPiece(100);
+            for (int i = 0; i < 100; i++)
+                StockPileIron.GetComponent<InventoryManager>().Add1SmallPiece(TileManager.TypeMetal.iron);
         }
         else {
             Debug.Log("Coundn't Find StockPile.");
@@ -76,7 +83,7 @@ public static class CheatMenu
         var StockPileIron = GameObject.Find("StockPileIron");
         if (StockPileIron != null)
         {
-            StockPileIron.GetComponent<RainFallEffect>().getPiece(1000);
+            StockPileIron.GetComponent<RainFallEffect>().AddSmallPieces(1000);
         }
         else
         {
@@ -91,7 +98,7 @@ public static class CheatMenu
         var StockPileElevatorB = GameObject.Find("ElevatorB");
         if (StockPileElevatorB != null)
         {
-            StockPileElevatorB.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.coal , 10);
+            StockPileElevatorB.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.coal);
                 
         }
         else
@@ -107,7 +114,7 @@ public static class CheatMenu
         var StockPileElevatorA = GameObject.Find("ElevatorA");
         if (StockPileElevatorA != null)
         {
-            StockPileElevatorA.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.coal, 10);
+            StockPileElevatorA.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.coal);
 
         }
         else
@@ -122,7 +129,7 @@ public static class CheatMenu
         var MinerStockPile = GameObject.Find("MinerStockPile");
         if (MinerStockPile != null)
         {
-            MinerStockPile.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.coal, 50);
+            MinerStockPile.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.coal);
 
         }
         else
@@ -137,9 +144,25 @@ public static class CheatMenu
         var MinerStockPile = GameObject.Find("MinerStockPile");
         if (MinerStockPile != null)
         {
-            MinerStockPile.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.coal, 1);
-            MinerStockPile.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.iron, 1);
-            MinerStockPile.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.gold, 1);
+            MinerStockPile.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.coal);
+            MinerStockPile.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.iron);
+            MinerStockPile.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.gold);
+        }
+        else
+        {
+            Debug.Log("Coundn't Find StockPile.");
+        }
+
+    }
+    [MenuItem("Cheats/Add Recource/Get 1 Coal,1 Gold, 1 Iron in ElevatorLoader")]
+    public static void Add1OfEachToElevatorLoader()
+    {
+        var ElevatorLoader = GameObject.Find("ElevatorLoader");
+        if (ElevatorLoader != null)
+        {
+            ElevatorLoader.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.coal);
+            ElevatorLoader.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.iron);
+            ElevatorLoader.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.gold);
         }
         else
         {
@@ -154,7 +177,11 @@ public static class CheatMenu
         var MinerStockPile = GameObject.Find("MinerStockPile");
         if (MinerStockPile != null)
         {
-            MinerStockPile.GetComponent<StockPileManager>().AddPiece(TileManager.TypeMetal.iron, 22);
+            for (int i = 0; i < 22; i++)
+            {
+                MinerStockPile.GetComponent<StockPileManager>().Add1SmallPiece(TileManager.TypeMetal.iron);
+            }
+            
 
         }
         else
@@ -172,6 +199,24 @@ public static class CheatMenu
         {
 
             MinerStockPile.GetComponent<StockPileManager>().RemovePiece(TileManager.TypeMetal.coal, 11);
+        }
+        else
+        {
+            Debug.Log("Coundn't Find StockPile.");
+        }
+
+    }
+    [MenuItem("Cheats/Remove Recource/Remove 11 Coal,11 gold,11 Iron in StockPileCoal")]
+    public static void Remove11StockPileCoal()
+    {
+
+        var StockPileCoal = GameObject.Find("StockPileCoal");
+        if (StockPileCoal != null)
+        {
+
+            StockPileCoal.GetComponent<InventoryManager>().RemovePiece(TileManager.TypeMetal.coal, 11);
+            StockPileCoal.GetComponent<InventoryManager>().RemovePiece(TileManager.TypeMetal.iron, 11);
+            StockPileCoal.GetComponent<InventoryManager>().RemovePiece(TileManager.TypeMetal.gold, 11);
         }
         else
         {

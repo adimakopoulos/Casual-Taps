@@ -14,16 +14,17 @@ public class StockPileManager : MonoBehaviour, IStockPile
     private void Awake()
     {
 
-        myStockPileData = new StockPile(0,0,0,100);
+        myStockPileData = new StockPile(0,0,0, Capacity);
         myPlacementManager = GetComponent<PlacementManager>();
     }
 
-    public void AddPiece(TileManager.TypeMetal typeMetal, int amount) {
-        var isAbleToStore = myStockPileData.Deposit(typeMetal, amount);
+    public void Add1SmallPiece(TileManager.TypeMetal typeMetal)
+    {
+        var isAbleToStore = myStockPileData.Deposit(typeMetal, 1);
         //Debug.Log("isAbleToStore= " + isAbleToStore + " //myStockPile.Total="+ myStockPileData.getCurentTotal());
         if (isAbleToStore)
         {
-            OnDeposit?.Invoke(amount,typeMetal);
+            OnDeposit?.Invoke(1,typeMetal);
         }
 
 

@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlacementManager : MonoBehaviour
 {
 
-    public static Action<int, int> OnStoredSuccesfully;
+    public Action OnStoredSuccesfully;
     private int x, y;
     public int Row = 1, Line=1 ;        //set in the editor
 
@@ -19,7 +19,7 @@ public class PlacementManager : MonoBehaviour
     public float _lengthToMove;
     public GameObject GO_Indicator;
     private List<GameObject> _bufferList=  new List<GameObject>();
-    Vector3 _originalPos;
+    Vector3 _originalPos,_originalLocalPos;
     StockPileManager _stockPileInstance;
 
     List<Material> _materials = new List<Material>();
@@ -29,6 +29,7 @@ public class PlacementManager : MonoBehaviour
         _materials.Add(Resources.Load<Material>("Materials/TypesOfTiles/MatIron") as Material);
         _materials.Add(Resources.Load<Material>("Materials/TypesOfTiles/MatGold") as Material);
         _originalPos = GO_Indicator.transform.position;
+        _originalLocalPos = GO_Indicator.transform.localPosition ;
         _stockPileInstance = GetComponent<StockPileManager>();
         GO_Indicator.GetComponent<MeshRenderer>().enabled = false;
     }
@@ -37,12 +38,23 @@ public class PlacementManager : MonoBehaviour
     {
         _stockPileInstance.OnDeposit += addToBufferList;
         _stockPileInstance.OnWithDraw += RemoveCashedGO;
+        var EM = GetComponent<ElevatorManager>();
+        if (EM!=null)
+        {
+            GetComponent<ElevatorManager>().OnStateChanged += setOriginal;
+        }
+       
     }
 
     private void OnDisable()
     {
         _stockPileInstance.OnDeposit -= addToBufferList;
         _stockPileInstance.OnWithDraw -= RemoveCashedGO;
+        var EM = GetComponent<ElevatorManager>();
+        if (EM != null)
+        {
+            GetComponent<ElevatorManager>().OnStateChanged -= setOriginal;
+        }
 
     }
     // Update is called once per frame
@@ -53,6 +65,16 @@ public class PlacementManager : MonoBehaviour
             doRainFallEffect();
         }
         
+    }
+    private void setOriginal(ElevatorManager.State a) {
+        if (a == ElevatorManager.State.Loading|| a == ElevatorManager.State.Unloading)
+        {
+            _originalPos =  transform.TransformPoint(_originalLocalPos) ;
+            x = 0;
+            y = 0;
+        }
+        
+
     }
 
     void addToBufferList(int amount,TileManager.TypeMetal metal) {
@@ -76,6 +98,7 @@ public class PlacementManager : MonoBehaviour
         if (_timePassed > _spawnInterval)
         {
             GO_Indicator.transform.position = _originalPos + new Vector3(-_lengthToMove * y, 0, _lengthToMove * x);
+            
 
             var go = _bufferList[_bufferList.Count - 1];
             go.GetComponent<Rigidbody>().isKinematic = false;
@@ -115,6 +138,7 @@ public class PlacementManager : MonoBehaviour
         tileAtPos.Add(new KeyValuePair<Vector2, Rigidbody>(vector2LocalPos, go.GetComponent<Rigidbody>() ));
 
         go.GetComponent<EnableIsKinematicAfterTime>().OnSuccefullyStored -= addToCache;
+        OnStoredSuccesfully?.Invoke();
         //Debug.Log("IsInvoking" + go.GetComponent<EnableIsKinematicAfterTime>().OnSuccefullyStored.GetInvocationList().Length);
         //Debug.Log("addedToCache");
     }

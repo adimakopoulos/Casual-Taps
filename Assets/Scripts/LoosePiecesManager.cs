@@ -48,7 +48,7 @@ public class LoosePiecesManager : MonoBehaviour , IStockPile
             piece.transform.parent = this.gameObject.transform;
             
             var mat = Utils.GetTypeByMaterial(piece.GetComponent<Renderer>().material);
-            AddPiece(mat, 1);
+            Add1SmallPiece(mat);
         }
     }
 
@@ -64,9 +64,9 @@ public class LoosePiecesManager : MonoBehaviour , IStockPile
         
     }
 
-    public void AddPiece(TileManager.TypeMetal typeMetal, int ammount)
+    public void Add1SmallPiece(TileManager.TypeMetal typeMetal)
     {
-        var isAbleToStore = myStockPileData.Deposit(typeMetal, ammount);
+        var isAbleToStore = myStockPileData.Deposit(typeMetal, 1);
         //Debug.Log("isAbleToStore= " + isAbleToStore + " //myStockPile.Total="+ myStockPileData.getCurentTotal());
 
     }

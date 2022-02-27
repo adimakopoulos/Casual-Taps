@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class MoveToPointManager : MonoBehaviour
 {
-    
+    public Action OnDestinationReached;
+
     public Vector3 TargetPosition;
     public Vector3 CurrentPosition;
     public float Speed, SpeedCarrying;//Set from PeopleManager when Instatiating
 
     public PeopleManager MyPeopleManager;
     private WorkerManager _myStateMachine;
-    public Action OnDestinationReached;
+    
     private bool _isMovingTowards;
     private void Awake()
     {
@@ -63,6 +64,13 @@ public class MoveToPointManager : MonoBehaviour
 
     }
 
+
+    //------------getset-------------
+    public bool GetIsMoving() {
+        return _isMovingTowards;
+    }
+
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawLine(gameObject.transform.position, TargetPosition);
@@ -71,4 +79,6 @@ public class MoveToPointManager : MonoBehaviour
     //void lerpBetweenPotitions() {
     //    gameObject.transform.localPosition = Vector3.Slerp(CurrentPosition, TargetPosition, Time.deltaTime / Speed);
     //}
+
+    
 }

@@ -3,34 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour, IStockPile
 {
+    /// <summary>
+    /// Returns the GoldOre, CoalOre, IronOre values
+    /// </summary>
+    public static Action<int, int, int> OnInvetoryChange;
+    public static Action OnSmallPiecesProcessed;
+    public static Action OnDepositFailed;
+    public RainFallEffect[] Spawners;//Is set in the inspector
 
-    public List<Rigidbody> LoosePecies;
-    public RainFallEffect []Spawners;//Is set in the inspector
-    public static Action OnLoosePiecesProcessed;
-
-    public int GoldOre, CoalOre, IronOre;
+    StockPile _myStockPileData;
     private void Awake()
     {
-        
+
+        _myStockPileData = new StockPile(0, 0, 0, 1000);
 
 
-
-        LoosePecies = new List<Rigidbody>();
     }
 
 
 
     private void OnEnable()
     {
-        SimpleGameEvents.OnTileShutter += addOre;
-        SimpleGameEvents.OnPlayerCurrentlyLookingAt += moveOreToStokpile;
+
     }
     private void OnDisable()
     {
-        SimpleGameEvents.OnTileShutter -= addOre;
-        SimpleGameEvents.OnPlayerCurrentlyLookingAt -= moveOreToStokpile;
 
     }
 
@@ -39,56 +38,107 @@ public class InventoryManager : MonoBehaviour
 
 
     }
-    private void moveOreToStokpile(int lookIndex) {
-        //If players looks at StockPile Do:
-        if (lookIndex == 0) {
 
 
-            foreach (var item in LoosePecies)
+
+    public void Add1SmallPiece(TileManager.TypeMetal typeMetal)
+    {
+        if (typeMetal == TileManager.TypeMetal.coal)
+        {
+
+            if (_myStockPileData.Deposit(TileManager.TypeMetal.coal, 1))
             {
-
-
-                var materialName  = item.GetComponent<Renderer>().material.name;
-
-                if (materialName.Contains("Coal")) {
-                    CoalOre ++;
-                    Spawners[0].getPiece();
-                }
-                if (materialName.Contains("Gold"))
-                {
-                    GoldOre++;
-                    Spawners[1].getPiece();
-                }
-                if (materialName.Contains("Iron"))
-                {
-                    IronOre++;
-                    Spawners[2].getPiece();
-                }
-
-                
+                Spawners[0].Add1SmallPiece();
             }
-
-            foreach (var item in LoosePecies)
+            else
             {
-                Destroy(item.gameObject);
+                OnDepositFailed?.Invoke();
             }
-            LoosePecies.Clear();
-            OnLoosePiecesProcessed?.Invoke();
 
         }
-        
+        if (typeMetal == TileManager.TypeMetal.gold)
+        {
+            if (_myStockPileData.Deposit(TileManager.TypeMetal.gold, 1))
+            {
+                Spawners[1].Add1SmallPiece();
+            }
+            else
+            {
+                OnDepositFailed?.Invoke();
+            }
+
+
+        }
+        if (typeMetal == TileManager.TypeMetal.iron)
+        {
+            if (_myStockPileData.Deposit(TileManager.TypeMetal.iron, 1))
+            {
+                Spawners[2].Add1SmallPiece();
+            }
+            else
+            {
+                OnDepositFailed?.Invoke();
+            }
+
+        }
+        OnSmallPiecesProcessed?.Invoke();
+
+        OnInvetoryChange?.Invoke(_myStockPileData.CoalOre, _myStockPileData.GoldOre, _myStockPileData.IronOre);
     }
 
-    /// <summary>
-    /// every time a tile breaks all the smaller pieces get added to this list.
-    /// </summary>
-    /// <param name="brokenTile"></param>
-    private void addOre(TileBrokenManager brokenTile) {
-        //brokenTile.BrokenPieces[].MovePosition;
-
-        foreach (var item in brokenTile.BrokenPieces)
+    public void RemovePiece(TileManager.TypeMetal typeMetal, int ammount)
+    {
+        for (int i = 0; i < ammount; i++)
         {
-            LoosePecies.Add(item);
+            if (typeMetal == TileManager.TypeMetal.coal)
+            {
+
+
+                if (_myStockPileData.Withdraw(TileManager.TypeMetal.coal, 1) > 0)
+                {
+                    Spawners[0].RemoveFirstStoredGameObject();
+                }
+            }
+            if (typeMetal == TileManager.TypeMetal.gold)
+            {
+
+                if (_myStockPileData.Withdraw(TileManager.TypeMetal.gold, 1) > 0)
+                {
+                    Spawners[1].RemoveFirstStoredGameObject();
+                }
+
+
+            }
+            if (typeMetal == TileManager.TypeMetal.iron)
+            {
+                if (_myStockPileData.Withdraw(TileManager.TypeMetal.iron, 1) > 0)
+                {
+                    Spawners[2].RemoveFirstStoredGameObject();
+                }
+            }
+
         }
+        OnInvetoryChange?.Invoke(_myStockPileData.CoalOre, _myStockPileData.GoldOre, _myStockPileData.IronOre);
+
+    }
+
+    public int CanTransact(TileManager.TypeMetal typeMetal, int amount)
+    {
+        return _myStockPileData.CanTransact(typeMetal, amount);
+    }
+
+    public Dictionary<TileManager.TypeMetal, int> RemoveLastPieces(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public GameObject GetInstance()
+    {
+        return this.gameObject;
+    }
+
+    public int GetAvailableStorage()
+    {
+        return _myStockPileData.Capacity - _myStockPileData.getCurentTotal();
     }
 }

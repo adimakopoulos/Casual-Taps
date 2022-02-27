@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class DashBoardTxt : MonoBehaviour
 {
-    public InventoryManager stockpileManager;
-    // Start is called before the first frame update
+    public TMPro.TextMeshProUGUI _myText;
     void Start()
     {
+        _myText= gameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+    }
+    private void OnEnable()
+    {
+        InventoryManager.OnInvetoryChange += updateTxt;
+    }
+    private void OnDisable()
+    {
+        InventoryManager.OnInvetoryChange -= updateTxt;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void updateTxt(int Coal,int Gold,int Iron) {
+        if (gameObject.name.Contains("Coal"))
+            _myText.text = "Ore Stored:<br>" + Coal;
+        if (gameObject.name.Contains("Gold"))
+            _myText.text = "Ore Stored:<br>" + Gold;
+        if (gameObject.name.Contains("Iron"))
+            _myText.text = "Ore Stored:<br>" + Iron;
     }
+
 }
