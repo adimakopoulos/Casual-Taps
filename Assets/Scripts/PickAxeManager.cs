@@ -72,6 +72,7 @@ public class PickAxeManager : MonoBehaviour
         impulseSource.GenerateImpulse();
     }
     private void enableColider() {
+        Debug.Log("enableColider");
         myBC.enabled = true;
     }
     private void resetPos() {

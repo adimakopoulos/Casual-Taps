@@ -33,6 +33,8 @@ public static class SimpleGameEvents
 
     public static Action OnLookLeft;
     public static Action OnLookRight;
+    public static Action OnLookDown;
+    public static Action OnLookUp;
     /// <summary>
     /// Gets Invoked When The Camera Manager has Set A new LOOKING TARGET;
     /// 

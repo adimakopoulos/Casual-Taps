@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-
+    Shop _shopstats;
     //TODO: migrate shop here
-    private void Awake()
+    private void Start()
     {
-        Shop _shopstats = GameMasterManager.GMMInstance.myShop;
+        _shopstats = GameMasterManager.GMMInstance.myShop;
     }
 
     

@@ -137,7 +137,7 @@ public class LoosePiecesManager : MonoBehaviour , IStockPile
         var loc = LoosePieces[index].GetComponent<Rigidbody>().worldCenterOfMass;
         var location = new Vector3(loc.x, this.gameObject.transform.position.y, loc.z);
 
-        Debug.Log(" LoosePieces[index] " + LoosePieces[index].name);
+       
         return location;
     }
     //public Vector3 GetLocationOfPiece(GameObject go) { 
