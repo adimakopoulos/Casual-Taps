@@ -30,13 +30,20 @@ public class LerpBar : MonoBehaviour
         HealthBarManager.OnBarResized -= doLerp;
     }
     Vector2 target;
-    float deltaTime,duration = 0.7f;
-    float delay=2;
+    float elaspedDeltaTime,duration = 0.7f;
+    float delay=1f;
+    float delayLength = 1f;
     private void Update()
     {
-        if (deltaTime < duration) {
-            deltaTime += Time.deltaTime;
-            rawImage.rectTransform.sizeDelta = new Vector2(Mathf.Lerp(currentX, target.x, deltaTime / duration), y);
+
+        if (elaspedDeltaTime < duration) {
+            if (delay>0) {
+                delay -= Time.deltaTime;
+                return;
+            }
+
+            elaspedDeltaTime += Time.deltaTime;
+            rawImage.rectTransform.sizeDelta = new Vector2(Mathf.Lerp(currentX, target.x, elaspedDeltaTime / duration), y);
 
         }
   
@@ -47,7 +54,10 @@ public class LerpBar : MonoBehaviour
 
 
     private void doLerp(float targetX) {
-        deltaTime = 0f;
+        if(elaspedDeltaTime > duration)//if the Indicator bar is already learping, ignore delay
+            delay = delayLength;
+
+        elaspedDeltaTime = 0f;
         currentX = rawImage.rectTransform.sizeDelta.x;
         target = new Vector2(targetX, y);
 

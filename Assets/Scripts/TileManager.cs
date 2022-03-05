@@ -21,7 +21,9 @@ public class TileManager : MonoBehaviour
         Health = GameMasterManager.GMMInstance.myStats.TileHealth;
         MetalPieces = 9;
         setTypeMaterial();
-
+     
+        GetComponent<Rigidbody>().solverVelocityIterations = 12;
+        GetComponent<Rigidbody>().solverIterations = 12;
 
     }
 

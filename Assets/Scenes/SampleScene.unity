@@ -144,11 +144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 25b9b807ef103584a99b238c3ce7a2e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.041
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 25b9b807ef103584a99b238c3ce7a2e1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 152.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 25b9b807ef103584a99b238c3ce7a2e1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -259,10 +259,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4090147037200935841, guid: f94b17453ce35354c8ad9e6480ae5ac6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -38.95
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f94b17453ce35354c8ad9e6480ae5ac6, type: 3}
       propertyPath: m_Name
       value: CasualTapsMOdelsExtended
       objectReference: {fileID: 0}
+    - target: {fileID: 1267103998002046183, guid: f94b17453ce35354c8ad9e6480ae5ac6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7819ed9cb4225154586f9509e8dd3a58, type: 2}
     - target: {fileID: 4619903490505217943, guid: f94b17453ce35354c8ad9e6480ae5ac6, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -275,5 +283,9 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4a4ba539177ea984fa9efb2387bc50a8, type: 2}
+    - target: {fileID: 9206922766027192406, guid: f94b17453ce35354c8ad9e6480ae5ac6, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6be79a33eb1f4d14a949ffb1f9f7d015, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f94b17453ce35354c8ad9e6480ae5ac6, type: 3}

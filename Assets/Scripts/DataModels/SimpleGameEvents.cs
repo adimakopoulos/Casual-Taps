@@ -43,4 +43,12 @@ public static class SimpleGameEvents
 
     public static Action <TileBrokenManager>OnTileShutter;
 
+    //------------UI-----------
+    public static Action<GameObject> OnRaycastDone;
+    public static Action OnShowShopUI;
+    public static Action OnhideShopUI;
+    public static Action OnShowInvetoryUI;
+    public static Action OnHideInvetoryUI;
+
+
 }

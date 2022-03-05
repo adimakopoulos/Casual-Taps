@@ -12,7 +12,8 @@ public class SpawnManager : MonoBehaviour
     public float TimeInterval;
     readonly float _delay = 2;
     float _timePassed;
-    float _timeUntilDisabled = -5f; 
+    float _timeUntilDisabled = -5f;
+    public bool EnableKinematic;
 
     private List<GameObject> _spawnedGO = new List<GameObject>();
     private void Awake()
@@ -57,7 +58,8 @@ public class SpawnManager : MonoBehaviour
             {
                 if (DisableBoxCollider)
                     item.GetComponent<BoxCollider>().enabled = false;
-                item.GetComponent<Rigidbody>().isKinematic = true;
+                if (EnableKinematic)
+                    item.GetComponent<Rigidbody>().isKinematic = true;
             }
             if (Prefab.name == "Tile") {
                 //TODO: Looping while useing GetComponent seems really slow. Need Better Implemetation

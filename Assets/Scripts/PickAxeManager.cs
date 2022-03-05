@@ -17,6 +17,9 @@ public class PickAxeManager : MonoBehaviour
         myMR = GetComponent<MeshRenderer>();
         myBC = GetComponent<BoxCollider>();
         myRB = GetComponent<Rigidbody>();
+        myRB.solverVelocityIterations = 12;
+        myRB.solverIterations = 12;
+
         myAudioSource = GetComponent<AudioSource>();
         originalPos = gameObject.transform.position;
         impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
@@ -39,16 +42,13 @@ public class PickAxeManager : MonoBehaviour
         SimpleGameEvents.OnStartGameplay -= showPickAxe;
     }
 
-
+    
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "ColumnBase")
+        
+
         {
-            return;
-        }
-        else {
-            
             collision.gameObject.GetComponent<TileManager>().takeDamage(GameMasterManager.GMMInstance.myStats.Damage);
             SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
 

@@ -53,7 +53,7 @@ public class GameMasterManager : MonoBehaviour
     }
     private void SaveProgress() {
         JsonManager.Save(myStats);
-        JsonManager.Save(myShop);
+        JsonManager.Save(GameObject.Find("Shop").GetComponent<ShopManager>().getShopData());
         JsonManager.Save(myPeopleGroups);
     }
     private void increaseOre(TileManager tile) {
@@ -93,7 +93,7 @@ public class GameMasterManager : MonoBehaviour
     }
     private void IncreaceLevel() {
         myStats.Gamelevel++;
-        myStats.TileHealth += DifficultyModifier*2;
+        myStats.TileHealth += DifficultyModifier*1;
     }
     /// <summary>
     /// set instance of this script to be public and accessed by everyone using this instance

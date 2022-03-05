@@ -2,7 +2,43 @@ fileFormatVersion: 2
 guid: f94b17453ce35354c8ad9e6480ae5ac6
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 999441781228971389
+    second: Person.002|0TPose
+  - first:
+      74: -6433939860875147407
+    second: Person.002|0TPose.002
+  - first:
+      74: -5053028868615323495
+    second: Person.002|Swing
+  - first:
+      74: 3589298411194650911
+    second: Person.002|Swing.001
+  - first:
+      74: -3788194235660693485
+    second: pickaxe.002|0TPose
+  - first:
+      74: -5037922345131022967
+    second: pickaxe.002|0TPose.002
+  - first:
+      74: 7146677389183492667
+    second: pickaxe.002|Swing
+  - first:
+      74: -8537914902771520014
+    second: pickaxe.002|Swing.001
+  - first:
+      74: -8245372122374025406
+    second: Swing.001
+  - first:
+      74: -4660343992818201406
+    second: Swing.002
+  - first:
+      74: 82017551088757511
+    second: 0TPose
+  - first:
+      74: -4838493363668146491
+    second: 0TPose.001
   externalObjects: {}
   materials:
     materialImportMode: 2
