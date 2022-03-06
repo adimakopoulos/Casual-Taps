@@ -24,7 +24,6 @@ public class PickAxeManager : MonoBehaviour
         originalPos = gameObject.transform.position;
         impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
     }
-    // Start is called before the first frame update
     private void OnEnable()
     {
         SimpleGameEvents.OnStartGameplay += enableColider;
@@ -42,27 +41,35 @@ public class PickAxeManager : MonoBehaviour
         SimpleGameEvents.OnStartGameplay -= showPickAxe;
     }
 
-    
-
-    private void OnCollisionEnter(Collision collision)
+    bool hasCollidedOnce;
+    private void  OnCollisionEnter(Collision collision)
     {
-        
+        if (!(collision.gameObject.name.Contains("Tile")) || hasCollidedOnce)
+            return;
+        hasCollidedOnce = true;
+        Debug.Log("collisions" + collision.rigidbody.name);
 
-        {
-            collision.gameObject.GetComponent<TileManager>().takeDamage(GameMasterManager.GMMInstance.myStats.Damage);
-            SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
 
-        }
-        
         myBC.enabled = false;
         myRB.isKinematic = true;
+        myRB.velocity = myRB.velocity * -0.5f;
         myAudioSource.Play();
+
+        collision.gameObject.GetComponent<TileManager>().takeDamage(GameMasterManager.GMMInstance.myStats.Damage);
+        SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
+
     }
+
+
     void Start()
     {
         
     }
 
+    private void FixedUpdate()
+    {
+        //if (myRB.velocity < 0f) { hasCollidedOnce = true; }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -76,10 +83,11 @@ public class PickAxeManager : MonoBehaviour
         myBC.enabled = true;
     }
     private void resetPos() {
+        hasCollidedOnce = false;
         myBC.enabled = true;
         myRB.isKinematic = false;
         gameObject.transform.position = originalPos;
-
+        gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (0, -5, 0);
 
     }
 
@@ -93,4 +101,18 @@ public class PickAxeManager : MonoBehaviour
         myMR.enabled = true;
 
     }
+
+    //        if (!(collision.gameObject.name.Contains("Tile"))|| hasCollidedOnce )
+    //         return ;
+    //    hasCollidedOnce = true;
+    //    Debug.Log("collisions" + collision.rigidbody.name);
+
+
+    //    //myBC.enabled = false;
+    //    //myRB.isKinematic = true;
+    //    myRB.velocity = myRB.velocity* -0.5f;
+    //    myAudioSource.Play();
+
+    //    collision.gameObject.GetComponent<TileManager>().takeDamage(GameMasterManager.GMMInstance.myStats.Damage);
+    //SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
 }

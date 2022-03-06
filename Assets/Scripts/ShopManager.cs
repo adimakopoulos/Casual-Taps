@@ -11,15 +11,24 @@ public class ShopManager : MonoBehaviour
     {
         _shopstats = GameMasterManager.GMMInstance.myShop;
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnEnable()
     {
-        Debug.Log("Open Shop UI!");
-        SimpleGameEvents.OnhideShopUI?.Invoke();
+        SimpleGameEvents.OnRaycastDone += ClickedObjectCheck;
+    }
+
+    private void OnDisable()
+    {
+        SimpleGameEvents.OnRaycastDone -= ClickedObjectCheck;
+    }
+    private void ClickedObjectCheck(GameObject go) {
+        if (go.gameObject.name.Contains("Shop"))
+        {
+            SimpleGameEvents.OnShowShopUI?.Invoke();
+        }
     }
 
     public Shop getShopData() { 
-    return _shopstats;  
+        return _shopstats;  
     }
 
 }

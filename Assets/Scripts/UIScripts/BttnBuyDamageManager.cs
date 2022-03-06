@@ -27,7 +27,7 @@ public class BttnBuyDamageManager : MonoBehaviour
     }
     private void OnMouseClickUP()
     {
-        if (GameMasterManager.GMMInstance.myStats.Coins >= GameMasterManager.GMMInstance.myShop.Cost) {
+        if (GameMasterManager.GMMInstance.myStats.Coins >= GameMasterManager.GMMInstance.myShop.BuyDamagePrice) {
             buyDamage(); 
         }
     }
@@ -35,7 +35,7 @@ public class BttnBuyDamageManager : MonoBehaviour
     private void updateTxt()
     {
         textGUI.text = "Cost: (<color=#FFBD33>" +
-            GameMasterManager.GMMInstance.myShop.Cost.ToString()
+            GameMasterManager.GMMInstance.myShop.BuyDamagePrice.ToString()
             + "</color>) gold.";
     }
     private void buyDamage() {

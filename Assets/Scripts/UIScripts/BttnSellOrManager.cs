@@ -31,7 +31,7 @@ public class BttnSellOrManager : MonoBehaviour
     private void OnMouseClickUP()
     {
         var oreGathered = GameMasterManager.GMMInstance.myStats.IronOre;
-        var orePrice = GameMasterManager.GMMInstance.myShop.sellOrePrice;
+        var orePrice = GameMasterManager.GMMInstance.myShop.SellPriceIron;
         if (oreGathered >= orePrice) {
             GameMasterManager.GMMInstance.myStats.IronOre -= orePrice;
             GameMasterManager.GMMInstance.myStats.Coins ++;
@@ -42,6 +42,6 @@ public class BttnSellOrManager : MonoBehaviour
 
     private void updateTxt()
     {
-        textGUI.text = "Sell (<color=#C70039>" + GameMasterManager.GMMInstance.myShop.sellOrePrice+ "</color>) Iron ore for(<color=#FFC300>" + "1</color>) gold coin";
+        textGUI.text = "Sell (<color=#C70039>" + GameMasterManager.GMMInstance.myShop.SellPriceIron+ "</color>) Iron ore for(<color=#FFC300>" + "1</color>) gold coin";
     }
 }

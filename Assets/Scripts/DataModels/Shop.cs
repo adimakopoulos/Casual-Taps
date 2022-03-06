@@ -5,21 +5,25 @@ using UnityEngine;
 [System.Serializable]
 public class Shop
 {
-    public int Cost;
+    public int BuyDamagePrice;
     public int ShopLevel;
     public int UpgradeBonusDmg;
-    public int sellOrePrice;
+    public int SellPriceIron, SellPriceGold, SellPriceCoal;
+    public int SellPriceSlaveGroupA, SellPriceSlaveGroupB, SellPriceSlaveGroupC;
+    //private Dictionary<string, string> openWith = new Dictionary<string, string>();
 
     public Shop()
     {
-        Cost = 5;
+        BuyDamagePrice = 5;
         ShopLevel = 1;
         UpgradeBonusDmg = 1;
-        sellOrePrice = 10;
+        SellPriceIron = 10;
+        SellPriceGold = 10;
+        SellPriceCoal = 10;
     }
 
     public void incrementUpgradeCost() {
-        this.Cost += 10;
+        this.BuyDamagePrice += 10;
     }
 
 }

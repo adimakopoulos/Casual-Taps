@@ -28,7 +28,7 @@ public class CheckPhysicsManager : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
         if (PredictedTiles > hitColliders.Length) {
             //Debug.Log("PredictedTiles == hitColliders.Length TRUE" );
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
         
     }

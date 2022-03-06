@@ -11,11 +11,15 @@ public class TileStack : MonoBehaviour
     {
         SimpleGameEvents.OnTileDestroyed += removeTile;
         SimpleGameEvents.OnTileDestroyed += checkIfEmpty;
+        SimpleGameEvents.OnTileDestroyed += enableLastTilesCollider;
+        SimpleGameEvents.OnStartGameplay += disableColliders;
     }
     private void OnDisable()
     {
         SimpleGameEvents.OnTileDestroyed -= removeTile;
         SimpleGameEvents.OnTileDestroyed -= checkIfEmpty;
+        SimpleGameEvents.OnTileDestroyed -= enableLastTilesCollider;
+        SimpleGameEvents.OnStartGameplay -= disableColliders ;
     }
 
     private void removeTile(TileManager tile) {
@@ -31,6 +35,18 @@ public class TileStack : MonoBehaviour
         }
     }
 
+    private void enableLastTilesCollider(TileManager tile) {
+        if (stackOTiles.Count - 1 < 0)
+            return;
+        stackOTiles[stackOTiles.Count - 1].GetComponent<BoxCollider>().enabled = true;
+    }
+    private void disableColliders() {
+        foreach (var item in stackOTiles)
+        {
+            item.GetComponent<BoxCollider>().enabled = false;
+        }
+        stackOTiles[stackOTiles.Count - 1].GetComponent<BoxCollider>().enabled = true;
+    }
     //---Get Set---
     public static List<TileManager> StackOTiles { 
         

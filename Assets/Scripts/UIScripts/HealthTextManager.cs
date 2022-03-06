@@ -22,7 +22,7 @@ public class HealthTextManager : MonoBehaviour
 
     void updateTxt(TileManager tile) {
         
-        textGui.text = "Health: " + tile.Health + "/" + tile.MaxHealth;
+        textGui.text = "" + tile.Health + "/" + tile.MaxHealth;
 
     }
 

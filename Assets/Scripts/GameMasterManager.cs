@@ -40,6 +40,7 @@ public class GameMasterManager : MonoBehaviour
         SimpleGameEvents.OnTileDestroyed += increaseOre;
         SimpleGameEvents.OnLevelComplete += SaveProgress;
         SimpleGameEvents.OnLevelComplete += SetNextLevel;
+        SimpleGameEvents.OnShowShopUI += loadShopScene;
     }
 
 
@@ -50,6 +51,7 @@ public class GameMasterManager : MonoBehaviour
         SimpleGameEvents.OnLevelComplete -= IncreaceLevel;
         SimpleGameEvents.OnLevelComplete -= SaveProgress;
         SimpleGameEvents.OnLevelComplete -= SetNextLevel;
+        SimpleGameEvents.OnShowShopUI -= loadShopScene;
     }
     private void SaveProgress() {
         JsonManager.Save(myStats);
@@ -120,5 +122,18 @@ public class GameMasterManager : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
     }
+
+    private void loadShopScene() {
+        var scene = SceneManager.GetSceneByName("UI_SHOP");
+        if (!(scene.IsValid())) {
+           SceneManager.LoadSceneAsync(3, LoadSceneMode.Additive); 
+        }
+        
+    }
+
+    private void unloadShopScene() {
+        SceneManager.UnloadSceneAsync("UI_SHOP");
+    }
+
 
 }
