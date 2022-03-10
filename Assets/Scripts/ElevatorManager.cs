@@ -28,12 +28,13 @@ public class ElevatorManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        myPM.OnStoredSuccesfully += goToEnd;
+        myPM.OnStoredSuccesfully -= goToEnd;
         mySPM.OnWithDraw -= goToStart;
     }
 
     void goToEnd() {
-        if (mySPM.GetAvailableStorage() == 0) {
+        if (mySPM.GetAvailableStorage() == 0&& myPM.cashedGO.Count== mySPM.Capacity) {
+            var a= mySPM.GetAvailableStorage();
             time = 0;
             StartCoroutine(LerpFuncStartToEnd());
         }

@@ -5,15 +5,21 @@ using UnityEngine;
 public class RailPosManager : MonoBehaviour
 {
 
-    public List<Transform> RailPoints;
+    public List<Transform> RailPointsLeft;
+    public List<Transform> RailPointsRight;
     public Transform LookingPoint;
     private void Awake()
     {
-        foreach (Transform t in RailPoints) { 
+        foreach (Transform t in RailPointsLeft) { 
             var r = t.gameObject.GetComponent<Renderer>();
             if (r != null) {r.enabled = false;}
         }
-        LookingPoint.position = RailPoints[0].position;
+        foreach (Transform t in RailPointsRight)
+        {
+            var r = t.gameObject.GetComponent<Renderer>();
+            if (r != null) { r.enabled = false; }
+        }
+        LookingPoint.position = RailPointsLeft[0].position;
     }
     private void OnEnable()
     {
@@ -32,66 +38,98 @@ public class RailPosManager : MonoBehaviour
         indicator = 0;
     }
     private int indicator =0;
-    private enum Direction { Clockwise, Counterclockwise }
-    private Direction myDirection;
+    private enum Direction { Left, Right }
+    private Direction myDirection, CurrentlyMoving;
     private float sensitivity = 0.051f;
+    bool hasSwitched;
     void MoveLookedObject(Vector3 mouseDelta) {
-        //If the camera is looking at the Drill movement, leave.
+        //If the camera is looking at the Drill movement, return.
         if (CameraLookAtManager.currLookType == CameraLookAtManager.CameraLookType.LookingAtDrill) {
             return;
         }
-        var distance = mouseDelta.x;
-        //Debug.Log("distance"+ distance);
-        if (distance<0)
+        var distance = mouseDelta.x+ mouseDelta.y;
+
+        //If player is looking at the starting point, Decide Where to go
+        if (LookingPoint.position == RailPointsLeft[0].position) {
+
+            if (distance < 0)
+                myDirection = Direction.Left;
+            if (distance > 0)
+                myDirection = Direction.Right;
+        }
+
+
+
+
+        //Debug.Log("We are going left side" + distance);
+        if (myDirection == Direction.Left )
         {
-            if (myDirection == Direction.Counterclockwise) {
-                SetNextIndicator();
-                myDirection = Direction.Clockwise;
+            if (distance < 0 && (LookingPoint.position == RailPointsLeft[indicator].position || CurrentlyMoving == Direction.Right)) {  
+                SetNextIndicator(RailPointsLeft);
+                CurrentlyMoving = Direction.Right;
+                //return;
+            }
+               
+               
+            if (distance > 0 && (LookingPoint.position == RailPointsLeft[indicator].position || CurrentlyMoving == Direction.Left)) {
+                SetPriorIndicator();
+                CurrentlyMoving = Direction.Left;
+                //return;
             }
 
-            if (LookingPoint.position == RailPoints[indicator].position) {
-                SetNextIndicator();
-                myDirection = Direction.Clockwise;
-            }
-            LookingPoint.position = Vector3.MoveTowards(LookingPoint.position, RailPoints[indicator].position,Mathf.Abs( distance) * sensitivity);
+
         }
-        if (distance > 0) {
-            if (myDirection == Direction.Clockwise)
+
+        //Debug.Log("We are going right side" + distance);
+        if (myDirection == Direction.Right)
+        {
+            if (distance > 0 && (LookingPoint.position == RailPointsRight[indicator].position || CurrentlyMoving == Direction.Left))
             {
-                SetPriorIndicator();
-                myDirection = Direction.Counterclockwise;
+                CurrentlyMoving = Direction.Left;
+                SetNextIndicator(RailPointsRight);
+
             }
 
-            if (LookingPoint.position == RailPoints[indicator].position)
+
+            if (distance < 0 && (LookingPoint.position == RailPointsRight[indicator].position || CurrentlyMoving == Direction.Right))
             {
+                CurrentlyMoving = Direction.Right;
                 SetPriorIndicator();
-                myDirection=Direction.Counterclockwise;
+                
             }
-            LookingPoint.position = Vector3.MoveTowards(LookingPoint.position, RailPoints[indicator].position, Mathf.Abs(distance) * sensitivity);
         }
+
+        if (distance < 0)
+            CurrentlyMoving = Direction.Left;
+        if (distance > 0)
+            CurrentlyMoving = Direction.Right;
+        moveStaredCameraObject(distance);
     }
-    void SetNextIndicator() {
-        if (indicator < RailPoints.Count-1) {
+    void SetNextIndicator(List<Transform> list) {
+        if (indicator+1 <= list.Count-1) {
             indicator++;
-            return;
         }
-
-        if (indicator == RailPoints.Count-1)
-        {
-            indicator=0;
-            return;
-        }
+        
     }
     void SetPriorIndicator()
     {
-        if (indicator > 0)
+        if (indicator - 1 >= 0)
         {
             indicator--;
+        }
+        
+    }
+    void moveStaredCameraObject(float distance) {
+        if (myDirection == Direction.Left)
+        {
+            LookingPoint.position = Vector3.MoveTowards(LookingPoint.position, RailPointsLeft[indicator].position, Mathf.Abs(distance) * sensitivity);
             return;
         }
-        if (indicator ==0 ) {
-            indicator = RailPoints.Count-1;
+        if (myDirection == Direction.Right)
+        {
+            LookingPoint.position = Vector3.MoveTowards(LookingPoint.position, RailPointsRight[indicator].position, Mathf.Abs(distance) * sensitivity);
             return;
         }
+        
     }
 }
