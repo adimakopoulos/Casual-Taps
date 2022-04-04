@@ -9,17 +9,15 @@ public class ButtonPlay : MonoBehaviour
     
     private void Awake()
     {
-        //bttnBuy.onClick.AddListener(OnMouseClickUP);
         bttnPlay = this.GetComponent<UnityEngine.UI.Button>();
         bttnPlay.onClick.AddListener(LoadScene);
-
-        
     }
     private void Update()
     {
         if (SceneManager.GetSceneByName("GameRoom1").isLoaded)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameRoom1"));
+            this.enabled = false;
         }
     }
 

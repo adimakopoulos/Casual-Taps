@@ -11,11 +11,11 @@ public class SparksManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        SimpleGameEvents.OnPickAxeImpact += play;
+        SimpleGameEvents.OnHasTileTakenDamage += play;
     }
     private void OnDisable()
     {
-        SimpleGameEvents.OnPickAxeImpact -= play;
+        SimpleGameEvents.OnHasTileTakenDamage -= play;
 
     }
     // Update is called once per frame

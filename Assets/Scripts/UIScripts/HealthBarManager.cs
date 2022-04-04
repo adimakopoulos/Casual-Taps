@@ -10,35 +10,30 @@ public class HealthBarManager : MonoBehaviour
     public RawImage rawImage;
     TMPro.TextMeshProUGUI textMesh;
 
-    float x, y;
+
     Vector2 newSize;
     private void Awake()
     {
         textMesh = GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        x = rawImage.rectTransform.sizeDelta.x;
-        y = rawImage.rectTransform.sizeDelta.y;
     }
 
     private void OnEnable()
     {
-        SimpleGameEvents.OnPickAxeImpact += setSize;
+        SimpleGameEvents.OnHasTileTakenDamage += setSize;
         SimpleGameEvents.OnPickAxeRelease += setSize;
     }
     private void OnDisable()
     {
-        SimpleGameEvents.OnPickAxeImpact -= setSize;
+        SimpleGameEvents.OnHasTileTakenDamage -= setSize;
         SimpleGameEvents.OnPickAxeRelease -= setSize;
     }
 
     private void setSize(TileManager tile)
     {
         var healthNormalized = (float)tile.Health / tile.MaxHealth;
-        newSize = new Vector2(healthNormalized * x, y);
-        rawImage.rectTransform.sizeDelta = newSize;
+        rawImage.rectTransform.localScale = new Vector2(healthNormalized, 1);
         textMesh.text = tile.Health + "/"+tile.MaxHealth;
-        OnBarResized?.Invoke(newSize.x);
-
-
+        OnBarResized?.Invoke(healthNormalized);
     }
     private void setSize()
     {
@@ -46,10 +41,9 @@ public class HealthBarManager : MonoBehaviour
         if (count > 0) {
             var tile = TileStack.StackOTiles[count-1];
             var healthNormalized = (float)tile.Health / tile.MaxHealth;
-            newSize = new Vector2(healthNormalized * x, y);
-            rawImage.rectTransform.sizeDelta = newSize;
+            rawImage.rectTransform.localScale = new Vector2(healthNormalized , 1);
             textMesh.text = tile.Health + "/" + tile.MaxHealth;
-            OnBarResized?.Invoke(newSize.x);
+            OnBarResized?.Invoke(healthNormalized);
         
         }
     }

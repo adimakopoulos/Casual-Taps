@@ -5,7 +5,6 @@ using UnityEngine;
 public class ShopManager : MonoBehaviour
 {
     Shop _shopstats;
-    public int SellPrice;
     //TODO: migrate shop here
     private void Start()
     {
@@ -30,5 +29,6 @@ public class ShopManager : MonoBehaviour
     public Shop getShopData() { 
         return _shopstats;  
     }
+
 
 }

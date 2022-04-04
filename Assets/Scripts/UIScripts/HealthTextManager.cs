@@ -12,11 +12,11 @@ public class HealthTextManager : MonoBehaviour
 
     private void OnEnable()
     {
-        SimpleGameEvents.OnPickAxeImpact += updateTxt;
+        SimpleGameEvents.OnHasTileTakenDamage += updateTxt;
     }
     private void OnDisable()
     {
-        SimpleGameEvents.OnPickAxeImpact -= updateTxt;
+        SimpleGameEvents.OnHasTileTakenDamage -= updateTxt;
 
     }
 

@@ -41,40 +41,23 @@ public class PickAxeManager : MonoBehaviour
         SimpleGameEvents.OnStartGameplay -= showPickAxe;
     }
 
-    bool hasCollidedOnce;
     private void  OnCollisionEnter(Collision collision)
     {
-        if (!(collision.gameObject.name.Contains("Tile")) || hasCollidedOnce)
+        if (collision.gameObject == null)
             return;
-        hasCollidedOnce = true;
-        Debug.Log("collisions" + collision.rigidbody.name);
-
-
+        if (!(collision.gameObject.name.Contains("Tile")) )
+            return;
+        if (collision.gameObject.name.Contains("Broken"))
+            return;
         myBC.enabled = false;
         myRB.isKinematic = true;
         myRB.velocity = myRB.velocity * -0.5f;
         myAudioSource.Play();
-
-        collision.gameObject.GetComponent<TileManager>().takeDamage(GameMasterManager.GMMInstance.myStats.Damage);
+        //DebugLabelTxt.updateTxt(collision.gameObject.GetComponent<TileManager>().GetInstanceID().ToString());
         SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
 
     }
 
-
-    void Start()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        //if (myRB.velocity < 0f) { hasCollidedOnce = true; }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     private void generateCameraShake(TileManager var) {
         impulseSource.GenerateImpulse();
     }
@@ -83,11 +66,10 @@ public class PickAxeManager : MonoBehaviour
         myBC.enabled = true;
     }
     private void resetPos() {
-        hasCollidedOnce = false;
         myBC.enabled = true;
         myRB.isKinematic = false;
         gameObject.transform.position = originalPos;
-        gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (0, -5, 0);
+        gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (0, -5000, 0);
 
     }
 
@@ -101,18 +83,4 @@ public class PickAxeManager : MonoBehaviour
         myMR.enabled = true;
 
     }
-
-    //        if (!(collision.gameObject.name.Contains("Tile"))|| hasCollidedOnce )
-    //         return ;
-    //    hasCollidedOnce = true;
-    //    Debug.Log("collisions" + collision.rigidbody.name);
-
-
-    //    //myBC.enabled = false;
-    //    //myRB.isKinematic = true;
-    //    myRB.velocity = myRB.velocity* -0.5f;
-    //    myAudioSource.Play();
-
-    //    collision.gameObject.GetComponent<TileManager>().takeDamage(GameMasterManager.GMMInstance.myStats.Damage);
-    //SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
 }

@@ -19,7 +19,7 @@ public class GameMasterManager : MonoBehaviour
     /// It is used to increace the health(How much damage the player need to do) of the tiles. 
     /// </summary>
     public readonly int  DifficultyModifier=1;
-
+    public bool LoadUI;
 
 
     private void Awake()
@@ -113,6 +113,7 @@ public class GameMasterManager : MonoBehaviour
     {
         if (spawner == null) {
             Debug.LogError("Set Spawn Manager!");
+            return;
         }
         spawner.enabled = true;
         spawner.SpawnNum = 10;
@@ -120,7 +121,11 @@ public class GameMasterManager : MonoBehaviour
 
     private void loadSceneUI()
     {
-        SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+        var scene = SceneManager.GetSceneByName("UI");
+        if (!(scene.IsValid()))
+        {
+            SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+        }
     }
 
     private void loadShopScene() {

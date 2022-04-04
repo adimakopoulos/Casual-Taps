@@ -9,14 +9,14 @@ using UnityEngine.UI;
 public class LerpBar : MonoBehaviour
 {
     public RawImage rawImage;
-    float x, y, currentX;
+    float Xscale, Yscale, currentX_Scale;
     
     private void Awake()
     {
-        currentX = rawImage.rectTransform.sizeDelta.x;
-        x = rawImage.rectTransform.sizeDelta.x;
-        y = rawImage.rectTransform.sizeDelta.y;
-        target = new Vector2(x, y);
+        currentX_Scale = rawImage.rectTransform.localScale.x;
+        Xscale = rawImage.rectTransform.localScale.x;
+        Yscale = rawImage.rectTransform.localScale.y;
+        LocalScale = new Vector2(Xscale, Yscale);
     }
 
     private void OnEnable()
@@ -29,7 +29,7 @@ public class LerpBar : MonoBehaviour
     {
         HealthBarManager.OnBarResized -= doLerp;
     }
-    Vector2 target;
+    Vector2 LocalScale;
     float elaspedDeltaTime,duration = 0.7f;
     float delay=1f;
     float delayLength = 1f;
@@ -43,8 +43,8 @@ public class LerpBar : MonoBehaviour
             }
 
             elaspedDeltaTime += Time.deltaTime;
-            rawImage.rectTransform.sizeDelta = new Vector2(Mathf.Lerp(currentX, target.x, elaspedDeltaTime / duration), y);
-
+            rawImage.rectTransform.localScale = new Vector2(Mathf.Lerp(currentX_Scale, LocalScale.x, elaspedDeltaTime / duration), Yscale);
+            
         }
   
 
@@ -53,19 +53,19 @@ public class LerpBar : MonoBehaviour
     }
 
 
-    private void doLerp(float targetX) {
+    private void doLerp(float targetXScaLe) {
         if(elaspedDeltaTime > duration)//if the Indicator bar is already learping, ignore delay
             delay = delayLength;
 
         elaspedDeltaTime = 0f;
-        currentX = rawImage.rectTransform.sizeDelta.x;
-        target = new Vector2(targetX, y);
+        currentX_Scale = rawImage.rectTransform.localScale.x;
+        LocalScale = new Vector2(targetXScaLe, Yscale);
 
         // When the health bar increases in size it means that 
         //1. the tile has healed or 
         //2. a new tile health has been set. 
         //meaning that the Indication bar is not visible because the health bar is set instantly, covering this one
-        if (targetX < currentX) {
+        if (targetXScaLe < currentX_Scale) {
             duration = 0.7f;
         }
         else {

@@ -13,10 +13,11 @@ public class TileManager : MonoBehaviour
     public TypeMetal metal;
 
     public Material currMaterial;
-
+    public static int ID = 0;
+     
     private void Awake()
     {
-
+        ID++;
         maxHealth = GameMasterManager.GMMInstance.myStats.TileHealth;
         Health = GameMasterManager.GMMInstance.myStats.TileHealth;
         MetalPieces = 9;
@@ -43,12 +44,8 @@ public class TileManager : MonoBehaviour
             metal = TypeMetal.coal;
         }
 
-
-
-   
         if (metal == TypeMetal.gold)
         {
-
             currMaterial = Resources.Load<Material>("Materials/TypesOfTiles/MatGold") as Material;
             GetComponent<MeshRenderer>().material = currMaterial;
         }
@@ -69,46 +66,57 @@ public class TileManager : MonoBehaviour
 
     private void OnEnable()
     {
-        SimpleGameEvents.OnPickAxeImpact += doParticles;
+        SimpleGameEvents.OnHasTileTakenDamage += doParticles;
+        SimpleGameEvents.OnPickAxeImpact += takeDamage;
 
     }
     private void OnDisable()
     {
-        SimpleGameEvents.OnPickAxeImpact -= doParticles;
-
+        SimpleGameEvents.OnHasTileTakenDamage -= doParticles;
+        SimpleGameEvents.OnPickAxeImpact -= takeDamage;
     }
     private void doParticles(TileManager a) {
-        if(a.GetInstanceID() == this.GetInstanceID())
+        if (a.GetInstanceID() == this.GetInstanceID() && a.health!=0)
             GetComponentInChildren<ParticleSystem>().Play();
-
     }
-    // Update is called once per frame
-    void Update()
-    {
+
+    public void takeDamage(TileManager tm) {
         
-    }
-    public void takeDamage(int dmg) {
-        Health -= dmg;
+        if (tm.GetInstanceID() == this.GetInstanceID())
+        {
 
-        if (Health <= 0) {
-            var go = Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
-            go.GetComponent<TileBrokenManager>().metalMaterial = currMaterial;
-            
-            SimpleGameEvents.OnTileDestroyed?.Invoke(this);
-            Destroy(this.gameObject);
+            Health -= GameMasterManager.GMMInstance.myStats.Damage;
+            SimpleGameEvents.OnHasTileTakenDamage?.Invoke(this);
 
+            if (Health == 0)
+            {
+                var go = Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
+                go.GetComponent<TileBrokenManager>().metalMaterial = currMaterial;
+                SimpleGameEvents.OnTileDestroyed?.Invoke(this);
+                Destroy(this.gameObject);
+            }
+
+        }
+        else {
+            return;
         }
     }
 
 
+    
 
+    private void OnDestroy()
+    {
+        gameObject.name += "TBdeleted";
+    }
 
     //--Get Set--
     public int Health { get => health;
         set {
             if (value >= 0) { 
                 health = value; }
-            else { 
+            else {
+                Debug.Log("value < 0");
                 health = 0; }
         } 
     }
