@@ -61,3 +61,6 @@ crashlytics-build.properties
 
 # Imported Projects
 Assets/Imported
+.idea/Casual-Taps.iml
+.idea/modules.xml
+.idea/vcs.xml

@@ -41,9 +41,8 @@ public class GameMasterManager : MonoBehaviour
         SimpleGameEvents.OnLevelComplete += SaveProgress;
         SimpleGameEvents.OnLevelComplete += SetNextLevel;
         SimpleGameEvents.OnShowShopUI += loadShopScene;
+        SimpleGameEvents.OnHideShopUI += unloadShopScene;
     }
-
-
 
     private void OnDisable()
     {
@@ -52,6 +51,7 @@ public class GameMasterManager : MonoBehaviour
         SimpleGameEvents.OnLevelComplete -= SaveProgress;
         SimpleGameEvents.OnLevelComplete -= SetNextLevel;
         SimpleGameEvents.OnShowShopUI -= loadShopScene;
+        SimpleGameEvents.OnHideShopUI -= unloadShopScene;
     }
     private void SaveProgress() {
         JsonManager.Save(myStats);
@@ -116,7 +116,7 @@ public class GameMasterManager : MonoBehaviour
             return;
         }
         spawner.enabled = true;
-        spawner.SpawnNum = 10;
+        spawner.InitialNumberOfTileToSpawn = 10;
     }
 
     private void loadSceneUI()
@@ -137,7 +137,9 @@ public class GameMasterManager : MonoBehaviour
     }
 
     private void unloadShopScene() {
-        SceneManager.UnloadSceneAsync("UI_SHOP");
+        var scene = SceneManager.GetSceneByName("UI_SHOP");
+        if (scene.IsValid())
+            SceneManager.UnloadSceneAsync("UI_SHOP");
     }
 
 

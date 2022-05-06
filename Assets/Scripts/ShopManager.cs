@@ -24,6 +24,9 @@ public class ShopManager : MonoBehaviour
         {
             SimpleGameEvents.OnShowShopUI?.Invoke();
         }
+        else {
+            SimpleGameEvents.OnHideShopUI?.Invoke();
+        }
     }
 
     public Shop getShopData() { 

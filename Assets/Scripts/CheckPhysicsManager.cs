@@ -12,7 +12,7 @@ public class CheckPhysicsManager : MonoBehaviour
     void Start()
 
     {
-        PredictedTiles=GameObject.Find("TileSpawner").GetComponent<SpawnManager>().SpawnNum;
+        PredictedTiles=GameObject.Find("TileSpawner").GetComponent<SpawnManager>().InitialNumberOfTileToSpawn;
         SimpleGameEvents.OnStartGameplay += DoCheck;
     }
     private void OnDisable()

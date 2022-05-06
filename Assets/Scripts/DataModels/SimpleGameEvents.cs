@@ -47,7 +47,7 @@ public static class SimpleGameEvents
     //------------UI-----------
     public static Action<GameObject> OnRaycastDone;
     public static Action OnShowShopUI;
-    public static Action OnhideShopUI;
+    public static Action OnHideShopUI;
     public static Action OnShowInvetoryUI;
     public static Action OnHideInvetoryUI;
 

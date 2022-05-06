@@ -69,7 +69,7 @@ public class PickAxeManager : MonoBehaviour
         myBC.enabled = true;
         myRB.isKinematic = false;
         gameObject.transform.position = originalPos;
-        gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (0, -5000, 0);
+        gameObject.GetComponent<Rigidbody>().velocity = new Vector3 (0, -1, 0);
 
     }
 

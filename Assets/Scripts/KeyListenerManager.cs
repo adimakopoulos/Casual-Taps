@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class KeyListenerManager : MonoBehaviour
 {
@@ -37,9 +38,12 @@ public class KeyListenerManager : MonoBehaviour
         //TODO: check for UI press
         if (CanPlay) {
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
             {
-                SimpleGameEvents.OnPickAxeRelease?.Invoke();
+                if (CameraLookAtManager.currLookType == CameraLookAtManager.CameraLookType.LookingAtDrill) {
+                    SimpleGameEvents.OnPickAxeRelease?.Invoke();
+                }
+                
             }
             
         }
@@ -55,7 +59,7 @@ public class KeyListenerManager : MonoBehaviour
         //Listen iif player wants to jumb to locations.
         if (Input.GetMouseButtonUp(0))
         {
-            ignoreTimer = 0.1f;
+            ignoreTimer = 0.01f;
 
             var CurrMousePos = Input.mousePosition;
             if (CurrMousePos.x > StartMousePos.x+ ignoreThisDistance) {
@@ -104,8 +108,9 @@ public class KeyListenerManager : MonoBehaviour
         RaycastHit hit;
         Physics.Raycast(ray, out hit,range);
          { 
-            var Target = hit.collider.gameObject;
-            SimpleGameEvents.OnRaycastDone?.Invoke(Target);
+            var target = hit.collider.gameObject;
+            //TODO: if(EventSystem.current.IsPointerOverGameObject())  
+                SimpleGameEvents.OnRaycastDone?.Invoke(target);
          }
         
     }
