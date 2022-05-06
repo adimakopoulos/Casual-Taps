@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
 {
     //TODO: THE Prefab GAMEOBJECTS SHOULD BE CALLED BY A POOL SYSTEM TO MINIMIZE GARBAGE COLLECTION
     public GameObject Prefab;
-    public int SpawnNum;
+    public int InitialNumberOfTileToSpawn;
     public float TimeInterval;
     readonly float _delay = 2;
     float _timePassed;
@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
         {
             Debug.Log("Prefab Instance not set!");
         }
-        if (SpawnNum <= 0)
+        if (InitialNumberOfTileToSpawn <= 0)
         {
             Debug.Log("SpawnNum is 0 or less!");
         }
@@ -43,14 +43,14 @@ public class SpawnManager : MonoBehaviour
     {
 
         _timePassed -= Time.deltaTime;
-        if (_timePassed <= 0f && SpawnNum != 0)
+        if (_timePassed <= 0f && InitialNumberOfTileToSpawn != 0)
         {
             _timePassed = TimeInterval;
             var go = Instantiate(Prefab, this.transform);
-            go.name += SpawnNum.ToString();
+            go.name += InitialNumberOfTileToSpawn.ToString();
             
             _spawnedGO.Add(go);
-            SpawnNum--;
+            InitialNumberOfTileToSpawn--;
         }
 
     }

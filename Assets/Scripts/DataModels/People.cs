@@ -18,8 +18,8 @@ public class People
     public People(string name)
     {
         Name = name;
-        NumOfPeople = 1+3;
-        CarryingCapacity = 1+9;
+        NumOfPeople = 1;
+        CarryingCapacity = 1;
         this.speedNormal = 2f;
         this.speedCarrying = 1f;
     }

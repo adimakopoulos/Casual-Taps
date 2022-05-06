@@ -6,6 +6,7 @@ public class DebugLabelTxt : MonoBehaviour
 {
     static TMPro.TextMeshProUGUI textGUI;
     static int incr =1;
+
     private void Awake()
     {
         textGUI = this.GetComponent<TMPro.TextMeshProUGUI>();
