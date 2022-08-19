@@ -41,7 +41,8 @@ public class KeyListenerManager : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
             {
                 if (CameraLookAtManager.currLookType == CameraLookAtManager.CameraLookType.LookingAtDrill) {
-                    SimpleGameEvents.OnPickAxeRelease?.Invoke();
+                    //SimpleGameEvents.OnPickAxeRelease?.Invoke();
+                    SimpleGameEvents.OnPickAxeImpact?.Invoke(TileStack.StackOTiles[TileStack.StackOTiles.Count-1]);
                 }
                 
             }

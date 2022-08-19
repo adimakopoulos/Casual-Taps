@@ -750,7 +750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &456621984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1659,7 +1659,7 @@ GameObject:
   - component: {fileID: 1799231152}
   - component: {fileID: 1799231151}
   m_Layer: 5
-  m_Name: Image
+  m_Name: UI_Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

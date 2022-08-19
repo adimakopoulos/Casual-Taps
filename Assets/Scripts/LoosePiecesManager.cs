@@ -39,7 +39,7 @@ public class LoosePiecesManager : MonoBehaviour , IStockPile
     {
         BPManager.On4SecondsPass -= AddPiecesTolist;
         var array = BPManager.GetComponentsInChildren<Transform>();
-        Destroy (array[0].gameObject);
+        Destroy(array[0].gameObject);
         array = array.Skip(1).ToArray();//the first element is the parent tranform. I want only the childerns Transforms, so i skip it.
         foreach (var piece in array)
         {

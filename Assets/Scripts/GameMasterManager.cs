@@ -27,7 +27,7 @@ public class GameMasterManager : MonoBehaviour
         loadLastPlayedLevelData();
         setSingleton();
         loadSceneUI();
-        
+        QualitySettings.vSyncCount = 0;
         //SceneManager.LoadSceneAsync(0);
 
     }

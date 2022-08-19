@@ -19,14 +19,24 @@ public class TileStack : MonoBehaviour
     }
     private void sequenceOnTilesDeath(TileManager tile)
     {
-        removeTile(tile);
-        checkIfEmpty();
-        enableLastTilesCollider();
+        try
+        {
+            removeTile(tile);
+            checkIfEmpty();
+            enableLastTilesCollider();
+        }
+        catch (Exception e) { 
+            throw new Exception("sequenceOnTilesDeath {0}", e );
+        }
     }
 
     private void removeTile(TileManager tile)
     {
+        Debug.Log("stackOTiles: " + stackOTiles.Count);
         stackOTiles.Remove(tile);
+        Debug.Log("tile Removed: "+tile.gameObject.name);
+        Debug.Log("stackOTiles: " + stackOTiles.Count);
+
     }
 
     private void checkIfEmpty()
@@ -34,13 +44,15 @@ public class TileStack : MonoBehaviour
         if (stackOTiles.Count == 0)
         {
             SimpleGameEvents.OnLevelComplete?.Invoke();
+            Debug.Log("checkIfEmpty " + stackOTiles.Count);
         }
     }
 
     private void enableLastTilesCollider()
     {
-        if (stackOTiles.Count - 1 > -1) {
-            stackOTiles[stackOTiles.Count - 1].GetComponent<BoxCollider>().enabled = true; 
+        if (stackOTiles.Count != 0) {
+            stackOTiles[stackOTiles.Count - 1].GetComponent<BoxCollider>().enabled = true;
+            Debug.Log("enable Last Tiles Collider " + stackOTiles[stackOTiles.Count - 1].gameObject.name);
         }
             
         
@@ -51,7 +63,9 @@ public class TileStack : MonoBehaviour
         {
             item.GetComponent<BoxCollider>().enabled = false;
         }
-        stackOTiles[stackOTiles.Count - 1].GetComponent<BoxCollider>().enabled = true;
+
+        if (stackOTiles.Count != 0) 
+            stackOTiles[stackOTiles.Count - 1].GetComponent<BoxCollider>().enabled = true;
     }
     //---Get Set---
     public static List<TileManager> StackOTiles

@@ -13,10 +13,9 @@ public class SpawnManager : MonoBehaviour
     float _timePassed;
     float _timeUntilDisabled = -5f;
 
-    private List<GameObject> _spawnedGO = new List<GameObject>();
+    private List<GameObject> _spawnedTilesGO = new List<GameObject>();
     private void Awake()
     {
-        //gameObject.AddComponent<DebugStuff.DebugStuff>();
         if (Prefab == null)
         {
             Debug.Log("Prefab Instance not set!");
@@ -49,7 +48,7 @@ public class SpawnManager : MonoBehaviour
             var go = Instantiate(Prefab, this.transform);
             go.name += InitialNumberOfTileToSpawn.ToString();
             
-            _spawnedGO.Add(go);
+            _spawnedTilesGO.Add(go);
             InitialNumberOfTileToSpawn--;
         }
 
@@ -60,7 +59,7 @@ public class SpawnManager : MonoBehaviour
         {
 
             //TODO: Looping while useing GetComponent seems really slow. Need Better Implemetation
-            foreach (var item in _spawnedGO)
+            foreach (var item in _spawnedTilesGO)
             {
                 item.GetComponent<Rigidbody>().isKinematic = true;
                 TileStack.StackOTiles.Add(item.GetComponent<TileManager>());
@@ -68,8 +67,8 @@ public class SpawnManager : MonoBehaviour
             SimpleGameEvents.OnStartGameplay?.Invoke();
 
 
-            _spawnedGO.Clear();
-            _spawnedGO = new List<GameObject>();
+            _spawnedTilesGO.Clear();
+            _spawnedTilesGO = new List<GameObject>();
             this.enabled = false;
         }
     }

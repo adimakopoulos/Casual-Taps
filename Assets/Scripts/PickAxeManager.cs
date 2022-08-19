@@ -53,7 +53,7 @@ public class PickAxeManager : MonoBehaviour
         myRB.isKinematic = true;
         myRB.velocity = myRB.velocity * -0.5f;
         myAudioSource.Play();
-        //DebugLabelTxt.updateTxt(collision.gameObject.GetComponent<TileManager>().GetInstanceID().ToString());
+        DebugLabelTxt.updateTxt(collision.gameObject.GetComponent<TileManager>().GetInstanceID().ToString());
         SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
 
     }

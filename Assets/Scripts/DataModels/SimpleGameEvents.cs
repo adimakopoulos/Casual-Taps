@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 public static class SimpleGameEvents 
 {
     //public static Action <List<GameObject>>OnFinishedBuildingColumns;
@@ -13,10 +11,6 @@ public static class SimpleGameEvents
     /// When Tiles are 0.
     /// </summary>
     public static Action OnLevelComplete;
-    /// <summary>
-    /// 
-    /// </summary>
-    public static Action OnLevelReset;
     /// <summary>
     /// when player "Releases" the pickaxe to Mine a tile.
     /// </summary>
