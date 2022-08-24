@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 public static class SimpleGameEvents 
 {
     //public static Action <List<GameObject>>OnFinishedBuildingColumns;
@@ -13,10 +11,6 @@ public static class SimpleGameEvents
     /// When Tiles are 0.
     /// </summary>
     public static Action OnLevelComplete;
-    /// <summary>
-    /// 
-    /// </summary>
-    public static Action OnLevelReset;
     /// <summary>
     /// when player "Releases" the pickaxe to Mine a tile.
     /// </summary>
@@ -36,6 +30,8 @@ public static class SimpleGameEvents
     public static Action OnLookRight;
     public static Action OnLookDown;
     public static Action OnLookUp;
+    public static Action<Transform> OnNewTileSpawned;
+
     /// <summary>
     /// Gets Invoked When The Camera Manager has Set A new LOOKING TARGET;
     /// 
@@ -48,8 +44,8 @@ public static class SimpleGameEvents
     public static Action<GameObject> OnRaycastDone;
     public static Action OnShowShopUI;
     public static Action OnHideShopUI;
-    public static Action OnShowInvetoryUI;
-    public static Action OnHideInvetoryUI;
+    public static Action OnShowInvetoryUI;//notused
+    public static Action OnHideInvetoryUI;//notused
 
 
 }

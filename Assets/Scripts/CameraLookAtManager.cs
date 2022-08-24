@@ -7,21 +7,25 @@ public class CameraLookAtManager : MonoBehaviour
 {
 
     public List<Transform> LookTargets;
-    public enum CameraLookType {LookingAtDrill, LookingAtRailSystem };
+    public enum CameraLookType {LookingAtMiningPosition, LookingAtRailSystem };
     public static CameraLookType currLookType ;
 
     //TODO: Make this an Enum so i can understand what the player looks at in Context
     public int currLookingPosition ;
     Cinemachine.CinemachineVirtualCamera myCamera;
     Cinemachine.CinemachineFramingTransposer myFramingTransposer;
+
+    private Transform lastSpawnedTileTransform;
     private void Awake()
     {
         myCamera = GetComponent<Cinemachine.CinemachineVirtualCamera>();
         myFramingTransposer = myCamera.GetCinemachineComponent<Cinemachine.CinemachineFramingTransposer>();
         
         myCamera.LookAt = LookTargets[1];
+        myCamera.Follow = LookTargets[1];
+
         currLookingPosition = 1;
-        currLookType = CameraLookType.LookingAtDrill;
+        currLookType = CameraLookType.LookingAtMiningPosition;
         foreach (Transform t in LookTargets) {
             if (LookTargets[1] == t)
                 continue;
@@ -35,6 +39,10 @@ public class CameraLookAtManager : MonoBehaviour
         SimpleGameEvents.OnLookRight += LookRight;
         SimpleGameEvents.OnLookDown += LookAtRail;
         SimpleGameEvents.OnLookUp += LookAtDrill;
+        SimpleGameEvents.OnTileDestroyed += lookAtTilesDeathLocation;
+        SimpleGameEvents.OnNewTileSpawned += lookAtSpawnedTile;
+        SimpleGameEvents.OnNewTileSpawned += setLastSpawnedTileTransform;
+
 
     }
     private void OnDisable()
@@ -43,6 +51,12 @@ public class CameraLookAtManager : MonoBehaviour
         SimpleGameEvents.OnLookRight -= LookRight;
         SimpleGameEvents.OnLookDown -= LookAtRail;
         SimpleGameEvents.OnLookUp -= LookAtDrill;
+        SimpleGameEvents.OnTileDestroyed -= lookAtTilesDeathLocation;
+        SimpleGameEvents.OnNewTileSpawned -= lookAtSpawnedTile;
+        SimpleGameEvents.OnNewTileSpawned -= setLastSpawnedTileTransform;
+
+
+
 
     }
     // Start is called before the first frame update
@@ -59,27 +73,70 @@ public class CameraLookAtManager : MonoBehaviour
 
     private void LookLeft()
     {
-        if (!(currLookingPosition - 1 < 0)&& currLookType == CameraLookType.LookingAtDrill)
+        if (!(currLookingPosition - 1 < 0)&& currLookType == CameraLookType.LookingAtMiningPosition)
         {
             currLookingPosition--;
-            myCamera.LookAt = LookTargets[currLookingPosition];
-            myCamera.Follow = LookTargets[currLookingPosition];
-            SimpleGameEvents.OnPlayerCurrentlyLookingAt?.Invoke(currLookingPosition);
+            lookAtPositionFromTheListOfTargets();
         }
     }
     private void LookRight()
     {
-
-        if (!(currLookingPosition + 1 > LookTargets.Count - 1)&& currLookType == CameraLookType.LookingAtDrill && !(currLookingPosition==2))
+        if (!(currLookingPosition + 1 > LookTargets.Count - 1)&& currLookType == CameraLookType.LookingAtMiningPosition && !(currLookingPosition==2))
         {
             currLookingPosition++;
+            lookAtPositionFromTheListOfTargets();
+        }
+    }
+
+    private void lookAtPositionFromTheListOfTargets()
+    {
+        int currentNumOfTilesInList = TileStack.StackOTiles.Count;
+        lookAtLastTileFromTileList(currentNumOfTilesInList);
+        lookAtLastSpawnedTileOrDefaultMiningPosition(currentNumOfTilesInList);
+        lookAtInvetoryPositionOrShopPosition();
+
+    }
+
+    private void lookAtInvetoryPositionOrShopPosition()
+    {
+        if (currLookingPosition != 1)
+        {
             myCamera.LookAt = LookTargets[currLookingPosition];
             myCamera.Follow = LookTargets[currLookingPosition];
             SimpleGameEvents.OnPlayerCurrentlyLookingAt?.Invoke(currLookingPosition);
 
         }
-
     }
+
+    private void lookAtLastSpawnedTileOrDefaultMiningPosition(int currentNumOfTilesInList)
+    {
+        if (currLookingPosition == 1 && currentNumOfTilesInList <= 0)
+        {
+            if (lastSpawnedTileTransform != null)
+            {
+
+                myCamera.LookAt = lastSpawnedTileTransform;
+                myCamera.Follow = lastSpawnedTileTransform;
+                SimpleGameEvents.OnPlayerCurrentlyLookingAt?.Invoke(currLookingPosition);
+            }
+            else
+            {
+                myCamera.LookAt = LookTargets[currLookingPosition];
+                myCamera.Follow = LookTargets[currLookingPosition];
+                SimpleGameEvents.OnPlayerCurrentlyLookingAt?.Invoke(currLookingPosition);
+            }
+        }
+    }
+
+    private void lookAtLastTileFromTileList(int currentNumOfTilesInList)
+    {
+        if (currLookingPosition == 1 && currentNumOfTilesInList > 0)
+        {
+            myCamera.LookAt = TileStack.StackOTiles[currentNumOfTilesInList - 1].gameObject.transform;
+            myCamera.Follow = TileStack.StackOTiles[currentNumOfTilesInList - 1].gameObject.transform;
+        }
+    }
+
     private void LookAtRail() {
         if (currLookingPosition ==1 )
         {
@@ -93,10 +150,24 @@ public class CameraLookAtManager : MonoBehaviour
         currLookingPosition=1;
         myCamera.LookAt = LookTargets[currLookingPosition];
         myCamera.Follow = LookTargets[currLookingPosition];
-        currLookType = CameraLookType.LookingAtDrill;
+        currLookType = CameraLookType.LookingAtMiningPosition;
         myFramingTransposer.m_DeadZoneHeight = 0.16f;
         SimpleGameEvents.OnPlayerCurrentlyLookingAt?.Invoke(currLookingPosition);
 
     }
 
+    private void lookAtSpawnedTile(Transform transform) {
+        if (currLookType.Equals(CameraLookType.LookingAtMiningPosition)&& currLookingPosition==1) { 
+            myCamera.LookAt = transform;
+            myCamera.Follow = transform;
+        }
+    }
+    private void lookAtTilesDeathLocation(TileManager tileManager) {
+        myCamera.LookAt = tileManager.transform;
+        myCamera.Follow = tileManager.transform;
+    }
+
+    private void setLastSpawnedTileTransform(Transform transform) {
+        lastSpawnedTileTransform = transform;
+    }
 }

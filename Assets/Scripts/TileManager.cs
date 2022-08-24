@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class TileManager : MonoBehaviour
@@ -9,8 +11,9 @@ public class TileManager : MonoBehaviour
     int health;
     private int ironOrePieces;
     public GameObject BrokenVersion;
-    public enum TypeMetal { iron , gold , coal , NoMateial};
+    public enum TypeMetal { iron , gold , coal , NoMaterial};
     public TypeMetal metal;
+    private GameObject myInstance;
 
     public Material currMaterial;
     public static int ID = 0;
@@ -25,6 +28,7 @@ public class TileManager : MonoBehaviour
      
         GetComponent<Rigidbody>().solverVelocityIterations = 12;
         GetComponent<Rigidbody>().solverIterations = 12;
+        myInstance = this.gameObject;
 
     }
 
@@ -87,23 +91,37 @@ public class TileManager : MonoBehaviour
 
             Health -= GameMasterManager.GMMInstance.myStats.Damage;
             SimpleGameEvents.OnHasTileTakenDamage?.Invoke(this);
-
             if (Health == 0)
             {
-                var go = Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
-                go.GetComponent<TileBrokenManager>().metalMaterial = currMaterial;
-                SimpleGameEvents.OnTileDestroyed?.Invoke(this);
-                Destroy(this.gameObject);
+                ReplaceAndDestroyThisTile();
             }
-
         }
         else {
             return;
         }
     }
 
+    private void ReplaceAndDestroyThisTile()
+    {
+        try
+        {
+            var go = Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
+            go.GetComponent<TileBrokenManager>().metalMaterial = currMaterial;
+            SimpleGameEvents.OnTileDestroyed?.Invoke(this);
+            destroySelfInstance();
+        }
+        catch (Exception e)
+        { 
+            throw new System.Exception("{0} Exception caught.", e);
+        }
+    }
 
-    
+    private async void destroySelfInstance()
+    {
+        await Task.Delay(1); // 1 second delay
+        Debug.Log("destroySelfInstance of object:"+ this.name);
+        Destroy(myInstance);
+    }
 
     private void OnDestroy()
     {

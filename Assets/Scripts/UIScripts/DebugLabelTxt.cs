@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DebugLabelTxt : MonoBehaviour
 {
@@ -14,15 +15,19 @@ public class DebugLabelTxt : MonoBehaviour
 
     private void OnEnable()
     {
-        SimpleGameEvents.OnStartGameplay += updateTxt;
+        //SimpleGameEvents.OnStartGameplay += updateTxt;
         //SimpleGameEvents.OnPickAxeImpact += ImpactTxt;
     }
     private void OnDisable()
     {
-        SimpleGameEvents.OnStartGameplay -= updateTxt;
+        //SimpleGameEvents.OnStartGameplay -= updateTxt;
         //SimpleGameEvents.OnPickAxeImpact -= ImpactTxt;
     }
 
+    void Update() {
+        //textGUI.text = " StackOTiles StackOTiles " + TileStack.StackOTiles.Count.ToString();
+        //textGUI.text = IsPointerOverUIElement(GetEventSystemRaycastResults()) ? "Over UI" : "Not over UI" ;
+    }
     private void updateTxt()
     {
         var str = "";
@@ -39,4 +44,6 @@ public class DebugLabelTxt : MonoBehaviour
     public static void updateTxt(string str) {
         textGUI.text = str+"<br> ."+incr++;
     }
+
+    
 }

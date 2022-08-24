@@ -21,6 +21,9 @@ public class SparksManager : MonoBehaviour
     // Update is called once per frame
     private void play(TileManager a)
     {
-        particleSystem.Play();
+        if (!particleSystem.isPlaying) {
+            particleSystem.Play();
+        }
+        
     }
 }

@@ -30,7 +30,7 @@ public class PickAxeManager : MonoBehaviour
         SimpleGameEvents.OnPickAxeRelease += resetPos;
         SimpleGameEvents.OnTileDestroyed += generateCameraShake;
         SimpleGameEvents.OnLevelComplete += hidePickAxe;
-        SimpleGameEvents.OnStartGameplay += showPickAxe ;
+        SimpleGameEvents.OnStartGameplay += showPickAxe;
     }
     private void OnDisable()
     {
@@ -53,7 +53,7 @@ public class PickAxeManager : MonoBehaviour
         myRB.isKinematic = true;
         myRB.velocity = myRB.velocity * -0.5f;
         myAudioSource.Play();
-        //DebugLabelTxt.updateTxt(collision.gameObject.GetComponent<TileManager>().GetInstanceID().ToString());
+        DebugLabelTxt.updateTxt(collision.gameObject.GetComponent<TileManager>().GetInstanceID().ToString());
         SimpleGameEvents.OnPickAxeImpact?.Invoke(collision.gameObject.GetComponent<TileManager>());
 
     }
@@ -62,7 +62,7 @@ public class PickAxeManager : MonoBehaviour
         impulseSource.GenerateImpulse();
     }
     private void enableColider() {
-        Debug.Log("enableColider");
+        Debug.Log("enable PickAxe Collider");
         myBC.enabled = true;
     }
     private void resetPos() {

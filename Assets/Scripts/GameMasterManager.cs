@@ -24,10 +24,11 @@ public class GameMasterManager : MonoBehaviour
 
     private void Awake()
     {
+        enableLogger();
         loadLastPlayedLevelData();
         setSingleton();
         loadSceneUI();
-        
+        QualitySettings.vSyncCount = 0;
         //SceneManager.LoadSceneAsync(0);
 
     }
@@ -54,9 +55,11 @@ public class GameMasterManager : MonoBehaviour
         SimpleGameEvents.OnHideShopUI -= unloadShopScene;
     }
     private void SaveProgress() {
+        Debug.Log("SaveProgress: Saving Data");
         JsonManager.Save(myStats);
-        JsonManager.Save(GameObject.Find("Shop").GetComponent<ShopManager>().getShopData());
+        JsonManager.Save(GameObject.Find("Shop")?.GetComponent<ShopManager>()?.getShopData());
         JsonManager.Save(myPeopleGroups);
+        Debug.Log("SaveProgress: Data Saved");
     }
     private void increaseOre(TileManager tile) {
         myStats.IronOre += tile.MetalPieces;
@@ -111,6 +114,7 @@ public class GameMasterManager : MonoBehaviour
     public SpawnManager spawner;
     private void SetNextLevel()
     {
+        Debug.Log("SetNextLevel: Enable Tile Spawner");
         if (spawner == null) {
             Debug.LogError("Set Spawn Manager!");
             return;
@@ -140,6 +144,15 @@ public class GameMasterManager : MonoBehaviour
         var scene = SceneManager.GetSceneByName("UI_SHOP");
         if (scene.IsValid())
             SceneManager.UnloadSceneAsync("UI_SHOP");
+    }
+
+    private void enableLogger()
+    {
+#if UNITY_EDITOR
+        Debug.unityLogger.logEnabled = true;
+#else
+  Debug.unityLogger.logEnabled = false;
+#endif
     }
 
 

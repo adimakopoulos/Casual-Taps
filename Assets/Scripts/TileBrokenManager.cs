@@ -14,7 +14,6 @@ public class TileBrokenManager : MonoBehaviour
     public System.Action <TileBrokenManager> On4SecondsPass;
     private void Awake()
     {
-        SimpleGameEvents.OnTileShutter?.Invoke(this);
 
     }
 
@@ -31,7 +30,9 @@ public class TileBrokenManager : MonoBehaviour
         foreach (var renderer in MeshRenderers)
         {
             renderer.material = metalMaterial;
-        }
+        }      
+        SimpleGameEvents.OnTileShutter?.Invoke(this);
+
     }
 
     // Update is called once per frame
