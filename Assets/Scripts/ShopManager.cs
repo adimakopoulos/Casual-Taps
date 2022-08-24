@@ -24,12 +24,13 @@ public class ShopManager : MonoBehaviour
         {
             SimpleGameEvents.OnShowShopUI?.Invoke();
         }
-        else {
+        else if (!KeyListenerManager.isOverUI) {
             SimpleGameEvents.OnHideShopUI?.Invoke();
         }
     }
 
-    public Shop getShopData() { 
+    public Shop getShopData()
+    {
         return _shopstats;  
     }
 

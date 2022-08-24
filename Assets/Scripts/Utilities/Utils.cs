@@ -86,7 +86,7 @@ public static class Utils
         {
             return TileManager.TypeMetal.iron;
         }
-        return TileManager.TypeMetal.NoMateial;
+        return TileManager.TypeMetal.NoMaterial;
 
     }
 }

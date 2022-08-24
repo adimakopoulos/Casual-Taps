@@ -44,7 +44,7 @@ public class RailPosManager : MonoBehaviour
     bool hasSwitched;
     void MoveLookedObject(Vector3 mouseDelta) {
         //If the camera is looking at the Drill movement, return.
-        if (CameraLookAtManager.currLookType == CameraLookAtManager.CameraLookType.LookingAtDrill) {
+        if (CameraLookAtManager.currLookType == CameraLookAtManager.CameraLookType.LookingAtMiningPosition) {
             return;
         }
         var distance = mouseDelta.x+ mouseDelta.y;

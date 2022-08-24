@@ -23,7 +23,6 @@ public class TileStack : MonoBehaviour
         {
             removeTile(tile);
             checkIfEmpty();
-            enableLastTilesCollider();
         }
         catch (Exception e) { 
             throw new Exception("sequenceOnTilesDeath {0}", e );
@@ -32,19 +31,25 @@ public class TileStack : MonoBehaviour
 
     private void removeTile(TileManager tile)
     {
-        Debug.Log("stackOTiles: " + stackOTiles.Count);
+        Debug.Log("Num of Tiles in Stack was: " + stackOTiles.Count);
         stackOTiles.Remove(tile);
         Debug.Log("tile Removed: "+tile.gameObject.name);
-        Debug.Log("stackOTiles: " + stackOTiles.Count);
+        Debug.Log("Num of Tiles in Stack is: " + stackOTiles.Count);
 
     }
 
     private void checkIfEmpty()
     {
+        Debug.Log("checkIfEmpty: is Stack Empty?");
         if (stackOTiles.Count == 0)
         {
             SimpleGameEvents.OnLevelComplete?.Invoke();
-            Debug.Log("checkIfEmpty " + stackOTiles.Count);
+            Debug.Log("Stack was Empty " + stackOTiles.Count);
+        }
+        else {
+            enableLastTilesCollider();
+            Debug.Log("its not empty");
+
         }
     }
 

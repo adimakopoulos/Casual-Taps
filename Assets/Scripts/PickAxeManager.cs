@@ -30,7 +30,7 @@ public class PickAxeManager : MonoBehaviour
         SimpleGameEvents.OnPickAxeRelease += resetPos;
         SimpleGameEvents.OnTileDestroyed += generateCameraShake;
         SimpleGameEvents.OnLevelComplete += hidePickAxe;
-        SimpleGameEvents.OnStartGameplay += showPickAxe ;
+        SimpleGameEvents.OnStartGameplay += showPickAxe;
     }
     private void OnDisable()
     {
@@ -62,7 +62,7 @@ public class PickAxeManager : MonoBehaviour
         impulseSource.GenerateImpulse();
     }
     private void enableColider() {
-        Debug.Log("enableColider");
+        Debug.Log("enable PickAxe Collider");
         myBC.enabled = true;
     }
     private void resetPos() {

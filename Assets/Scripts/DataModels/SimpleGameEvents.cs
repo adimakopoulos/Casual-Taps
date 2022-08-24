@@ -30,6 +30,8 @@ public static class SimpleGameEvents
     public static Action OnLookRight;
     public static Action OnLookDown;
     public static Action OnLookUp;
+    public static Action<Transform> OnNewTileSpawned;
+
     /// <summary>
     /// Gets Invoked When The Camera Manager has Set A new LOOKING TARGET;
     /// 
@@ -42,8 +44,8 @@ public static class SimpleGameEvents
     public static Action<GameObject> OnRaycastDone;
     public static Action OnShowShopUI;
     public static Action OnHideShopUI;
-    public static Action OnShowInvetoryUI;
-    public static Action OnHideInvetoryUI;
+    public static Action OnShowInvetoryUI;//notused
+    public static Action OnHideInvetoryUI;//notused
 
 
 }

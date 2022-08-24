@@ -11,7 +11,7 @@ public class TileManager : MonoBehaviour
     int health;
     private int ironOrePieces;
     public GameObject BrokenVersion;
-    public enum TypeMetal { iron , gold , coal , NoMateial};
+    public enum TypeMetal { iron , gold , coal , NoMaterial};
     public TypeMetal metal;
     private GameObject myInstance;
 
@@ -108,8 +108,7 @@ public class TileManager : MonoBehaviour
             var go = Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
             go.GetComponent<TileBrokenManager>().metalMaterial = currMaterial;
             SimpleGameEvents.OnTileDestroyed?.Invoke(this);
-            gameObject.transform.position += Vector3.up;
-            NewMethod();
+            destroySelfInstance();
         }
         catch (Exception e)
         { 
@@ -117,10 +116,10 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    private async void NewMethod()
+    private async void destroySelfInstance()
     {
-        await Task.Delay(3000); // 1 second delay
-        Debug.Log("I AM CALLED");
+        await Task.Delay(1); // 1 second delay
+        Debug.Log("destroySelfInstance of object:"+ this.name);
         Destroy(myInstance);
     }
 

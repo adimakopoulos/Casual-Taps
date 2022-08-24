@@ -8,13 +8,16 @@ public class KeyListenerManager : MonoBehaviour
 {
     bool CanPlay;
     Vector3 lastMousePos;
+    public static bool isOverUI;
+    int UILayer;
     /// <summary>
     /// return delta x 
     /// </summary>
     public static Action<Vector3> OnMousePosChanged;
     private void Awake()
     {
-        lastMousePos=Input.mousePosition;
+        UILayer = LayerMask.NameToLayer("UI");
+        lastMousePos = Input.mousePosition;
     }
     private void OnEnable()
     {
@@ -33,31 +36,26 @@ public class KeyListenerManager : MonoBehaviour
     float ignoreTimer = 0.1f;//Ignore Draging for this period of time, to avoid Jitters;
     void Update()
     {
+        isOverUI = IsPointerOverUIElement(GetEventSystemRaycastResults());
+
         currMousePos = Input.mousePosition;
         //the hole premiss of the game. player presses Button and breaks a tile.
         //TODO: check for UI press
-        if (CanPlay) {
+        if (CanPlay)
+        {
+            playerDamagesA_Tile();
 
-            if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
-            {
-                if (CameraLookAtManager.currLookType == CameraLookAtManager.CameraLookType.LookingAtDrill) {
-                    //SimpleGameEvents.OnPickAxeRelease?.Invoke();
-                    SimpleGameEvents.OnPickAxeImpact?.Invoke(TileStack.StackOTiles[TileStack.StackOTiles.Count-1]);
-                }
-                
-            }
-            
         }
 
         //Player wants to look left and right
         if (Input.GetMouseButtonDown(0))
         {
             StartMousePos = Input.mousePosition;
-            DoRayCast();
+            doRayCast();
 
         }
 
-        //Listen iif player wants to jumb to locations.
+        //Listen if player wants to jumb to locations.
         if (Input.GetMouseButtonUp(0))
         {
             ignoreTimer = 0.01f;
@@ -102,7 +100,21 @@ public class KeyListenerManager : MonoBehaviour
         lastMousePos = Input.mousePosition;
     }
 
-    private void DoRayCast()
+    private void playerDamagesA_Tile()
+    {
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
+        {
+
+            if (CameraLookAtManager.currLookType.Equals(CameraLookAtManager.CameraLookType.LookingAtMiningPosition)
+                && !isOverUI && TileStack.StackOTiles.Count - 1>=0)
+            {
+                SimpleGameEvents.OnPickAxeImpact?.Invoke(TileStack.StackOTiles[TileStack.StackOTiles.Count - 1]);
+            }
+
+        }
+    }
+
+    private void doRayCast()
     {
         float range = 200f;
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -111,19 +123,40 @@ public class KeyListenerManager : MonoBehaviour
          { 
             var target = hit.collider.gameObject;
             //TODO: if(EventSystem.current.IsPointerOverGameObject())  
-                SimpleGameEvents.OnRaycastDone?.Invoke(target);
+            Debug.Log("doRayCast: hit Target:" + target.name);
+            SimpleGameEvents.OnRaycastDone?.Invoke(target);
          }
         
     }
 
     private void enablePlayerKeyes() {
-
         CanPlay = true;
     }
 
     private void dissablePlayerKeyes()
     {
-
         CanPlay = false;
+    }
+
+    //Gets all event system raycast results of current mouse or touch position.
+    static List<RaycastResult> GetEventSystemRaycastResults()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> raysastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, raysastResults);
+        return raysastResults;
+    }
+
+    //Returns 'true' if we touched or hovering on Unity UI element.
+    private bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaysastResults)
+    {
+        for (int index = 0; index < eventSystemRaysastResults.Count; index++)
+        {
+            RaycastResult curRaysastResult = eventSystemRaysastResults[index];
+            if (curRaysastResult.gameObject.layer == UILayer)
+                return true;
+        }
+        return false;
     }
 }

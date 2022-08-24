@@ -47,7 +47,8 @@ public class SpawnManager : MonoBehaviour
             _timePassed = TimeInterval;
             var go = Instantiate(Prefab, this.transform);
             go.name += InitialNumberOfTileToSpawn.ToString();
-            
+
+            SimpleGameEvents.OnNewTileSpawned?.Invoke(go.transform);
             _spawnedTilesGO.Add(go);
             InitialNumberOfTileToSpawn--;
         }
