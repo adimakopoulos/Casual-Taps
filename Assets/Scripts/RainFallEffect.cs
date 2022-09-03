@@ -11,7 +11,7 @@ public class RainFallEffect : MonoBehaviour
     //public TileManager.TypeMetal MetalTypeStored;
     float _spawnInterval = 0.05f;
     Transform _parentTransform;
-    float _lengthToMove=0.67f;
+    float _lengthToMove = 0.333f;
     Vector3 _originalPos;
     private void Awake()
     {
@@ -67,7 +67,7 @@ public class RainFallEffect : MonoBehaviour
     void doRainFallEffect() {
         //TODO: not working, need refactoring;
         if (_timePassed> _spawnInterval) {
-            GOtoSpawn.transform.position = _originalPos + new Vector3(-_lengthToMove * y, 0, _lengthToMove * x);
+            GOtoSpawn.transform.position = _originalPos + new Vector3(-_lengthToMove * y , 0, _lengthToMove * x);
 
             var go = _bufferList[_bufferList.Count - 1];
             go.GetComponent<Rigidbody>().isKinematic = false;

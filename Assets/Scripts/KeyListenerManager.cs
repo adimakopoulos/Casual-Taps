@@ -37,10 +37,9 @@ public class KeyListenerManager : MonoBehaviour
     void Update()
     {
         isOverUI = IsPointerOverUIElement(GetEventSystemRaycastResults());
-
         currMousePos = Input.mousePosition;
+
         //the hole premiss of the game. player presses Button and breaks a tile.
-        //TODO: check for UI press
         if (CanPlay)
         {
             playerDamagesA_Tile();
@@ -106,7 +105,7 @@ public class KeyListenerManager : MonoBehaviour
         {
 
             if (CameraLookAtManager.currLookType.Equals(CameraLookAtManager.CameraLookType.LookingAtMiningPosition)
-                && !isOverUI && TileStack.StackOTiles.Count - 1>=0)
+                && !isOverUI && TileStack.StackOTiles.Count - 1>=0 && CameraLookAtManager.currLookingPosition == 1)
             {
                 SimpleGameEvents.OnPickAxeImpact?.Invoke(TileStack.StackOTiles[TileStack.StackOTiles.Count - 1]);
             }

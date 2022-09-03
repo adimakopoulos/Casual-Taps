@@ -11,13 +11,13 @@ public class TileManager : MonoBehaviour
     int health;
     private int ironOrePieces;
     public GameObject BrokenVersion;
-    public enum TypeMetal { iron , gold , coal , NoMaterial};
+    public enum TypeMetal { iron, gold, coal, NoMaterial };
     public TypeMetal metal;
     private GameObject myInstance;
 
     public Material currMaterial;
     public static int ID = 0;
-     
+
     private void Awake()
     {
         ID++;
@@ -25,7 +25,7 @@ public class TileManager : MonoBehaviour
         Health = GameMasterManager.GMMInstance.myStats.TileHealth;
         MetalPieces = 9;
         setTypeMaterial();
-     
+
         GetComponent<Rigidbody>().solverVelocityIterations = 12;
         GetComponent<Rigidbody>().solverIterations = 12;
         myInstance = this.gameObject;
@@ -34,7 +34,7 @@ public class TileManager : MonoBehaviour
 
     private void setTypeMaterial()
     {
-        Utils.Rarity rarity =  Utils.GetRandomRarity();
+        Utils.Rarity rarity = Utils.GetRandomRarity();
         if (rarity == Utils.Rarity.Legendary)
         {
             metal = TypeMetal.gold;
@@ -79,13 +79,15 @@ public class TileManager : MonoBehaviour
         SimpleGameEvents.OnHasTileTakenDamage -= doParticles;
         SimpleGameEvents.OnPickAxeImpact -= takeDamage;
     }
-    private void doParticles(TileManager a) {
-        if (a.GetInstanceID() == this.GetInstanceID() && a.health!=0)
+    private void doParticles(TileManager a)
+    {
+        if (a.GetInstanceID() == this.GetInstanceID() && a.health != 0)
             GetComponentInChildren<ParticleSystem>().Play();
     }
 
-    public void takeDamage(TileManager tm) {
-        
+    public void takeDamage(TileManager tm)
+    {
+
         if (tm.GetInstanceID() == this.GetInstanceID())
         {
 
@@ -96,30 +98,24 @@ public class TileManager : MonoBehaviour
                 ReplaceAndDestroyThisTile();
             }
         }
-        else {
+        else
+        {
             return;
         }
     }
 
     private void ReplaceAndDestroyThisTile()
     {
-        try
-        {
-            var go = Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
-            go.GetComponent<TileBrokenManager>().metalMaterial = currMaterial;
-            SimpleGameEvents.OnTileDestroyed?.Invoke(this);
-            destroySelfInstance();
-        }
-        catch (Exception e)
-        { 
-            throw new System.Exception("{0} Exception caught.", e);
-        }
+        var go = Instantiate(BrokenVersion, gameObject.transform.position, gameObject.transform.rotation);
+        go.GetComponent<TileBrokenManager>().metalMaterial = currMaterial;
+        SimpleGameEvents.OnTileDestroyed?.Invoke(this);
+        destroySelfInstance();
     }
 
     private async void destroySelfInstance()
     {
-        await Task.Delay(1); // 1 second delay
-        Debug.Log("destroySelfInstance of object:"+ this.name);
+        await Task.Delay(1); // 1 mili second delay
+        Debug.Log("destroySelfInstance of object:" + this.name);
         Destroy(myInstance);
     }
 
@@ -129,15 +125,22 @@ public class TileManager : MonoBehaviour
     }
 
     //--Get Set--
-    public int Health { get => health;
-        set {
-            if (value >= 0) { 
-                health = value; }
-            else {
+    public int Health
+    {
+        get => health;
+        set
+        {
+            if (value >= 0)
+            {
+                health = value;
+            }
+            else
+            {
                 Debug.Log("value < 0");
-                health = 0; }
-        } 
+                health = 0;
+            }
+        }
     }
-    public int MaxHealth { get => maxHealth;  }
+    public int MaxHealth { get => maxHealth; }
     public int MetalPieces { get => ironOrePieces; set => ironOrePieces = value; }
 }

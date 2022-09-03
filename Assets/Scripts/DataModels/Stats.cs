@@ -11,7 +11,7 @@ public class Stats
     public int IronOre,CoalOre,GoldOre;
     public int Gamelevel;
     public int TileHealth;
-
+    public int AmmountOfTilesPerLevel;
 
 
     public Stats()
@@ -24,9 +24,10 @@ public class Stats
         GoldOre = 0;
         Gamelevel = 1;
         TileHealth = 1;
+        AmmountOfTilesPerLevel = 8;
     }
 
-    public Stats(int score, int damage, int coins, int ironOre, int coalOre, int goldOre, int gamelevel, int tileHealth)
+    public Stats(int score, int damage, int coins, int ironOre, int coalOre, int goldOre, int gamelevel, int tileHealth, int ammountOfTilesPerLevel)
     {
         Score = score;
         Damage = damage;
@@ -36,5 +37,6 @@ public class Stats
         GoldOre = goldOre;
         Gamelevel = gamelevel;
         TileHealth = tileHealth;
+        AmmountOfTilesPerLevel = ammountOfTilesPerLevel;
     }
 }

@@ -11,7 +11,7 @@ public class CameraLookAtManager : MonoBehaviour
     public static CameraLookType currLookType ;
 
     //TODO: Make this an Enum so i can understand what the player looks at in Context
-    public int currLookingPosition ;
+    public static int currLookingPosition ;
     Cinemachine.CinemachineVirtualCamera myCamera;
     Cinemachine.CinemachineFramingTransposer myFramingTransposer;
 

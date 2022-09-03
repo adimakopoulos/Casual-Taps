@@ -7,30 +7,30 @@ public class CheckPhysicsManager : MonoBehaviour
 {
     public Collider[] hitColliders;
     public LayerMask m_LayerMask;
-    public int PredictedTiles=0;
+    public int DetectedTiles=0;
+    private Vector3 almost0Velocity = new Vector3(0.01f,0.01f,0.01f);
     // Start is called before the first frame update
     void Start()
 
     {
-        PredictedTiles=GameObject.Find("TileSpawner").GetComponent<SpawnManager>().InitialNumberOfTileToSpawn;
-        SimpleGameEvents.OnStartGameplay += DoCheck;
+        DetectedTiles=GameObject.Find("TileSpawner").GetComponent<SpawnManager>().InitialNumberOfTileToSpawn;
     }
     private void OnDisable()
     {
-        SimpleGameEvents.OnStartGameplay -= DoCheck;
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
-    }
-    void DoCheck() {
         Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2, Quaternion.identity, m_LayerMask);
-        if (PredictedTiles > hitColliders.Length) {
-            //Debug.Log("PredictedTiles == hitColliders.Length TRUE" );
-            //throw new NotImplementedException();
+        DetectedTiles = hitColliders.Length;
+        if (DetectedTiles > 0)
+        {
+            foreach (var target in hitColliders)
+            {
+                if(target.name.Contains("TileBroken")&& target.GetComponent<Rigidbody>().velocity.x > almost0Velocity.x)
+                    target.GetComponent<Rigidbody>().AddForce(new Vector3(-100, 400, 100));
+            }
         }
-        
     }
 
 
